@@ -1,0 +1,16 @@
+# Tool settings only: this repo is a set of scripts, not an installable package.
+# Run everything through `python cc.py ...` (see README.md).
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".tools", ".cache", ".venv"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, import order, common bug patterns, modern syntax
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"

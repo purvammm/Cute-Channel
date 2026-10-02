@@ -1,0 +1,19 @@
+# Normalise line endings so scripts written on Windows still run on Linux CI (and vice versa).
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.env text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files: never diff or convert.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.wav binary
+*.mp3 binary
+*.m4a binary
+*.mp4 binary
+*.mov binary
+*.blend binary
