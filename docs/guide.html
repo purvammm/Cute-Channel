@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero to Cute: A Beginner's Guide to Running a Blender Micro-Animation Channel (2026)</title>
+<meta name="description" content="A step-by-step guide for complete beginners on building a cute 3D micro-animation channel for Instagram Reels and YouTube Shorts with Blender.">
+<style>
+  :root{
+    --bg:#fffaf5; --ink:#2f2a3b; --muted:#6d6680; --card:#ffffff; --line:#efe4f2;
+    --pink:#ff8fb1; --pink-soft:#ffe3ec; --mint:#7fd8be; --mint-soft:#e1f7ef;
+    --sky:#8ecbff; --sky-soft:#e3f2ff; --butter:#ffd86b; --butter-soft:#fff5d6;
+    --lav:#b9a3ff; --lav-soft:#efe9ff; --red:#e0566b; --red-soft:#ffe6ea;
+    --radius:18px; --shadow:0 6px 24px rgba(92,64,120,.08);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
+  a{color:#7a4fe0}
+  a:hover{color:#5a2fc0}
+  h1,h2,h3,h4{line-height:1.25;margin:1.4em 0 .5em}
+  h2{font-size:1.75rem;padding-top:.4rem}
+  h3{font-size:1.25rem}
+  h4{font-size:1.05rem}
+  p{margin:.6em 0}
+  code,kbd{font-family:var(--mono);font-size:.88em}
+  code{background:var(--lav-soft);padding:.1em .35em;border-radius:6px}
+  kbd{display:inline-block;background:#fff;border:1px solid #d9cfe6;border-bottom-width:3px;border-radius:7px;padding:0 .45em;min-width:1.6em;text-align:center;line-height:1.6}
+  table{width:100%;border-collapse:collapse;margin:1em 0;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);font-size:.95rem}
+  th,td{padding:.6em .75em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--lav-soft);font-weight:650}
+  tr:last-child td{border-bottom:none}
+  .table-wrap{overflow-x:auto}
+  ul,ol{padding-left:1.35em}
+  li{margin:.25em 0}
+  figure{margin:0}
+
+  /* layout */
+  .layout{display:grid;grid-template-columns:290px 1fr;max-width:1320px;margin:0 auto}
+  nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:1.4rem 1rem 2rem;border-right:1px solid var(--line);background:#fff7fb}
+  nav.toc h2{font-size:1rem;margin:.2em 0 .6em;letter-spacing:.02em}
+  nav.toc ol{list-style:none;padding:0;margin:0}
+  nav.toc li{margin:0}
+  nav.toc a{display:block;padding:.3em .55em;border-radius:9px;text-decoration:none;color:var(--ink);font-size:.92rem}
+  nav.toc a:hover,nav.toc a.active{background:var(--pink-soft)}
+  nav.toc .part{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1em .55em .25em}
+  main{padding:0 2.2rem 5rem;min-width:0}
+  section{scroll-margin-top:1rem}
+  .progress-wrap{margin:1rem 0 .4rem;font-size:.85rem;color:var(--muted)}
+  .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:.35rem}
+  .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--lav));transition:width .4s}
+  #menuBtn{display:none}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:center;padding:2.6rem 0 1rem}
+  .hero h1{font-size:2.5rem;margin:.1em 0 .3em}
+  .hero .kicker{display:inline-block;background:var(--mint-soft);color:#1f7a5f;border-radius:99px;padding:.2em .8em;font-size:.82rem;font-weight:650}
+  .hero p.lead{font-size:1.12rem;color:#4a4458}
+  .stage{position:relative;height:300px;border-radius:26px;background:linear-gradient(180deg,var(--sky-soft),#fff 70%);box-shadow:var(--shadow);overflow:hidden}
+  .stage-fig figcaption{font-size:.8rem;color:var(--muted);margin-top:.55rem;text-align:center}
+  .ground{position:absolute;left:0;right:0;bottom:0;height:62px;background:var(--mint-soft);border-top:3px solid #c9efe1}
+  .blob{position:absolute;left:50%;bottom:58px;width:118px;height:104px;margin-left:-59px;transform-origin:50% 100%;animation:hop 1.6s infinite}
+  .blob .body{position:absolute;inset:0;background:radial-gradient(circle at 35% 30%,#ffc6d8,var(--pink) 70%);border-radius:50% 50% 45% 45%/60% 60% 40% 40%;box-shadow:inset -10px -12px 0 rgba(0,0,0,.05)}
+  .blob .eye{position:absolute;top:44%;width:14px;height:18px;background:#2f2a3b;border-radius:50%;animation:blink 4s infinite}
+  .blob .eye::after{content:"";position:absolute;top:3px;left:3px;width:5px;height:5px;background:#fff;border-radius:50%}
+  .blob .eye.l{left:33%}.blob .eye.r{right:33%}
+  .blob .cheek{position:absolute;top:60%;width:16px;height:9px;background:#ff6f9a;opacity:.45;border-radius:50%}
+  .blob .cheek.l{left:18%}.blob .cheek.r{right:18%}
+  .blob .mouth{position:absolute;top:60%;left:50%;width:12px;height:7px;margin-left:-6px;border:3px solid #2f2a3b;border-top:none;border-radius:0 0 12px 12px}
+  .shadow{position:absolute;left:50%;bottom:50px;width:110px;height:16px;margin-left:-55px;background:rgba(47,42,59,.14);border-radius:50%;animation:shad 1.6s infinite}
+  /* Hop: anticipation squash, fast launch with stretch, soft hang at the top, fast fall, impact squash, overshoot, settle */
+  @keyframes hop{
+    0%{transform:translateY(0) scale(1,1);animation-timing-function:ease-in-out}
+    16%{transform:translateY(0) scale(1.18,.8);animation-timing-function:cubic-bezier(.2,.9,.4,1)}
+    26%{transform:translateY(-45px) scale(.86,1.16);animation-timing-function:cubic-bezier(.3,.7,.5,1)}
+    46%{transform:translateY(-110px) scale(1,1);animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+    63%{transform:translateY(-34px) scale(.9,1.12);animation-timing-function:cubic-bezier(.4,0,1,1)}
+    69%{transform:translateY(0) scale(1.22,.78);animation-timing-function:ease-out}
+    79%{transform:translateY(0) scale(.96,1.05);animation-timing-function:ease-in-out}
+    88%,100%{transform:translateY(0) scale(1,1)}
+  }
+  @keyframes shad{0%,16%,69%,100%{transform:scale(1);opacity:1}46%{transform:scale(.55);opacity:.45}}
+  @keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+
+  /* cards & callouts */
+  .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:1rem 0}
+  .card{background:var(--card);border-radius:var(--radius);padding:1rem 1.15rem;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .card h4{margin-top:.2em}
+  .card .tag{font-size:.75rem;font-weight:650;border-radius:99px;padding:.1em .6em;background:var(--butter-soft);color:#8a6400}
+  .note{border-radius:14px;padding:.85rem 1.05rem;margin:1rem 0;border-left:6px solid}
+  .note b.t{display:block;margin-bottom:.15em}
+  .tip{background:var(--mint-soft);border-color:var(--mint)}
+  .warn{background:var(--red-soft);border-color:var(--red)}
+  .real{background:var(--butter-soft);border-color:var(--butter)}
+  .info{background:var(--sky-soft);border-color:var(--sky)}
+  .steps{counter-reset:s;list-style:none;padding-left:0}
+  .steps > li{counter-increment:s;position:relative;padding:.55em .8em .55em 3.1em;margin:.5em 0;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .steps > li::before{content:counter(s);position:absolute;left:.7em;top:.55em;width:1.75em;height:1.75em;border-radius:50%;background:var(--pink);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.9rem}
+  .pill{display:inline-block;font-size:.75rem;padding:.08em .6em;border-radius:99px;background:var(--lav-soft);color:#5a3bb8;font-weight:650;margin-right:.3em}
+  .pill.free{background:var(--mint-soft);color:#1f7a5f}
+  .pill.opt{background:#f1f1f1;color:#666}
+  .src{font-size:.8rem;color:var(--muted)}
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.6rem 1rem;margin:.6rem 0}
+  details summary{cursor:pointer;font-weight:650}
+  .check{list-style:none;padding-left:0}
+  .check li{display:flex;gap:.6em;align-items:flex-start;padding:.35em .5em;border-radius:10px}
+  .check li:hover{background:#fff}
+  .check input{margin-top:.35em;width:1.1em;height:1.1em;accent-color:var(--pink);flex:none}
+  .check li.done label{color:var(--muted);text-decoration:line-through}
+  .week{border-left:4px solid var(--lav);padding-left:1rem;margin:1.2rem 0}
+  .week h4{margin:.2em 0}
+  .week.fast{border-left-color:var(--mint)}
+
+  /* animation demos */
+  .demo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0}
+  .demo figcaption{font-size:.85rem;color:var(--muted);margin-top:.35rem;text-align:center}
+  .mini{position:relative;height:180px;border-radius:16px;background:linear-gradient(180deg,#f7f3ff,#fff);border:1px solid var(--line);overflow:hidden}
+  .mini .g{position:absolute;left:0;right:0;bottom:0;height:34px;background:var(--mint-soft)}
+  .mini .ball{position:absolute;left:50%;bottom:34px;width:46px;height:46px;margin-left:-23px;border-radius:50%;background:var(--sky);transform-origin:50% 100%}
+  .ball.linear{animation:lin 1.2s linear infinite}
+  .ball.eased{animation:grav 1.2s infinite}
+  .ball.cute{background:var(--pink);animation:cutehop 1.4s infinite}
+  @keyframes lin{0%,100%{transform:translateY(0)}50%{transform:translateY(-90px)}}
+  /* Gravity: leaves the ground fast, slows to the top, speeds up on the way down */
+  @keyframes grav{
+    0%{transform:translateY(0);animation-timing-function:cubic-bezier(.33,1,.68,1)}
+    50%{transform:translateY(-90px);animation-timing-function:cubic-bezier(.32,0,.67,0)}
+    100%{transform:translateY(0)}
+  }
+  @keyframes cutehop{
+    0%{transform:translateY(0) scale(1,1);animation-timing-function:ease-in-out}
+    14%{transform:translateY(0) scale(1.25,.72);animation-timing-function:cubic-bezier(.2,.9,.4,1)}
+    26%{transform:translateY(-38px) scale(.84,1.2);animation-timing-function:cubic-bezier(.3,.7,.5,1)}
+    48%{transform:translateY(-90px) scale(1,1);animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+    66%{transform:translateY(-28px) scale(.86,1.16);animation-timing-function:cubic-bezier(.4,0,1,1)}
+    72%{transform:translateY(0) scale(1.28,.7);animation-timing-function:ease-out}
+    82%{transform:translateY(0) scale(.95,1.07);animation-timing-function:ease-in-out}
+    90%,100%{transform:translateY(0) scale(1,1)}
+  }
+
+  /* vertical safe-zone diagram (Meta's 9:16 guidance: 14% top, 35% bottom, 6% sides) */
+  .phone{width:210px;height:373px;border-radius:26px;border:8px solid #2f2a3b;position:relative;background:linear-gradient(#e3f2ff,#fff);margin:1rem auto;overflow:hidden}
+  .phone .z{position:absolute;font-size:.62rem;color:#fff;display:grid;place-items:center;text-align:center;background:rgba(224,86,107,.55)}
+  .phone .top{top:0;left:0;right:0;height:14%}
+  .phone .bottom{bottom:0;left:0;right:0;height:35%}
+  .phone .left{top:14%;bottom:35%;left:0;width:6%}
+  .phone .right{top:14%;bottom:35%;right:0;width:6%}
+  .phone .btns{top:47%;bottom:35%;right:6%;width:12%;background:rgba(224,86,107,.35)}
+  .phone .safe{position:absolute;top:14%;bottom:35%;left:6%;right:6%;border:2px dashed #1f7a5f;display:grid;place-items:center;font-size:.72rem;color:#1f7a5f;text-align:center;padding:.4rem 1.6rem .4rem .4rem}
+  footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem}
+  @media (prefers-reduced-motion: reduce){ .blob,.shadow,.ball,.eye{animation:none!important} }
+  @media (max-width: 980px){
+    .layout{grid-template-columns:1fr}
+    nav.toc{position:fixed;inset:0 30% 0 0;z-index:20;transform:translateX(-105%);transition:transform .25s;box-shadow:var(--shadow)}
+    nav.toc.open{transform:none}
+    #menuBtn{display:block;position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:var(--pink);color:#fff;font-weight:700;border-radius:99px;padding:.7em 1.1em;box-shadow:var(--shadow)}
+    main{padding:0 1.1rem 4rem}
+    .hero{grid-template-columns:1fr}
+    .hero h1{font-size:1.9rem}
+  }
+  @media print{ nav.toc,#menuBtn,.stage-fig,.demo-row{display:none} .layout{display:block} main{padding:0} }
+</style>
+</head>
+<body>
+<button id="menuBtn" aria-controls="toc" aria-expanded="false">☰ Contents</button>
+<div class="layout">
+<nav class="toc" id="toc" aria-label="Table of contents">
+  <h2>🐣 Zero to Cute</h2>
+  <div class="progress-wrap">Checklist items ticked: <b id="pct">0 / 0</b><div class="bar"><span id="barFill"></span></div></div>
+  <ol>
+    <li class="part">Start here</li>
+    <li><a href="#reality">0 · The honest 60-second version</a></li>
+    <li><a href="#research">1 · What the cute channels actually do</a></li>
+    <li><a href="#cute">2 · The science of "cute"</a></li>
+    <li class="part">Set up</li>
+    <li><a href="#gear">3 · Hardware &amp; software</a></li>
+    <li><a href="#skills">4 · Skills map</a></li>
+    <li><a href="#roadmap">5 · Pick your pace &amp; plan</a></li>
+    <li class="part">Make it</li>
+    <li><a href="#blender101">6 · Blender first steps</a></li>
+    <li><a href="#design">7 · Design your character</a></li>
+    <li><a href="#model">8 · Model the character</a></li>
+    <li><a href="#shade">9 · Materials &amp; the cute look</a></li>
+    <li><a href="#rig">10 · Rigging (making it movable)</a></li>
+    <li><a href="#animate">11 · Animation: making it alive</a></li>
+    <li><a href="#camera">12 · Camera, lighting, vertical framing</a></li>
+    <li><a href="#render">13 · Rendering</a></li>
+    <li><a href="#sound">14 · Sound: the other 50%</a></li>
+    <li><a href="#edit">15 · Finishing the Reel / Short</a></li>
+    <li class="part">Grow it</li>
+    <li><a href="#ideas">16 · Formats, hooks &amp; 40 ideas</a></li>
+    <li><a href="#pipeline">17 · Your production pipeline</a></li>
+    <li><a href="#publish">18 · Publishing &amp; growth</a></li>
+    <li><a href="#money">19 · Making money (realistically)</a></li>
+    <li><a href="#ai">20 · Using AI without getting punished</a></li>
+    <li><a href="#legal">21 · Copyright, ads, kids &amp; tax</a></li>
+    <li class="part">Reference</li>
+    <li><a href="#trouble">22 · Troubleshooting</a></li>
+    <li><a href="#checklists">23 · Master checklists</a></li>
+    <li><a href="#glossary">24 · Glossary</a></li>
+    <li><a href="#sources">25 · Sources</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <div>
+    <span class="kicker">Beginner guide · Revised 26 Sept 2026 · Blender 5.2 LTS</span>
+    <h1>Zero to Cute 🐾</h1>
+    <p class="lead">This guide takes you from <b>never having opened Blender</b> to regularly posting <b>cute 3D micro-animations</b>: 5–20 second Reels or Shorts with a lovable character and sound. You can do it part-time. It covers the software, the skills, a character, the animation, the sound, finishing the Reel, posting and growth, and the money side, with a realistic take on each.</p>
+    <p class="src">Written for you: an India-based beginner with a day job, a laptop and an iPhone, doing this in spare time. Everything you need to install is free. There are two paces: a 2–3 hours/week light plan and a 6–8 hours/week full plan (<a href="#roadmap">§5</a>).</p>
+  </div>
+  <figure class="stage-fig">
+    <div class="stage" role="img" aria-label="Animated example of a cute blob character hopping">
+      <div class="shadow"></div>
+      <div class="blob"><div class="body"></div><div class="eye l"></div><div class="eye r"></div><div class="cheek l"></div><div class="cheek r"></div><div class="mouth"></div></div>
+      <div class="ground"></div>
+    </div>
+    <figcaption>Watch the blob: it squashes before jumping, stretches as it launches, hangs at the top, lands with a squash, overshoots, settles and blinks. Its shadow shrinks while it's in the air. You'll learn each of these in §11.</figcaption>
+  </figure>
+</header>
+
+<!-- ============================ 0 ============================ -->
+<section id="reality">
+<h2>0 · The honest 60-second version</h2>
+<div class="grid">
+  <div class="card"><h4>🎯 What you're building</h4><p>One recurring <b>original character</b> (plus maybe a sidekick) in its own small world. It stars in short, looping, sound-driven gags. People follow the <i>character</i>, not the software.</p></div>
+  <div class="card"><h4>🧰 What you need</h4><p>Your laptop, a mouse, headphones and your iPhone. Free software: <b>Blender</b> for the animation, then either the <b>Edits</b> phone app or <b>DaVinci Resolve</b> to add sound and text, plus <b>Audacity</b> for recording sounds. You don't need to buy anything else to start.</p></div>
+  <div class="card"><h4>⏱️ How long</h4><p><b>Light plan</b> (2–3 hrs/week): a first Reel with a simple blob character in about <b>9 weeks</b>. <b>Full plan</b> (6–8 hrs/week): a rigged character with a voice in about <b>12 weeks</b>. After that, with a reusable "studio file", a simple Reel takes <b>3–6 hours</b>.</p></div>
+  <div class="card"><h4>💸 Money reality</h4><p>Expect <b>no income for the first 6–12 months</b>. In India, Instagram doesn't pay per view. The first real money usually comes from <b>animating mascots for brands</b>, not from ad revenue. See <a href="#money">§19</a>.</p></div>
+</div>
+<div class="note real"><b class="t">The one-sentence strategy</b>Make one lovable character, post short sound-driven loops on a steady schedule, study what gets <i>sent to friends</i>, and use the channel as a <b>portfolio</b> that brings in paid mascot and animation work. That matches your own research in this repo. The creative-income command center (<a href="https://github.com/purvammm/Personal-Finance/tree/feat/creative-income-command-center">feat/creative-income-command-center</a>) treats an original comedy character as a <i>capped creative option</i>, not the rent plan. The economics memo (<a href="2026-solo-builder-economics.md">2026-solo-builder-economics.md</a>) cites a 2026 survey of 5,095 creators in which 67% earned under $10,000 a year from content.</div>
+<p><b>How to use this page:</b> read §0–§5 today and pick your pace. Then follow your plan in <a href="#roadmap">§5</a>, using §6–§15 as the manual while you work. Checkboxes throughout the page are saved in your browser, and the counter in the sidebar tracks them.</p>
+</section>
+
+<!-- ============================ 1 ============================ -->
+<section id="research">
+<h2>1 · What the cute channels actually do</h2>
+<p>These are the accounts to study. For each one: what it is, what it does well, and what you can copy <i>as a technique</i>. Copy techniques only, never their characters.</p>
+
+<div class="note info"><b class="t">How this was researched</b>Instagram blocks automated tools from viewing profiles, so these notes come from publicly indexed posts (mostly TikTok copies of the same accounts), their hashtags and captions, and articles in 80 Level, Creative Bloq, BlenderNation and CG Cookie. Follower counts change daily, so they're left out on purpose. Spend 30 minutes on each account yourself with the <a href="#teardown">teardown template</a> below.</div>
+
+<div class="grid">
+  <div class="card">
+    <span class="tag">Your main reference</span>
+    <h4>🦆 pio.the.platypus</h4>
+    <p><b>What it is:</b> a platypus character who often appears with an <b>axolotl</b> friend. Pio's web page says it is a brand and official mascot owned and run by <b>Biostate AI Inc.</b>, a Houston company that sells RNA sequencing and builds AI for molecular data.</p>
+    <p><b>Recurring formats seen in public posts:</b></p>
+    <ul>
+      <li><b>Trend and meme recreations</b>: cat memes, the "huh" cat, birthday memes, animated to the trending sound.</li>
+      <li><b>Interactive videos</b>: "play along", inviting viewers to join in.</li>
+      <li><b>Relatable daily-life moments</b>, food (donuts), and duo gags with the axolotl.</li>
+      <li>Hashtags like <code>#animation #cute #trend #relatable #cuteanimals</code>.</li>
+    </ul>
+    <p><b>Lesson:</b> the gags are about memes and everyday life, not the company's science. A tech company pays for a mascot because affection and reach are valuable to it. <b>That's your best money path</b> (<a href="#money">§19</a>), and it's close to the AI/tech buyer your command-center plan already targets. Also, a <b>duo</b> gives you endless gags.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Meme → 3D</span>
+    <h4>🐱 Vossadova (Alex Vargas)</h4>
+    <p>Bright <b>low-poly</b> animal characters with stylised Blender shaders. 80 Level and Creative Bloq featured their animation of a years-old meme photo (a kitten with milk on its face) that gives the meme a <b>backstory</b>.</p>
+    <p><b>Lesson:</b> low-poly means less modelling, and it's still very cute. "What happened just before this famous photo?" is a repeatable format. Use it with your own character.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Plush look</span>
+    <h4>🐹 Jamozisan ("Ham-chan")</h4>
+    <p>A fluffy hamster-like character, made and animated in Blender, that looks like a real soft toy. The artist describes themselves as a big fan of "cute things and food".</p>
+    <p><b>Lesson:</b> a soft, toy-like surface reads as cute instantly. Real fur is slow to render, but a felt shader (<a href="#shade">§9</a>) gets close. Tiny animal + food is a proven combination.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Camera cheats</span>
+    <h4>🦝 raddoob</h4>
+    <p>An adorable raccoon. 80 Level featured their <b>behind-the-scenes deformations</b>: the character is stretched and distorted in ways that only look right from the camera.</p>
+    <p><b>Lesson:</b> only the camera view matters, so cheat freely. Showing the cheat can be a popular post too.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Meta humour</span>
+    <h4>💻 Kensyouen_Y</h4>
+    <p>Characters who <b>know they live inside Blender</b>: they crash the software, react to the animator, and so on.</p>
+    <p><b>Lesson:</b> "the character vs. its creator" is a format only animators can make, so it stands out.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Hybrid 2D + 3D</span>
+    <h4>🥟 The Goose Tavern</h4>
+    <p>A published tutorial for an animated <b>cat dumpling</b> that mixes a 3D body with <b>2D Grease Pencil</b> effects such as sparkles, sweat drops and "!" marks.</p>
+    <p><b>Lesson:</b> food + animal + simple shape is a proven cute recipe, and 2D doodles on 3D add a lot of charm (<a href="#doodles">§11.8</a>).</p>
+  </div>
+  <div class="card">
+    <span class="tag">IP → products</span>
+    <h4>🐧 Pudgy Penguins (Pax &amp; Polly)</h4>
+    <p>Short reels starring a pair of chubby penguins. The brand grew into toys in retail stores, an animated series with TheSoul Publishing, and more.</p>
+    <p><b>Lesson:</b> a <b>couple or duo</b> with simple relatable moments can grow into a full character brand.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Brand mascot</span>
+    <h4>🐙 GitHub's Octocat (Cameron Foxley)</h4>
+    <p>GitHub's principal brand designer made a cute animation of the Octocat mascot cooking. He built it himself in Blender, then made it interactive on the web with Three.js.</p>
+    <p><b>Lesson:</b> big tech companies pay for exactly the skill you're about to learn, and one person can make it.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Behind-the-scenes</span>
+    <h4>🦵 "Funny Legs" (CG Cookie)</h4>
+    <p>The creator wrote that after months of work, a single <b>making-of</b> clip reached about <b>87K views on Instagram</b> (and about 26K on YouTube Shorts).</p>
+    <p><b>Lesson:</b> process videos (viewport to final) are cheap to make and often do well. Post them.</p>
+  </div>
+</div>
+
+<div class="note tip"><b class="t">📺 Also study these classic wordless shows</b>They're the best free school for sound-driven gags. <b>Pingu</b>: its nonsense "Pingu language" works in every country. <b>Shaun the Sheep</b>: no dialogue at all. <b>Larva</b>: a Korean 3D slapstick series with two larvae and zero words. <b>Minuscule</b>: French CG insects where sound effects do all the talking. <b>Molang</b>: a round rabbit with gibberish voices. Watch one episode with the sound off, then on, and notice how much the sound carries.</div>
+
+<h3>The pattern behind all of them</h3>
+<div class="table-wrap"><table>
+<tr><th>Ingredient</th><th>What it looks like</th><th>Why it works</th></tr>
+<tr><td>1. One recognisable character</td><td>Simple silhouette, 2–4 colours, readable at thumbnail size</td><td>People follow a <i>who</i>. Every video builds the same character.</td></tr>
+<tr><td>2. A hook in the first second</td><td>Something is already happening in frame 1: a face, a surprise, text</td><td>Short-form viewers decide within the first second or two whether to keep watching</td></tr>
+<tr><td>3. Sound carries the joke</td><td>Trending audio, or a squeak, pop or boing timed to every action</td><td>Many viewers watch with sound on, and a sound's page in the app can send viewers to your video</td></tr>
+<tr><td>4. Micro length and a loop</td><td>5–15 s, and the last frame flows into the first</td><td>Replays and full watch-through help distribution</td></tr>
+<tr><td>5. Relatable or sendable</td><td>"This is me on Monday", "send to your bestie"</td><td>Sends per reach is one of the main signals Instagram uses to rank Reels</td></tr>
+<tr><td>6. Consistency</td><td>Same world, same look, regular posting</td><td>The algorithm and your audience both learn what to expect</td></tr>
+</table></div>
+
+<h3 id="teardown">Your 30-minute teardown template (do this for 5 accounts)</h3>
+<p>Open 10 recent Reels from an account and fill this in, in a notebook or Google Sheet:</p>
+<div class="table-wrap"><table>
+<tr><th>Column</th><th>What to write</th></tr>
+<tr><td>Length</td><td>Seconds</td></tr>
+<tr><td>Frame 1</td><td>What do you see in the very first frame?</td></tr>
+<tr><td>Sound</td><td>Trending song / original voice / SFX only</td></tr>
+<tr><td>Gag structure</td><td>Setup → twist → payoff. Where does the twist happen (second 2? 5?)</td></tr>
+<tr><td>Loops?</td><td>Yes / no</td></tr>
+<tr><td>Camera</td><td>Static or moving? Close or wide?</td></tr>
+<tr><td>Text on screen</td><td>What does it say, and where on screen?</td></tr>
+<tr><td>Views vs. average</td><td>Above or below the account's usual? Why do you think?</td></tr>
+<tr><td>Caption + CTA</td><td>Question? "Tag a friend"?</td></tr>
+</table></div>
+<p>After five accounts you'll have your own data on what works. That's worth more than any article.</p>
+
+<p class="src">Sources: <a href="https://www.biostate.ai/pio">Biostate AI – Pio</a>; <a href="https://www.biostate.ai/rna/faq">Biostate AI – RNA-seq FAQ</a>; public Pio posts on <a href="https://www.tiktok.com/@pio.the.platypus/video/7646517392872459551">TikTok</a>; <a href="https://creativebloq.com/art/animation/the-viral-cursed-milk-cat-photos-been-turned-into-a-hilarious-animation-in-blender">Creative Bloq on Vossadova</a>; <a href="https://www.creativebloq.com/3d/this-fluffy-hamster-made-in-blender-looks-like-a-real-soft-toy">Creative Bloq on Jamozisan</a>; <a href="https://80.lv/articles/hilarious-3d-character-deformations-you-never-notice-on-camera">80 Level on raddoob</a>; <a href="https://80.lv/articles/this-is-what-could-be-happening-in-your-blender-scene-while-you-re-away">80 Level on Kensyouen_Y</a>; <a href="https://www.blendernation.com/2024/08/27/creating-an-animated-cat-dumpling-in-blender-a-tutorial/">BlenderNation on The Goose Tavern</a>; <a href="https://www.animationmagazine.net/2025/02/pudgy-penguins-thesoul-publishing-launch-lil-pudgys-animated-series/">Animation Magazine on Pudgy Penguins</a>; <a href="https://www.creativebloq.com/art/animation/microsofts-ironic-github-copilot-logo-sparks-controversy">Creative Bloq on the Octocat animation</a>; <a href="https://cgcookie.com/projects/christmas-blender-short-film-or-how-i-suddenly-got-100k-views">CG Cookie "Funny Legs"</a>; <a href="https://www.xyla.ai/instagram-algorithm/">Xyla on Instagram's 2026 ranking signals</a>. Content was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<!-- ============================ 2 ============================ -->
+<section id="cute">
+<h2>2 · The science of "cute" (so you can design it on purpose)</h2>
+<p>Scientists call it <b>"baby schema"</b> (Kindchenschema, a term from the ethologist Konrad Lorenz): a set of features humans instinctively find adorable. Almost every cute character follows it. Use it as a design checklist:</p>
+<div class="table-wrap"><table>
+<tr><th>Feature</th><th>Do this</th><th>Avoid</th></tr>
+<tr><td>Big head</td><td>Head is ½ to ⅔ of total height, or the whole character <i>is</i> a head (blob style)</td><td>Realistic body proportions</td></tr>
+<tr><td>Big, low eyes</td><td>Eyes sit <b>below</b> the middle of the face, spaced wide, with 1–2 white highlight dots</td><td>Small eyes high on the head, sharp eyelids</td></tr>
+<tr><td>Round shapes</td><td>Circles and soft ovals, bevelled everything</td><td>Sharp corners, spikes (these read as "villain")</td></tr>
+<tr><td>Tiny features</td><td>Tiny mouth, tiny or no nose, stubby limbs</td><td>Detailed teeth, big noses, long fingers</td></tr>
+<tr><td>Soft colours</td><td>Pastels. 1 main colour + 1 accent + dark eyes + blush pink</td><td>Many saturated colours fighting each other</td></tr>
+<tr><td>Soft materials</td><td>Matte, slightly glowing skin (subsurface), clay, felt or vinyl-toy look</td><td>Shiny plastic, realistic fur (also very slow to render)</td></tr>
+<tr><td>Clumsy, bouncy motion</td><td>Squash &amp; stretch, wobbles, little hops, slightly too-late reactions</td><td>Stiff, robotic, perfectly even movement</td></tr>
+<tr><td>Cartoon symbols ("emanata")</td><td>Hearts, sparkles, sweat drops, "!" and "?" marks, blush lines that pop in for 10–20 frames (<a href="#doodles">§11.8</a>)</td><td>So many at once that the screen looks cluttered</td></tr>
+<tr><td>Small sounds</td><td>High-pitched squeaks, pops, pitter-patter feet</td><td>Deep, heavy, realistic sounds</td></tr>
+</table></div>
+<div class="note tip"><b class="t">The thumbnail test</b>Shrink your character to thumbnail size on the phone screen. Can you still tell what it is and what it's feeling? If not, simplify.</div>
+<p><b>Shape language (quick rule):</b> circles feel friendly and safe, squares feel sturdy and stubborn, triangles feel dangerous or energetic. A cute lead character is about 80% circles. A grumpy sidekick can be a bit square, and that contrast is funny.</p>
+</section>
+
+
+<!-- ============================ 3 ============================ -->
+<section id="gear">
+<h2>3 · What you need: hardware &amp; software</h2>
+
+<h3>3.1 Check your laptop first (2 minutes)</h3>
+<div class="table-wrap"><table>
+<tr><th>Your laptop</th><th>What to install</th><th>Notes</th></tr>
+<tr><td><b>Windows laptop</b></td><td>Blender <b>5.2 LTS</b></td><td>Blender 5.x needs a graphics chip that's <b>NVIDIA GeForce 900 series or newer, AMD GCN 4th gen (RX 400) or newer, or Intel Kaby Lake (7th-gen Core) or newer</b>. Older chips may still open Blender but are unsupported. Any NVIDIA RTX laptop is comfortable.</td></tr>
+<tr><td><b>Mac with Apple Silicon</b> (M1 or newer)</td><td>Blender <b>5.2 LTS</b></td><td>Runs Blender well. 16 GB of memory or more is comfortable.</td></tr>
+<tr><td><b>Intel Mac</b></td><td>Blender <b>4.5 LTS</b></td><td>Blender 5.0 dropped Intel Macs. 4.5 LTS gets fixes until 2027, and almost everything in this guide works the same there.</td></tr>
+<tr><td><b>Linux</b></td><td>Blender 5.2 LTS</td><td>Works well. See the Resolve note in §3.3.</td></tr>
+</table></div>
+
+<h3>3.2 Hardware</h3>
+<div class="table-wrap"><table>
+<tr><th>Item</th><th>Minimum (start today)</th><th>Comfortable (upgrade later, only if needed)</th><th>Notes</th></tr>
+<tr><td>Computer</td><td><b>8 GB RAM</b>, a supported graphics chip (above), 20 GB free disk space</td><td><b>16–32 GB RAM</b>, and an NVIDIA RTX GPU with 8 GB VRAM (RTX 3060 / 4060 / 5060 class) or an Apple Silicon Mac</td><td>A strong GPU mainly speeds up <i>rendering</i>. You can learn everything on a modest machine.</td></tr>
+<tr><td>Screen</td><td>1920×1080</td><td>Same or larger, or an external monitor</td><td>Blender recommends at least 1920×1080.</td></tr>
+<tr><td>Mouse</td><td><b>A 3-button mouse with a scroll wheel. Required.</b></td><td>Same</td><td>Blender with only a touchpad is painful. A ₹300–₹800 mouse is the best money you'll spend.</td></tr>
+<tr><td>Headphones</td><td>Any wired earphones</td><td>Closed-back headphones</td><td>You need to hear small sound effects clearly.</td></tr>
+<tr><td>Your iPhone</td><td>Already have it</td><td>—</td><td>Record sound effects (Voice Memos), film yourself as animation reference, finish Reels in the <b>Edits</b> app, and check every post on a real phone screen.</td></tr>
+<tr><td>Microphone</td><td>The iPhone mic in a quiet room, under a blanket</td><td>USB mic (₹2,000–₹6,000)</td><td>Only needed if you voice your character.</td></tr>
+<tr><td>Drawing tablet</td><td><span class="pill opt">optional</span> paper + pencil works fine</td><td>Entry-level pen tablet</td><td>Useful for sketches and 2D Grease Pencil doodles. Not needed at first.</td></tr>
+</table></div>
+<p class="src">₹ prices are rough planning estimates for India, not quotes.</p>
+<div class="note real"><b class="t">If your laptop is basic</b>Use the <b>EEVEE</b> render engine (fast), keep scenes simple (one character, a floor, a few props), render at 1080×1920, and render overnight. Low-poly and clay styles are cute <i>and</i> easy on the computer.</div>
+
+<h3>3.3 Software (everything free)</h3>
+<div class="table-wrap"><table>
+<tr><th>Job</th><th>Tool</th><th>Cost</th><th>Notes</th></tr>
+<tr><td>3D modelling, rigging, animation, rendering</td><td><b>Blender 5.2 LTS</b> (4.5 LTS on Intel Macs)</td><td><span class="pill free">free, open source</span></td><td><a href="https://www.blender.org/download/">blender.org/download</a>. Pick the <b>LTS</b> (Long-Term Support) version: 5.2.2 LTS came out on 15 Sept 2026 and 5.2 gets fixes until July 2028, so tutorials and your files stay stable.</td></tr>
+<tr><td>Quick finishing on the phone: sound effects, text, captions, trending audio</td><td><b>Edits</b> (Meta's editing app)</td><td><span class="pill free">free</span></td><td>On the Indian App Store and Play Store. It has a built-in sound-effects library, auto-captions, beat markers and watermark-free export. <b>This is the easiest way to finish your first Reels</b> (<a href="#edit">§15, Route A</a>).</td></tr>
+<tr><td>Full editing, precise sound sync and mixing</td><td><b>DaVinci Resolve 21</b> (free edition)</td><td><span class="pill free">free</span> (you don't need the paid Studio edition)</td><td>blackmagicdesign.com. A pro editor plus the Fairlight audio page with a loudness meter. <b>Linux users:</b> the free Linux version can't handle H.264 video or AAC audio, so use Edits or Blender's own video output instead.</td></tr>
+<tr><td>Recording &amp; cleaning sounds, making character voices</td><td><b>Audacity</b></td><td><span class="pill free">free</span></td><td>audacityteam.org. Use it to pitch-shift your voice, remove noise and trim.</td></tr>
+<tr><td>Sketching character ideas</td><td><b>Krita</b> or paper</td><td><span class="pill free">free</span></td><td>krita.org</td></tr>
+<tr><td>Planning</td><td>Google Sheets / Notion / a notebook</td><td><span class="pill free">free</span></td><td>For your idea bank, schedule and teardown notes.</td></tr>
+<tr><td>File backup</td><td>Google Drive / iCloud / an external drive</td><td><span class="pill free">free tier</span></td><td>Back up your <code>.blend</code> files every week. Losing your character file would hurt.</td></tr>
+</table></div>
+<div class="note info"><b class="t">Not available in India</b><b>CapCut</b> has been missing from India's app stores since 2020, and <b>TikTok</b> is banned. Ignore tutorials that depend on either one.</div>
+<div class="note warn"><b class="t">Only download Blender from blender.org</b>(or Steam). Sites offering "Blender Pro" or cracked add-ons often carry malware. Blender itself has no paid version.</div>
+
+<h3>3.4 Free props &amp; backgrounds (so you only model the character)</h3>
+<div class="table-wrap"><table>
+<tr><th>Source</th><th>What</th><th>Licence</th></tr>
+<tr><td>Blender's built-in <b>Asset Browser</b> ("Essentials")</td><td>Materials, brushes, some objects. 5.2 LTS adds online asset libraries.</td><td>Bundled with Blender</td></tr>
+<tr><td><b>Poly Haven</b> (polyhaven.com)</td><td>Lighting environments (HDRIs), textures, some models</td><td>CC0: use freely, no credit needed</td></tr>
+<tr><td><b>Kenney</b> (kenney.nl)</td><td>Cute low-poly props and furniture</td><td>CC0</td></tr>
+<tr><td>BlenderKit, Sketchfab</td><td>Huge libraries</td><td><b>Check each asset.</b> Some need credit, some are non-commercial.</td></tr>
+</table></div>
+<p>Record every downloaded asset and its licence in a <code>LICENCES.txt</code> file. <b>The character itself must always be yours</b> (<a href="#design">§7</a>).</p>
+</section>
+
+<!-- ============================ 4 ============================ -->
+<section id="skills">
+<h2>4 · Skills map: what you actually need to learn</h2>
+<p>You don't need to master all of 3D. You need <b>about 10 skills</b>, at "good enough for cute" level:</p>
+<div class="table-wrap"><table>
+<tr><th>#</th><th>Skill</th><th>Level you need</th><th>Rough hours</th><th>Guide section</th></tr>
+<tr><td>1</td><td>Blender navigation &amp; interface</td><td>Comfortable, without thinking</td><td>5–8</td><td><a href="#blender101">§6</a></td></tr>
+<tr><td>2</td><td>Character design (on paper)</td><td>One strong, simple character</td><td>4–6</td><td><a href="#design">§7</a></td></tr>
+<tr><td>3</td><td>Simple modelling (primitives + subdivision)</td><td>Blobby / chibi characters</td><td>10–15</td><td><a href="#model">§8</a></td></tr>
+<tr><td>4</td><td>Materials &amp; colour</td><td>Soft, stylised look</td><td>3–5</td><td><a href="#shade">§9</a></td></tr>
+<tr><td>5</td><td>Basic rigging + facial expressions</td><td>Simple controls + blink/smile/surprise</td><td>6–10</td><td><a href="#rig">§10</a></td></tr>
+<tr><td>6</td><td><b>Animation principles &amp; timing</b> (the most important)</td><td>Squash/stretch, anticipation, easing, overshoot, loops</td><td>20–30 (you keep improving forever)</td><td><a href="#animate">§11</a></td></tr>
+<tr><td>7</td><td>Lighting, camera, vertical framing</td><td>Soft 3-light setup, 9:16 camera</td><td>3–5</td><td><a href="#camera">§12</a></td></tr>
+<tr><td>8</td><td>Rendering</td><td>EEVEE settings, MP4 or image sequences</td><td>2–3</td><td><a href="#render">§13</a></td></tr>
+<tr><td>9</td><td>Sound design &amp; simple mixing</td><td>SFX timing, voice, levels</td><td>5–8</td><td><a href="#sound">§14</a></td></tr>
+<tr><td>10</td><td>Finishing + short-form storytelling</td><td>Hook, gag, loop, text</td><td>5–8</td><td><a href="#edit">§15</a>, <a href="#ideas">§16</a></td></tr>
+<tr><td>+</td><td>Posting, analytics, consistency</td><td>A steady habit</td><td>ongoing</td><td><a href="#publish">§18</a></td></tr>
+</table></div>
+<p>Total: roughly <b>70–100 hours</b> for the full plan, or <b>25–35 hours</b> for a first Reel on the light plan (a simpler character, SFX only, finished on the phone).</p>
+<div class="note tip"><b class="t">Your advantage as a technical person</b>Blender has a built-in Python console. Later you can script chores like batch renders, random blink timing or file set-up. But don't let tooling replace animating. The skill that grows the channel is timing.</div>
+</section>
+
+<!-- ============================ 5 ============================ -->
+<section id="roadmap">
+<h2>5 · Pick your pace &amp; plan</h2>
+<p>You said you'll work on this "whenever you get free time". Your creative-income command center suggests capping character IP at <b>about 2 hours a week</b> until it shows real results: faster production, a growing audience, or commercial enquiries. So there are two plans. Choose one, and switch any time. Your ticks are kept for both.</p>
+
+<div role="radiogroup" aria-label="Choose your plan" style="display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0">
+  <label class="card" style="cursor:pointer;padding:.6rem 1rem"><input type="radio" name="pace" value="light" checked> 🌱 <b>Light plan</b> · 2–3 hrs/week · blob character, SFX, phone finishing</label>
+  <label class="card" style="cursor:pointer;padding:.6rem 1rem"><input type="radio" name="pace" value="full"> 🚀 <b>Full plan</b> · 6–8 hrs/week · rigged character, voice, Resolve</label>
+</div>
+
+<div id="plan-light">
+<p><b>Light plan: first Reel in about 9 weeks, then one Reel every two weeks.</b> Each week is about 2–3 hours.</p>
+<div class="week fast"><h4>Week 1 · Install &amp; first win</h4>
+<ul class="check" data-group="l1">
+<li><input type="checkbox" id="l1a"><label for="l1a">Install Blender (see <a href="#gear">§3.1</a> for which version) and set the preferences in <a href="#prefs">§6.2</a></label></li>
+<li><input type="checkbox" id="l1b"><label for="l1b">Do the <a href="#firstwin">20-minute first win</a> (make the cube move) and learn the <a href="#keys">shortcuts</a></label></li>
+<li><input type="checkbox" id="l1c"><label for="l1c">Reserve your handle on Instagram and YouTube (<a href="#publish">§18.1</a>)</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 2 · Basics</h4>
+<ul class="check" data-group="l2">
+<li><input type="checkbox" id="l2a"><label for="l2a">Follow the first 2–3 parts of Grant Abbitt's free <i>Blender 5 Complete Beginners Guide</i> <b>or</b> Blender Guru's <i>Donut for Blender 5.0</i> (links in <a href="#sources">§25</a>)</label></li>
+<li><input type="checkbox" id="l2b"><label for="l2b">Do 2 teardowns (<a href="#teardown">template</a>): Pio + one other account</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 3 · Design a blob</h4>
+<ul class="check" data-group="l3">
+<li><input type="checkbox" id="l3a"><label for="l3a">Character sheet + 20 thumbnail sketches → pick 1 (<a href="#design">§7</a>, Level 1 "Blob")</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 4 · Model it</h4>
+<ul class="check" data-group="l4">
+<li><input type="checkbox" id="l4a"><label for="l4a">Body, eyes, cheeks, mouth (<a href="#model">§8</a>). Skip limbs.</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 5 · Look &amp; studio</h4>
+<ul class="check" data-group="l5">
+<li><input type="checkbox" id="l5a"><label for="l5a">Materials (<a href="#shade">§9.1</a>), lights, curved backdrop, 9:16 camera (<a href="#camera">§12</a>). Save as <code>STUDIO_master.blend</code>.</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 6 · Make it movable</h4>
+<ul class="check" data-group="l6">
+<li><input type="checkbox" id="l6a"><label for="l6a">Level A set-up: origin at the feet, parenting, blink (<a href="#rig">§10.1</a> and <a href="#faces">§10.4</a>)</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 7 · The jelly hop</h4>
+<ul class="check" data-group="l7">
+<li><input type="checkbox" id="l7a"><label for="l7a">Animate the hop + blink (<a href="#hop">§11.4</a>), including the Graph Editor fix and the loop rule</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 8 · Render + sounds</h4>
+<ul class="check" data-group="l8">
+<li><input type="checkbox" id="l8a"><label for="l8a">Render straight to MP4 (<a href="#render">§13</a>)</label></li>
+<li><input type="checkbox" id="l8b"><label for="l8b">Record 10 foley sounds on your iPhone and find 10 more (<a href="#sound">§14.2</a>)</label></li>
+</ul></div>
+<div class="week fast"><h4>Week 9 · Finish &amp; post your first Reel 🎉</h4>
+<ul class="check" data-group="l9">
+<li><input type="checkbox" id="l9a"><label for="l9a">Finish in Edits: SFX on every action, hook text, loop check (<a href="#edit">§15, Route A</a>)</label></li>
+<li><input type="checkbox" id="l9b"><label for="l9b">Post to Instagram and YouTube Shorts with the <a href="#postcheck">posting checklist</a></label></li>
+</ul></div>
+<div class="week fast"><h4>Weeks 10–13 · Two more Reels</h4>
+<ul class="check" data-group="l10">
+<li><input type="checkbox" id="l10a"><label for="l10a">Reel 2: a real gag (setup → twist → payoff → loop, <a href="#ideas">§16</a>) with one expression swap and one doodle effect (<a href="#doodles">§11.8</a>)</label></li>
+<li><input type="checkbox" id="l10b"><label for="l10b">Reel 3 + a behind-the-scenes clip (viewport → final)</label></li>
+<li><input type="checkbox" id="l10c"><label for="l10c">Review analytics (<a href="#analytics">§18.4</a>) and write 10 ideas into your idea bank</label></li>
+</ul></div>
+<div class="note real"><b class="t">Your gate after 8 finished shorts</b>This is the gate your command center set. Keep going (or give it more hours) only if <b>at least one</b> is true: each Reel takes noticeably less time, your follower count or sends keep growing, or someone asks about paid work. Views alone aren't the gate. Otherwise, change the character or format before investing more time.</div>
+</div>
+
+<div id="plan-full" hidden>
+<p><b>Full plan: 12 weeks at 6–8 hours a week.</b> Each week has a <b>learn</b> part, a <b>make</b> part and, from week 3, a <b>post</b> part. Early posts are practice, and "watch me learn Blender" is content people watch too.</p>
+
+<div class="week"><h4>Week 1 · Install &amp; get comfortable</h4>
+<ul class="check" data-group="w1">
+<li><input type="checkbox" id="w1a"><label for="w1a">Install Blender (<a href="#gear">§3.1</a>) and set the preferences in <a href="#prefs">§6.2</a></label></li>
+<li><input type="checkbox" id="w1b"><label for="w1b">Do the <a href="#firstwin">20-minute first win</a>, then parts 1–3 of Blender Guru's <b>Donut tutorial for Blender 5.0</b> (<a href="https://www.blenderguru.com/posts/blender-donut-v5-tutorial">blenderguru.com</a>). The 5.0 version is close enough to 5.2.</label></li>
+<li><input type="checkbox" id="w1c"><label for="w1c">Practise the <a href="#keys">essential shortcuts</a> until you don't need to look</label></li>
+<li><input type="checkbox" id="w1d"><label for="w1d">Create Instagram + YouTube accounts and reserve your handle (<a href="#publish">§18</a>)</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 2 · Finish the donut (it teaches every basic)</h4>
+<ul class="check" data-group="w2">
+<li><input type="checkbox" id="w2a"><label for="w2a">Finish the donut series: modelling, materials, lighting, render</label></li>
+<li><input type="checkbox" id="w2b"><label for="w2b">Change it to <i>your</i> style: pastel icing and a <b>face</b> on the donut 🍩👀</label></li>
+<li><input type="checkbox" id="w2c"><label for="w2c">Do 5 teardowns with the <a href="#teardown">template</a> (Pio + 4 others)</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 3 · Bouncing ball: the heart of animation</h4>
+<ul class="check" data-group="w3">
+<li><input type="checkbox" id="w3a"><label for="w3a">Start <b>Blender Studio – Animation Fundamentals</b> (<a href="https://studio.blender.org/training/animation-fundamentals/">studio.blender.org</a>), which goes from a bouncing ball up to acting</label></li>
+<li><input type="checkbox" id="w3b"><label for="w3b">Animate a ball bouncing <b>with squash &amp; stretch</b> in a loop (the recipe in <a href="#hop">§11.4</a> works on a ball too)</label></li>
+<li><input type="checkbox" id="w3c"><label for="w3c">Add a "boing" and post it: <b>first post!</b> ("Day 1 of learning Blender")</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 4 · Design your character</h4>
+<ul class="check" data-group="w4">
+<li><input type="checkbox" id="w4a"><label for="w4a">Fill in the <a href="#design">character sheet (§7)</a>: animal/object, personality, quirk, sidekick</label></li>
+<li><input type="checkbox" id="w4b"><label for="w4b">Sketch 20 tiny thumbnails → pick 3 → refine 1 (front + side views)</label></li>
+<li><input type="checkbox" id="w4c"><label for="w4c">Poll your sketches in Instagram Stories ("which one should I make in 3D?")</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 5 · Model the character</h4>
+<ul class="check" data-group="w5">
+<li><input type="checkbox" id="w5a"><label for="w5a">Follow <a href="#model">§8</a> step by step: body, eyes, cheeks, limbs, accessory</label></li>
+<li><input type="checkbox" id="w5b"><label for="w5b">Post a "sketch → 3D" turnaround (spin the character 360°)</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 6 · Materials, lighting &amp; the studio file</h4>
+<ul class="check" data-group="w6">
+<li><input type="checkbox" id="w6a"><label for="w6a">Materials (<a href="#shade">§9</a>) + 3-light setup + 9:16 camera (<a href="#camera">§12</a>)</label></li>
+<li><input type="checkbox" id="w6b"><label for="w6b">Save it as <code>STUDIO_master.blend</code>, the template for every future Reel (<a href="#pipeline">§17</a>)</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 7 · Rig + face</h4>
+<ul class="check" data-group="w7">
+<li><input type="checkbox" id="w7a"><label for="w7a">Pick rig level A, B or C (<a href="#rig">§10</a>) and build it</label></li>
+<li><input type="checkbox" id="w7b"><label for="w7b">Make expressions: blink, happy, surprised "O", sad (<a href="#faces">§10.4</a>)</label></li>
+<li><input type="checkbox" id="w7c"><label for="w7c">Test: make 10 expressive poses. Post a "pick your mood" carousel.</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 8 · First character animation: the hop</h4>
+<ul class="check" data-group="w8">
+<li><input type="checkbox" id="w8a"><label for="w8a">Animate the "jelly hop" + blink loop (<a href="#hop">§11.4</a>)</label></li>
+<li><input type="checkbox" id="w8b"><label for="w8b">Polish in the Graph Editor: sharp contacts, overshoot and a wobble. Add one doodle effect (<a href="#doodles">§11.8</a>).</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 9 · Sound</h4>
+<ul class="check" data-group="w9">
+<li><input type="checkbox" id="w9a"><label for="w9a">Build your SFX library: 30 sounds (<a href="#sound">§14</a>), downloaded + self-recorded</label></li>
+<li><input type="checkbox" id="w9b"><label for="w9b">Create your character's voice in Audacity (pitch-shifted gibberish)</label></li>
+<li><input type="checkbox" id="w9c"><label for="w9c">Put sound on the hop animation and post it</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 10 · Lip-sync to audio + a real gag</h4>
+<ul class="check" data-group="w10">
+<li><input type="checkbox" id="w10a"><label for="w10a">Pick a 5–8 s audio clip and animate to it (<a href="#audio-anim">§11.7</a>)</label></li>
+<li><input type="checkbox" id="w10b"><label for="w10b">Write it as <b>setup → twist → payoff → loop</b> and storyboard it in 6 boxes (<a href="#ideas">§16.1</a>)</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 11 · Full pipeline, end to end</h4>
+<ul class="check" data-group="w11">
+<li><input type="checkbox" id="w11a"><label for="w11a">Make one Reel start to finish from the studio file, and time each step</label></li>
+<li><input type="checkbox" id="w11b"><label for="w11b">Finish in Resolve with text and a loudness check (<a href="#edit">§15, Route B</a>). Post to Instagram + YouTube Shorts.</label></li>
+</ul></div>
+
+<div class="week"><h4>Week 12 · Build the habit</h4>
+<ul class="check" data-group="w12">
+<li><input type="checkbox" id="w12a"><label for="w12a">Write 20 ideas into your idea bank (<a href="#ideas">§16</a>)</label></li>
+<li><input type="checkbox" id="w12b"><label for="w12b">Plan the next 4 weeks: 1 main Reel + 1 behind-the-scenes clip per week</label></li>
+<li><input type="checkbox" id="w12c"><label for="w12c">Review your analytics (<a href="#analytics">§18.4</a>). Do more of what got sent and saved.</label></li>
+</ul></div>
+</div>
+
+<div class="note tip"><b class="t">When you get stuck (you will)</b>1) Search "<i>blender 5 + your problem</i>". 2) Check <a href="#trouble">§22</a>. 3) Ask on <b>r/blenderhelp</b> or <b>blenderartists.org</b> with a screenshot. 4) Take a break. A lot of problems are solved the next morning.</div>
+</section>
+
+<!-- ============================ 6 ============================ -->
+<section id="blender101">
+<h2>6 · Blender first steps (absolute beginner)</h2>
+<h3>6.1 Install</h3>
+<ol class="steps">
+<li>Go to <a href="https://www.blender.org/download/">blender.org/download</a> and download the version from <a href="#gear">§3.1</a>. On Windows the installer (<code>.msi</code>) is simplest. On a Mac, open the <code>.dmg</code> and drag Blender into Applications.</li>
+<li>Open Blender. You'll see a <b>splash screen</b>. Click outside it. The default scene has a <b>cube</b>, a <b>camera</b> and a <b>light</b>.</li>
+<li>Don't install add-ons yet. Everything in this guide is built in.</li>
+</ol>
+
+<h3 id="prefs">6.2 Change these settings first</h3>
+<p>Open <b>Edit → Preferences</b>:</p>
+<ul>
+<li><b>Input → Emulate Numpad</b>: turn it ON if your keyboard has no number pad (most laptops, including all MacBooks). The number row then acts as a numpad for changing views. <b>Side effect:</b> in Edit Mode, <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> no longer switch between vertex, edge and face selection. Use the three small icons at the top left of the viewport instead.</li>
+<li><b>Input → Emulate 3 Button Mouse</b>: only if you truly have no mouse. (Get a mouse.)</li>
+<li><b>Save &amp; Load → Auto Save</b>: ON, every 2 minutes. Blender can crash, and this saves your work.</li>
+<li><b>Interface → Resolution Scale</b>: raise it to 1.1–1.3 if the text is too small.</li>
+<li>Preferences save automatically (or use the ☰ menu at the bottom left → Save Preferences).</li>
+</ul>
+
+<h3>6.3 The screen, explained</h3>
+<div class="table-wrap"><table>
+<tr><th>Area</th><th>Where</th><th>What it does</th></tr>
+<tr><td>3D Viewport</td><td>Big middle area</td><td>Where you see and build your scene</td></tr>
+<tr><td>Outliner</td><td>Top right</td><td>A list of every object (like layers)</td></tr>
+<tr><td>Properties</td><td>Bottom right, with a column of icons</td><td>Settings: render, output, object, modifiers (wrench), materials…</td></tr>
+<tr><td>Timeline</td><td>Bottom</td><td>Frames, playback, keyframes, and the start/end frame boxes</td></tr>
+<tr><td>Workspace tabs</td><td>Very top (Layout, Modeling, Sculpting, Animation, Shading…)</td><td>Preset screen layouts for each job</td></tr>
+<tr><td>Mode menu</td><td>Top left of the viewport</td><td><b>Object Mode</b> (move whole objects) vs <b>Edit Mode</b> (change the shape). <kbd>Tab</kbd> switches between them.</td></tr>
+<tr><td>N-panel</td><td>Press <kbd>N</kbd> in the viewport</td><td>Exact position, rotation and scale numbers you can type into</td></tr>
+</table></div>
+
+<h3 id="keys">6.4 Essential shortcuts (hover the mouse over the viewport first)</h3>
+<div class="table-wrap"><table>
+<tr><th>Keys</th><th>Action</th><th>Keys</th><th>Action</th></tr>
+<tr><td>Middle mouse drag</td><td>Orbit the view</td><td><kbd>Shift</kbd>+Middle drag</td><td>Pan the view</td></tr>
+<tr><td>Scroll</td><td>Zoom</td><td><kbd>`</kbd> (key left of 1)</td><td><b>View pie menu</b>: front, side, top, camera, "View Selected". Very handy on laptops.</td></tr>
+<tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>Front / side / top view (number row if Emulate Numpad is on)</td><td><kbd>Numpad .</kbd></td><td>Focus on the selected object (or View → Frame Selected)</td></tr>
+<tr><td><kbd>G</kbd> / <kbd>R</kbd> / <kbd>S</kbd></td><td>Grab (move) / Rotate / Scale. Add <kbd>X</kbd>, <kbd>Y</kbd> or <kbd>Z</kbd> to lock to an axis, and type a number for an exact amount.</td><td><kbd>Shift</kbd>+<kbd>A</kbd></td><td>Add a new object</td></tr>
+<tr><td><kbd>Tab</kbd></td><td>Object ↔ Edit mode</td><td><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> (Edit mode)</td><td>Vertex / edge / face select (header icons if Emulate Numpad is on)</td></tr>
+<tr><td><kbd>E</kbd></td><td>Extrude (pull out new geometry)</td><td><kbd>Ctrl</kbd>+<kbd>R</kbd></td><td>Loop cut (add a ring of edges)</td></tr>
+<tr><td><kbd>Shift</kbd>+<kbd>D</kbd></td><td>Duplicate</td><td><kbd>X</kbd> / <kbd>Delete</kbd></td><td>Delete</td></tr>
+<tr><td><kbd>Alt</kbd>+<kbd>G</kbd> / <kbd>Alt</kbd>+<kbd>R</kbd> / <kbd>Alt</kbd>+<kbd>S</kbd></td><td>Reset location / rotation / scale</td><td><kbd>Alt</kbd>+<kbd>Z</kbd></td><td>X-ray (see through objects)</td></tr>
+<tr><td><kbd>Numpad 0</kbd></td><td>Look through the camera</td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Numpad 0</kbd></td><td>Move the camera to your current view</td></tr>
+<tr><td><kbd>I</kbd></td><td>Insert a keyframe. Over the viewport it keys location, rotation and scale. Over any setting, it keys that setting.</td><td><kbd>Space</kbd></td><td>Play / pause the animation</td></tr>
+<tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save (do it constantly). <kbd>Cmd</kbd> instead of <kbd>Ctrl</kbd> on a Mac.</td></tr>
+<tr><td><kbd>H</kbd> / <kbd>Alt</kbd>+<kbd>H</kbd></td><td>Hide / unhide</td><td><kbd>F3</kbd></td><td><b>Search any command by name.</b> Use it whenever a menu isn't where this guide says.</td></tr>
+</table></div>
+<p class="src"><b>On a Mac:</b> <kbd>Alt</kbd> is the Option key. Save, undo, copy and paste use <kbd>Cmd</kbd>, but modelling shortcuts such as <kbd>Ctrl</kbd>+<kbd>R</kbd>, <kbd>Ctrl</kbd>+<kbd>B</kbd>, <kbd>Ctrl</kbd>+<kbd>P</kbd> and <kbd>Ctrl</kbd>+<kbd>A</kbd> stay on Ctrl. F-keys like <kbd>F3</kbd> and <kbd>F12</kbd> may need the <kbd>fn</kbd> key.</p>
+
+<h3 id="firstwin">6.5 Your 20-minute first win: make the cube move</h3>
+<ol class="steps">
+<li>Open a new file (<b>File → New → General</b>). Click the cube so it has an orange outline.</li>
+<li>In the Timeline at the bottom, make sure the current frame is <b>1</b>. Hover over the viewport and press <kbd>I</kbd>. A yellow diamond appears in the Timeline. That's a <b>keyframe</b>.</li>
+<li>Type <b>15</b> in the current-frame box in the Timeline. Press <kbd>G</kbd> <kbd>Z</kbd> <kbd>2</kbd> <kbd>Enter</kbd> to move the cube 2 m up. Press <kbd>I</kbd>.</li>
+<li>Go to frame <b>30</b>. Press <kbd>Alt</kbd>+<kbd>G</kbd> to put the cube back to its starting position. Press <kbd>I</kbd>.</li>
+<li>Set the Timeline's <b>End</b> box to <b>29</b> (not 30, because frame 30 is the same pose as frame 1). Press <kbd>Space</kbd>.</li>
+<li>The cube floats up and down, and it looks floaty, like a balloon. That's normal. You just animated: you set poses at frames, and Blender filled in the frames between them. <a href="#animate">§11</a> shows you how to turn "floaty" into "cute hop".</li>
+</ol>
+
+<h3>6.6 File habits that save you</h3>
+<ul>
+<li>One folder per Reel (see <a href="#pipeline">§17</a>).</li>
+<li>Save new versions instead of overwriting: <code>reel012_v01.blend</code>, <code>_v02</code>… In the Save As window, the <b>+</b> button next to the file name adds 1 to the number.</li>
+<li>If you use downloaded textures or sounds, run <b>File → External Data → Pack Resources</b> before backing up, so nothing goes missing.</li>
+</ul>
+</section>
+
+
+<!-- ============================ 7 ============================ -->
+<section id="design">
+<h2>7 · Design your character (paper first!)</h2>
+<p>This is the most important creative decision you'll make. The character is your brand, your logo, your future merch and your portfolio piece.</p>
+
+<h3>7.1 Fill in this character sheet</h3>
+<div class="table-wrap"><table>
+<tr><th>Question</th><th>Example (don't copy, make your own)</th></tr>
+<tr><td>What is it? (animal / food / object / made-up creature)</td><td>A tiny <b>mango</b> with legs, a round <b>red panda</b>, or a <b>dumpling</b> frog</td></tr>
+<tr><td>Is it under-used on social media?</td><td>Cats, capybaras, axolotls and frogs are crowded. Search the hashtag first. An unusual animal or object stands out more.</td></tr>
+<tr><td>Name (short, easy to say, searchable, handle available)</td><td>"Momo", "Pebble", "Aamu"</td></tr>
+<tr><td>Personality in 3 words</td><td>Curious, greedy (for snacks), dramatic</td></tr>
+<tr><td>One flaw (flaws create gags)</td><td>Scared of everything, always sleepy, or can't resist food</td></tr>
+<tr><td>Signature thing (prop / move / sound)</td><td>A leaf hat, a spin before sitting, a "pip!" sound</td></tr>
+<tr><td>Sidekick (optional but powerful)</td><td>A grumpy tiny snail. An opposite personality gives you instant jokes.</td></tr>
+<tr><td>World</td><td>A cosy pastel room, a desk or a kitchen counter. Small worlds are cheap to build.</td></tr>
+<tr><td>Local flavour?</td><td>Indian food, festivals and daily life (chai, monsoon, Diwali lights, exam stress) are relatable to a huge audience and less common in 3D</td></tr>
+</table></div>
+<div class="note info"><b class="t">Already have an idea?</b>Your command-center plan sketches a <b>"Bug Gremlin"</b>, a faceless character that "eats" software bugs. Make it round and soft and it can be cute. It would do double duty: channel star <i>and</i> a portfolio piece for the tech clients in §19.</div>
+
+<h3>7.2 The sketch process</h3>
+<ol class="steps">
+<li><b>20 thumbnails:</b> tiny doodles (2–3 cm), 1 minute each, just silhouettes. Quantity first.</li>
+<li><b>Silhouette test:</b> fill each one in solid black. Pick the 3 most recognisable.</li>
+<li><b>Refine 3:</b> apply the <a href="#cute">baby-schema checklist</a>. Try different eye sizes and positions. They change everything.</li>
+<li><b>Pick 1 and draw a turnaround:</b> a <b>front view</b> and a <b>side view</b> at the same height, lined up. You'll load these into Blender as reference images.</li>
+<li><b>Expression sheet:</b> the same face happy / sad / surprised / angry / sleepy. If you can't draw a clear emotion, the design is too complicated.</li>
+<li><b>Colour:</b> pick 1 main colour + 1 accent + a dark eye colour + blush. Save the hex codes.</li>
+</ol>
+
+<h3>7.3 Three difficulty levels (choose honestly)</h3>
+<div class="grid">
+  <div class="card"><span class="tag">Level 1 · recommended start</span><h4>🫧 Blob</h4><p>Body = head. No arms or legs, or tiny floating nubs. Moves by hopping, squashing and wobbling, and the face carries the emotion. <b>Fastest to model, rig and animate.</b> Many successful cute characters are basically this.</p></div>
+  <div class="card"><span class="tag">Level 2</span><h4>🐹 Chibi animal</h4><p>Big head, bean body, stubby arms and legs, maybe ears and a tail. Needs a simple skeleton. The most flexible option for gags.</p></div>
+  <div class="card"><span class="tag">Level 3 · later</span><h4>🧸 Full character</h4><p>Fingers, clothes, full body mechanics. Needs Rigify and much more animation skill. Leave it until month 6 or later.</p></div>
+</div>
+
+<div class="note warn"><b class="t">Originality rule</b>Don't make "a platypus with an axolotl friend". That's Pio's identity, and Pio is a company's brand. Don't use Disney, Sanrio or anime characters in content you want to earn from either. Take the <i>techniques</i> and make a character that's yours. It's your business asset: you can only sell merch, stickers or licences for a character you own.</div>
+</section>
+
+<!-- ============================ 8 ============================ -->
+<section id="model">
+<h2>8 · Model the character in Blender</h2>
+<p>We'll build a Level 1–2 character from simple shapes. This method is called <b>primitive + subdivision modelling</b>.</p>
+
+<h3>8.1 Set up reference images</h3>
+<ol class="steps">
+<li>New file: <b>File → New → General</b>. Select the default cube and press <kbd>X</kbd> → Delete.</li>
+<li>Press <kbd>Numpad 1</kbd> (front view). Then <kbd>Shift</kbd>+<kbd>A</kbd> → <b>Image → Reference</b> and choose your <b>front</b> sketch. It's placed facing your current view.</li>
+<li>Press <kbd>Numpad 3</kbd> (side view) and add your <b>side</b> sketch the same way.</li>
+<li>With an image selected, open its settings in the Properties editor (the <b>image icon</b> tab, called Object Data). Tick <b>Opacity</b> and lower it to about 0.4, and set <b>Depth</b> to <b>Back</b> so the sketch sits behind your model.</li>
+<li>Scale the images (<kbd>S</kbd>) so the character is about <b>1–2 metres</b> tall. Blender's lights, cameras and depth of field behave best at real-world sizes. Props in its world can be scaled to match (a cookie as big as its head is funny).</li>
+</ol>
+
+<h3>8.2 The body</h3>
+<ol class="steps">
+<li><kbd>Shift</kbd>+<kbd>A</kbd> → <b>Mesh → UV Sphere</b>. In the small "Adjust Last Operation" panel at the bottom left, set <b>Segments 16, Rings 8</b>. Fewer points are easier to shape.</li>
+<li>Go to <b>Properties → Modifiers (wrench) → Add Modifier → Generate → Subdivision Surface</b> (or press <kbd>Ctrl</kbd>+<kbd>2</kbd>). Set Levels Viewport 2, Render 2. The sphere becomes perfectly smooth.</li>
+<li>Right-click the object → <b>Shade Smooth</b>.</li>
+<li><kbd>Tab</kbd> into Edit Mode. Press <kbd>O</kbd> to turn on <b>Proportional Editing</b>, so moving one vertex gently pulls its neighbours along. Scroll the mouse wheel <i>while</i> moving to change how far the effect reaches.</li>
+<li>Turn on <b>X mirror</b> (the butterfly icon at the top right of the viewport, then X), so edits on one side copy to the other.</li>
+<li>Shape the body against your sketches: pull the top up for a taller head, flatten the bottom so it sits on the ground, widen the cheeks. Check front (<kbd>Numpad 1</kbd>), side (<kbd>Numpad 3</kbd>) and top (<kbd>Numpad 7</kbd>) often. <kbd>Alt</kbd>+<kbd>Z</kbd> (X-ray) lets you see the sketch through the mesh.</li>
+<li><kbd>Tab</kbd> back to Object Mode and press <kbd>Ctrl</kbd>+<kbd>A</kbd> → <b>All Transforms</b>. This "applies" the scale. Forgetting it causes strange bugs later.</li>
+<li>Rename the object <code>body</code> (double-click it in the Outliner).</li>
+</ol>
+
+<h3>8.3 Eyes (where the cuteness comes from)</h3>
+<ol class="steps">
+<li>Add a new <b>UV Sphere</b>, scale it small, and flatten it front-to-back (<kbd>S</kbd> <kbd>Y</kbd> <kbd>0.4</kbd>) so it sits flush on the face.</li>
+<li>Move it (<kbd>G</kbd>) onto the front of the face (the side facing the front view), slightly sunk in, <b>below the middle of the face</b> and on the <b>positive-X side</b>. Name it <code>eye.L</code>.</li>
+<li><b>Highlight:</b> add 1 small white sphere (and optionally a tinier second one) on the upper side of the eye. Parent it to the eye: click the highlight, <kbd>Shift</kbd>-click the eye, press <kbd>Ctrl</kbd>+<kbd>P</kbd> → Object.</li>
+<li><b>Second eye:</b> select the eye and its highlight, press <kbd>Shift</kbd>+<kbd>D</kbd>, then right-click to cancel the move. Click just the new eye and, in the N-panel, change <b>Location X</b> to the negative of the original (e.g. 0.35 → −0.35). If you rotated the eye around Z, flip that sign too. The highlight comes along and stays on the same side, as if lit by the same light. Name it <code>eye.R</code>.</li>
+<li>Try 3 eye sizes. Bigger is usually cuter, until it gets creepy. Trust the thumbnail test.</li>
+</ol>
+<p class="src">Why two real eyes instead of a mirror copy? Each eye can then blink, wink and look around on its own.</p>
+
+<h3>8.4 Cheeks, mouth, limbs, accessories</h3>
+<ul>
+<li><b>Blush:</b> a flattened pink sphere or disc on one cheek. Add a <b>Mirror</b> modifier (Generate → Mirror) and set its <b>Mirror Object</b> to <code>body</code> to get the other cheek automatically. (Without a Mirror Object, it mirrors around its own centre and the copy lands on top of itself.)</li>
+<li><b>Mouth, 3 options:</b>
+  <ol>
+    <li><i>Easiest:</i> a thin <b>curve</b> (<kbd>Shift</kbd>+<kbd>A</kbd> → Curve → Bezier) with some <b>Bevel → Depth</b> under its Object Data settings. Bend it into a smile and place it on the face.</li>
+    <li><i>Cartoon:</i> draw the mouth with a <b>Grease Pencil</b> object in front of the face (<a href="#doodles">§11.8</a>). It's 2D, easy to change, and very charming.</li>
+    <li><i>Sculpted:</i> shape the mouth into the body mesh and animate it with shape keys (<a href="#faces">§10.4</a>). Most work, most expressive.</li>
+  </ol></li>
+<li><b>Stubby limbs:</b> a UV sphere stretched on Z (<kbd>S</kbd> <kbd>Z</kbd> <kbd>1.8</kbd>) for each arm or leg, with a Mirror modifier using <code>body</code> as the Mirror Object. Tuck them partly into the body so the joints are hidden. If you'll use a skeleton (Level B), apply the Mirror modifier first: hover over it and press <kbd>Ctrl</kbd>+<kbd>A</kbd>.</li>
+<li><b>Ears / tail / leaf hat:</b> start from spheres or cones and shape them with proportional editing. Keep them rounded.</li>
+<li><b>Name every object</b> in the Outliner: <code>body</code>, <code>eye.L</code>, <code>cheeks</code>, <code>arm.L</code>… Future you will thank you.</li>
+</ul>
+
+<div class="note tip"><b class="t">Low-poly alternative (Vossadova style)</b>Skip the Subdivision modifier, keep the shapes chunky, and right-click → <b>Shade Flat</b>. It's faceted, playful, fast to model and fast to render. Grant Abbitt's free "Blender 5 for Beginners: Model Any Low Poly Animal" (<a href="#sources">§25</a>) walks through this style.</div>
+<div class="note info"><b class="t">Want to sculpt?</b>Sculpt Mode (the Sculpting tab) is like digital clay and great for soft organic shapes. For your first character, primitives are quicker and easier to rig. Try sculpting from month 3.</div>
+</section>
+
+<!-- ============================ 9 ============================ -->
+<section id="shade">
+<h2>9 · Materials &amp; the cute look</h2>
+<h3>9.1 A soft "clay / vinyl toy" skin (Principled BSDF)</h3>
+<ol class="steps">
+<li>Select the body → <b>Properties → Material (red sphere icon) → New</b>. You get a <b>Principled BSDF</b> material.</li>
+<li><b>Base Color:</b> your main pastel colour (paste the hex code).</li>
+<li><b>Roughness:</b> 0.5–0.7 for a soft matte look. Low roughness looks shiny and plastic.</li>
+<li><b>Subsurface → Weight:</b> a small value (0.05–0.2) lets light glow slightly through the skin, like gummy candy or a baby's ears. Too much looks waxy.</li>
+<li><b>Eyes:</b> a very dark (not pure black) colour with <b>low roughness (0.1–0.2)</b> so they catch a glint.</li>
+<li><b>Blush:</b> pink, then lower the <b>Alpha</b> to about 0.5 for a soft see-through blush. In Blender 4.2+ EEVEE this works directly (the default "Dithered" render method handles transparency). If it looks grainy, raise the render samples.</li>
+<li>Switch the viewport to <b>Material Preview</b> (<kbd>Z</kbd> → Material Preview) to see the colours.</li>
+</ol>
+
+<h3>9.2 Optional styles</h3>
+<details><summary>🎨 Toon / cel-shaded look (flat colour bands like a cartoon)</summary>
+<p>This only works in EEVEE. In the <b>Shading</b> workspace, connect <code>Diffuse BSDF → Shader to RGB → Color Ramp → Material Output</code>. Set the Color Ramp to <b>Constant</b> with 2–3 colour stops, and move the stops to choose where the shadow starts. Search "Blender toon shader EEVEE" for video walk-throughs.</p></details>
+<details><summary>✏️ Cartoon outlines ("inverted hull")</summary>
+<ol>
+<li>On the body, add a second material slot (the <b>+</b> next to the material list) with a new dark material, e.g. an Emission shader in dark purple. In that material's <b>Settings</b>, tick <b>Backface Culling</b> (the <b>Camera</b> option).</li>
+<li>Add a <b>Solidify</b> modifier to the body. Set Thickness to about 0.01–0.03 and <b>Offset</b> to 1, tick <b>Flip</b> (under Normals), and set <b>Material Offset</b> to 1.</li>
+<li>You now have a thin dark outline that follows the character, even when it's rigged and animated. If the outline appears <i>inside</i> the body, flip the sign of Thickness.</li>
+</ol>
+<p>Alternative: a <b>Line Art</b> Grease Pencil object (<kbd>Shift</kbd>+<kbd>A</kbd> → Grease Pencil → Scene Line Art).</p></details>
+<details><summary>🧶 Felt / plush look</summary>
+<p>Add a little <b>Sheen</b> in the Principled BSDF, plus a subtle <b>Noise Texture</b> plugged into a <b>Bump</b> node that feeds the Normal input. It reads as fabric without rendering real fur.</p></details>
+
+<h3>9.3 Colour tips</h3>
+<ul>
+<li>Background: a slightly <b>contrasting pastel</b> (pink character → mint or sky background).</li>
+<li><b>Colour management</b> (Render Properties → Color Management → View Transform). The default <b>AgX</b> gives gentle, film-like colours for lit 3D scenes, but it shifts the colours you pick. For the flat toon look, or if a colour must match exactly (a client's brand colour), switch to <b>Standard</b>.</li>
+<li>Stick to the same palette in every Reel. Viewers learn to recognise your videos by colour alone.</li>
+</ul>
+</section>
+
+<!-- ============================ 10 ============================ -->
+<section id="rig">
+<h2>10 · Rigging (making your character movable)</h2>
+<p>A <b>rig</b> is the set of controls you animate with: an invisible skeleton, plus controls for facial expressions. Pick the simplest level that works for your character.</p>
+
+<h3>10.1 Level A: no skeleton at all (blob characters)</h3>
+<ol class="steps">
+<li><b>Move the body's origin to its feet.</b> In Edit Mode, select the lowest centre vertex → <kbd>Shift</kbd>+<kbd>S</kbd> → <b>Cursor to Selected</b>. Back in Object Mode: <b>Object → Set Origin → Origin to 3D Cursor</b>. Then <kbd>Shift</kbd>+<kbd>C</kbd> to put the 3D cursor back. Now scaling squashes the character <i>onto the floor</i> instead of towards its middle.</li>
+<li><b>Parent</b> the eyes, cheeks and mouth to the body: select them all, <kbd>Shift</kbd>-click the body <b>last</b>, then <kbd>Ctrl</kbd>+<kbd>P</kbd> → Object. Now they move and squash with it.</li>
+<li><b>Squash &amp; stretch:</b> animate the body's <b>Scale</b> (e.g. Z 0.8, X/Y 1.12 for a squash). Keep the volume roughly constant: when it gets shorter, it gets wider.</li>
+<li><b>Jelly wobble (optional):</b> add a <b>Lattice</b> (<kbd>Shift</kbd>+<kbd>A</kbd> → Lattice), scale it around the character, and give the body <i>and</i> the eyes, cheeks and mouth a <b>Lattice</b> modifier pointing at it, so they all wobble together. Animate the lattice points in its Edit Mode.</li>
+</ol>
+
+<h3>10.2 Level B: a simple skeleton (chibi animals)</h3>
+<ol class="steps">
+<li>Object Mode → <kbd>Shift</kbd>+<kbd>A</kbd> → <b>Armature</b>. It adds one bone. Tick <b>In Front</b> (armature tab with the running-figure icon, or the Object tab → <b>Viewport Display</b>) so you can see the bones inside the body.</li>
+<li><kbd>Tab</kbd> into Edit Mode. Move the first bone into the hips and name it <code>root</code>. Select its tip and press <kbd>E</kbd> to extrude a <code>spine</code>, then a <code>head</code> bone.</li>
+<li><b>Arms and legs (one side only):</b> extrude from the spine, press <kbd>Alt</kbd>+<kbd>P</kbd> → <b>Disconnect Bone</b>, and move the new bone (<kbd>G</kbd>) to the shoulder or hip. Name them with a <code>.L</code> ending, e.g. <code>arm.L</code>, <code>leg.L</code>. Then select all bones (<kbd>A</kbd>) and use <b>Armature → Symmetrize</b> to create the <code>.R</code> side.</li>
+<li>In Object Mode, select the <b>body mesh (and limb meshes)</b>, then the <b>armature</b> last → <kbd>Ctrl</kbd>+<kbd>P</kbd> → <b>With Automatic Weights</b>. In the body's modifier list, drag the <b>Armature</b> modifier above Subdivision Surface if it isn't already (it's faster).</li>
+<li>Test it: select the armature → <b>Pose Mode</b> (<kbd>Ctrl</kbd>+<kbd>Tab</kbd>) and rotate bones with <kbd>R</kbd>. If a part moves wrongly, fix it in <b>Weight Paint</b> mode (red = fully follows the bone, blue = ignores it).</li>
+<li><b>Rigid parts</b> (eyes, hat) can simply follow one bone: select the object, <kbd>Shift</kbd>-click the armature, enter Pose Mode, click the bone, then <kbd>Ctrl</kbd>+<kbd>P</kbd> → <b>Bone</b>.</li>
+<li><b>Look-at eyes</b> (works best with round eyeballs): add an <b>Empty</b> in front of the face and give each eye a <b>Damped Track</b> constraint targeting it. If an eye spins the wrong way, change the constraint's <b>Track Axis</b> (usually to −Y). Move the empty and the eyes follow it, which is great for "looks at the camera" moments. For flat sticker eyes, just slide them a little across the face instead.</li>
+</ol>
+
+<h3>10.3 Level C: Rigify (full characters, later)</h3>
+<p>Blender ships with <b>Rigify</b>: enable it in Preferences → Add-ons. Add a meta-rig, fit it to your character, and click <b>Generate Rig</b> to get pro-level controls. It's great, but overkill for blobs and chibis at the start.</p>
+
+<h3 id="faces">10.4 Facial expressions (all levels)</h3>
+<p><b>Blinks with separate eye objects (easiest):</b> animate the eye's <b>Scale Z</b>, from 1 down to about 0.1 and back. It works surprisingly well.</p>
+<p><b>Shape keys</b>, for anything that's part of a mesh (a sculpted mouth, brows, cheeks puffing):</p>
+<ol class="steps">
+<li>Select the mesh → <b>Object Data (green triangle) → Shape Keys → +</b>. The first key is <code>Basis</code> (the neutral face). Click <b>+</b> again to add a new key and rename it, e.g. <code>smile</code>.</li>
+<li>With <code>smile</code> selected, <kbd>Tab</kbd> into Edit Mode, move the vertices into a smile, and Tab out.</li>
+<li>The key's <b>Value</b> slider (0 → 1) now morphs between neutral and smile. Hover over the slider and press <kbd>I</kbd> to keyframe it.</li>
+<li>A good starter set: <code>smile</code>, <code>mouth_O</code> (surprise), <code>sad</code>, <code>cheeks_puff</code>. Curves (like the easy mouth in §8.4) can have shape keys too.</li>
+</ol>
+<p><b>Expression-swap trick</b> (anime-style ^_^, &gt;_&lt;, T_T eyes): model each alternative eye shape as a small separate object, parent it to the head, and start it at <b>Scale 0</b>. To swap expressions, keyframe the normal eye to Scale 0 and the ^_^ eye to Scale 1 on the same frame, and set those keys to <b>Constant</b> (<kbd>T</kbd> in the Dope Sheet) so the change is instant. It's quick and very expressive.</p>
+<div class="note tip"><b class="t">2D faces are a legit shortcut</b>Many cute channels use <b>drawn</b> faces (Grease Pencil, <a href="#doodles">§11.8</a>). You can mix them: a 3D body with a 2D face.</div>
+<p><b>Save the finished character as <code>CHAR_&lt;name&gt;_v01.blend</code></b> and build it into your studio template (<a href="#pipeline">§17</a>). To bring it into another file, use <b>File → Append</b>.</p>
+</section>
+
+
+<!-- ============================ 11 ============================ -->
+<section id="animate">
+<h2>11 · Animation: making it alive</h2>
+<p>A <b>keyframe</b> is a saved pose at a specific frame. Blender fills in the frames between keyframes automatically (this is called <b>interpolation</b>). Animation means choosing <i>which poses</i> and <i>when</i>. The craft is in the timing.</p>
+
+<h3>11.1 See the difference yourself</h3>
+<div class="demo-row">
+  <figure class="demo"><div class="mini"><div class="ball linear"></div><div class="g"></div></div><figcaption>❌ <b>Linear:</b> same speed all the time. Looks robotic.</figcaption></figure>
+  <figure class="demo"><div class="mini"><div class="ball eased"></div><div class="g"></div></div><figcaption>🙂 <b>Gravity timing:</b> fast near the ground, slow at the top. Believable.</figcaption></figure>
+  <figure class="demo"><div class="mini"><div class="ball cute"></div><div class="g"></div></div><figcaption>🥰 <b>+ anticipation, squash &amp; stretch, overshoot:</b> cute.</figcaption></figure>
+</div>
+<p class="src">Your first cube (<a href="#firstwin">§6.5</a>) looked floaty because Blender's default easing slows down at <i>every</i> key, including at the ground. Real things hit the ground fast. The fix is in §11.4.</p>
+
+<h3>11.2 The 8 principles that matter most for cute</h3>
+<p class="src">These come from the "12 principles of animation" described by the Disney animators Ollie Johnston and Frank Thomas in <i>The Illusion of Life</i>.</p>
+<div class="table-wrap"><table>
+<tr><th>Principle</th><th>Meaning</th><th>Cute example</th></tr>
+<tr><td><b>Squash &amp; stretch</b></td><td>Soft things deform when they move or hit something, keeping the same volume</td><td>Squash before a hop, stretch while moving fast, squash on landing</td></tr>
+<tr><td><b>Anticipation</b></td><td>A small opposite move before the main action</td><td>Crouch down before jumping, lean back before a sneeze</td></tr>
+<tr><td><b>Timing</b></td><td>Number of frames = weight and emotion</td><td>Fast = light and excited, slow = sleepy and sad</td></tr>
+<tr><td><b>Slow in / slow out</b></td><td>Things speed up and slow down gradually, <i>except</i> at impacts</td><td>A soft hang at the top of a jump, a sharp hit at the bottom</td></tr>
+<tr><td><b>Overshoot &amp; settle</b></td><td>Go a little past the final pose, then come back</td><td>A head turn goes 10° too far, then wobbles back</td></tr>
+<tr><td><b>Follow-through / overlap</b></td><td>Loose parts (ears, tail, hat) lag behind and keep moving after the body stops</td><td>Ears flop 2–4 frames after the head</td></tr>
+<tr><td><b>Secondary action</b></td><td>A small extra action that supports the main one</td><td>A blink or a tail wag during a pause</td></tr>
+<tr><td><b>Appeal &amp; exaggeration</b></td><td>Push poses further than reality</td><td>A "shocked" pose where the whole body stretches up</td></tr>
+</table></div>
+
+<h3>11.3 Setting up for animation</h3>
+<ol class="steps">
+<li>Output Properties (printer icon) → Format: <b>Frame Rate 30 fps</b>. It works everywhere, and 30 is Instagram's recommended minimum. Use it for every Reel.</li>
+<li>Set the frame range in the Timeline: <b>Start 1</b>, <b>End = seconds × 30</b> (e.g. 8 s → 240). For loops, see the loop rule in §11.5.</li>
+<li>Switch to the <b>Animation</b> workspace tab. It has the <b>Dope Sheet</b> (keyframes as diamonds) and a camera view.</li>
+<li>Film <b>yourself</b> on your iPhone acting the move out (hop, flinch, dance). Real reference makes animation much better, even for a blob.</li>
+<li>Optional: the round ● <b>Auto Keying</b> button in the Timeline records a key every time you change something. It's handy, but remember to turn it off so you don't create keys by accident.</li>
+</ol>
+
+<h3 id="hop">11.4 Your first character animation: the "jelly hop" (30 fps, Level A rig)</h3>
+<p>The body's origin is at its feet (<a href="#rig">§10.1</a>). Select the body. At each frame below, type the values into the N-panel, then hover over the Location row and press <kbd>I</kbd>, and do the same over the Scale row:</p>
+<div class="table-wrap"><table>
+<tr><th>Frame</th><th>Pose</th><th>Location Z</th><th>Scale X and Y</th><th>Scale Z</th></tr>
+<tr><td>1</td><td>Rest</td><td>0</td><td>1.00</td><td>1.00</td></tr>
+<tr><td>6</td><td><b>Anticipation</b> squash</td><td>0</td><td>1.18</td><td>0.78</td></tr>
+<tr><td>9</td><td>Launch stretch</td><td>0.3</td><td>0.88</td><td>1.18</td></tr>
+<tr><td>17</td><td>Top of the jump (a little hang time)</td><td>1.2</td><td>1.00</td><td>1.00</td></tr>
+<tr><td>23</td><td>Falling stretch</td><td>0.25</td><td>0.90</td><td>1.12</td></tr>
+<tr><td>25</td><td><b>Landing</b> squash</td><td>0</td><td>1.22</td><td>0.75</td></tr>
+<tr><td>29</td><td>Overshoot (a bit tall)</td><td>0</td><td>0.96</td><td>1.06</td></tr>
+<tr><td>33</td><td>Settle</td><td>0</td><td>1.00</td><td>1.00</td></tr>
+<tr><td>45</td><td>Hold, identical to frame 1</td><td>0</td><td>1.00</td><td>1.00</td></tr>
+</table></div>
+<p>Location Z is in metres. Scale it to your character: a good hop is about one body-height. Keep Location X and Y at 0.</p>
+<ol class="steps">
+<li><b>Fix the floatiness (important).</b> Open a <b>Graph Editor</b> (change any panel's editor type). In the channel list on the left, click <b>Z Location</b>, press <kbd>Shift</kbd>+<kbd>H</kbd> to hide the other curves, and press <kbd>Home</kbd> to fit the view. Select the keys at <b>frames 6 and 25</b> (where the character leaves and hits the ground) and press <kbd>V</kbd> → <b>Vector</b>. The curve now has sharp corners at the ground (fast take-off and impact) and a soft, rounded top (hang time). <kbd>Alt</kbd>+<kbd>H</kbd> shows the other curves again.</li>
+<li><b>Set the loop:</b> set the Timeline <b>End to 44</b>, one frame before the repeated pose, so it loops without a stutter.</li>
+<li><b>Add a blink</b> during the hold, on the eyes' Scale Z: frame 36 → 1.0, frame 38 → 0.1, frame 39 → 0.1, frame 42 → 1.0.</li>
+<li><b>Ears / limbs:</b> copy the body's timing but <b>shift it 2–3 frames later</b> in the Dope Sheet. That's follow-through.</li>
+<li>The floor shadow from your lights shrinks automatically while the character is in the air. That's a nice free detail.</li>
+</ol>
+
+<h3>11.5 The pro workflow: block → spline → polish</h3>
+<ol class="steps">
+<li><b>Blocking:</b> key only the main poses. In the Dope Sheet select all keys (<kbd>A</kbd>) → <kbd>T</kbd> → <b>Constant</b>, so poses "pop" from one to the next. Judge only the <b>poses and timing</b>. Is the story clear?</li>
+<li><b>Retiming:</b> in the Dope Sheet, <kbd>G</kbd> moves the selected keys and <kbd>S</kbd> spreads or squeezes them (making that part slower or faster).</li>
+<li><b>Splining:</b> select all → <kbd>T</kbd> → <b>Bézier</b>. Blender now makes smooth in-betweens. It will feel floaty at first. That's normal.</li>
+<li><b>Polish in the Graph Editor.</b> Each curve shows one value over time: steep = fast, flat = slow or still. Make contacts <b>snappy</b> (<kbd>V</kbd> → Vector, as in §11.4) and hang time <b>soft</b> (rounded tops).</li>
+<li><b>The loop rule:</b> for a seamless loop, make the <b>last key identical to the first</b> (copy it with <kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd> in the Dope Sheet), and set the Timeline End to <b>one frame before</b> that last key. For endless repeating motion (breathing, idle bounce), select the curves in the Graph Editor and press <kbd>Shift</kbd>+<kbd>E</kbd> → <b>Make Cyclic</b>.</li>
+<li><b>Hold poses:</b> keep important expressions on screen for at least <b>15 frames (½ s)</b> so viewers can read them. Add a tiny movement (breathing, a 1% scale pulse) so the hold doesn't look frozen.</li>
+</ol>
+
+<h3>11.6 Timing cheat sheet (at 30 fps)</h3>
+<div class="table-wrap"><table>
+<tr><th>Action</th><th>Frames</th><th>Action</th><th>Frames</th></tr>
+<tr><td>Blink (close → open)</td><td>5–7</td><td>Small hop</td><td>20–30 total</td></tr>
+<tr><td>Head turn</td><td>6–10 (+4 to settle)</td><td>Surprised "take"</td><td>4 anticipation, 2–3 to the extreme pose, 10+ hold</td></tr>
+<tr><td>Readable hold</td><td>≥ 15</td><td>Tiny footsteps (pitter-patter)</td><td>4–6 per step</td></tr>
+<tr><td>Sleepy / sad move</td><td>Double the normal</td><td>Excited wiggle</td><td>2–3 per direction</td></tr>
+</table></div>
+
+<h3 id="audio-anim">11.7 Animating to audio (trending sounds, lip-sync, beats)</h3>
+<ol class="steps">
+<li>Cut your audio clip first (Audacity) to the exact length and export it as <b>WAV</b>.</li>
+<li>In Blender, open a <b>Video Sequencer</b> editor and use <b>Add → Sound</b>. Place the strip at frame 1. Turn on waveforms (in the Sequencer's overlay settings) to see the peaks.</li>
+<li>In the Timeline's <b>Playback</b> menu, set <b>Sync</b> to <b>Sync to Audio</b> and tick <b>Scrubbing</b> so you hear the sound while dragging through time.</li>
+<li>Play it and press <kbd>M</kbd> on every beat or syllable to drop a <b>marker</b>. Name the important ones (Marker menu → Rename Marker), like "BOOM" or "huh".</li>
+<li>Put the key poses <b>on</b> the markers. Accents look best when the pose lands <b>1–2 frames before</b> the sound: the picture should lead and the sound follow, never the other way round.</li>
+<li><b>Lip-sync basics:</b> you don't need every sound. Use 3 mouth shapes: <b>closed</b> (M, B, P), <b>open</b> (A), <b>round</b> (O/U). Open on loud syllables, close on pauses. Cute characters read better with <i>less</i> mouth movement.</li>
+<li>The audio in Blender is only there for timing. Mixing happens at the finishing stage (<a href="#edit">§15</a>).</li>
+</ol>
+
+<h3 id="doodles">11.8 Cartoon doodles: hearts, sparkles, sweat drops, "!" (Grease Pencil)</h3>
+<p>These little 2D symbols (animators call them <i>emanata</i>) add a lot of cuteness for very little work.</p>
+<ol class="steps">
+<li>Look through the camera (<kbd>Numpad 0</kbd>). <kbd>Shift</kbd>+<kbd>A</kbd> → <b>Grease Pencil → Blank</b> (called "Empty" in some versions). Name it <code>fx_heart</code>.</li>
+<li>Switch to <b>Draw Mode</b> (mode menu, top left). In the header, set stroke placement to <b>Origin</b> and the drawing plane to <b>View</b>, so strokes are drawn flat and facing the camera.</li>
+<li>Pick a colour (Material tab or the colour swatch) and draw a heart with the mouse or a tablet. Make separate objects for other symbols: <code>fx_sweat</code>, <code>fx_exclaim</code>, <code>fx_sparkle</code>.</li>
+<li>Back in Object Mode, parent each one to the character (<kbd>Ctrl</kbd>+<kbd>P</kbd> → Object) so it follows along.</li>
+<li><b>Animate the object, not the drawing:</b> Scale 0 → 1.25 over 3 frames → 1.0 two frames later (a "pop"), float up a little over about 15 frames, then shrink back to 0 over 3 frames. Put a tiny "pop" or "ting" sound on the frame it appears.</li>
+<li>For frame-by-frame 2D animation (e.g. a wiggling steam line), turn on <b>Auto Keying</b> first. Grease Pencil only creates a new drawing frame when Auto Keying is on. Otherwise new strokes are added to the previous drawing.</li>
+</ol>
+</section>
+
+<!-- ============================ 12 ============================ -->
+<section id="camera">
+<h2>12 · Camera, lighting &amp; vertical framing</h2>
+<h3>12.1 Vertical camera</h3>
+<ol class="steps">
+<li>Output Properties → Format: <b>Resolution X 1080, Y 1920</b> (9:16), at 100%.</li>
+<li>Select the camera → Camera properties → <b>Focal Length 50–85 mm</b>. Longer lenses flatter cute faces. Use a wide lens (20–24 mm) close to the face for comic "fish-eye" shots.</li>
+<li>Orbit your normal view until the shot looks good, then press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Numpad 0</kbd> to move the camera there.</li>
+<li><b>Fine-tune like a phone camera:</b> press <kbd>N</kbd> → <b>View</b> tab → tick <b>Lock → Camera to View</b>. While you're looking through the camera (<kbd>Numpad 0</kbd>), orbiting and zooming now move the camera itself. Untick it when you're done.</li>
+<li>Camera properties → <b>Viewport Display → Composition Guides</b>: turn on Thirds and Center to help with framing.</li>
+<li>Put the camera at the character's <b>eye level</b> or slightly above. Looking <i>down</i> at a character makes it look small and cute. Looking up makes it look heroic.</li>
+</ol>
+
+<h3>12.2 Safe zones: where the app's buttons will cover your video</h3>
+<div class="phone" role="img" aria-label="Diagram of vertical safe zones">
+  <div class="z top">top 14%: username, tabs</div>
+  <div class="z left"></div><div class="z right"></div>
+  <div class="z btns" title="like, comment and share buttons">♥</div>
+  <div class="z bottom">bottom 35%: caption, audio, profile</div>
+  <div class="safe">Keep the face, the gag &amp; any text in here</div>
+</div>
+<p>Meta's vertical safe-zone guidance for Reels: keep important content out of the <b>top 14%</b>, the <b>bottom 35%</b> and <b>6% on each side</b>. The like/comment/share buttons (♥ in the diagram) sit on the right just above the bottom band, so keep faces centred or slightly left. YouTube Shorts' overlays are similar. Always preview on your phone before posting.</p>
+<p class="src">Source: Meta's 9:16 placement guidance as summarised by <a href="https://adsuploader.com/blog/meta-ads-safe-zones">AdsUploader</a> and <a href="https://www.lucidmedia.co.nz/blog/instagram-facebook-ad-safe-zones-2026/">Lucid Media</a>. Content was rephrased for compliance with licensing restrictions.</p>
+
+<h3>12.3 Soft "toy product-shot" lighting (3 lights)</h3>
+<ol class="steps">
+<li>Delete the default light. <kbd>Shift</kbd>+<kbd>A</kbd> → Light → <b>Area</b> lights give soft, flattering shadows.</li>
+<li><b>Key light:</b> front-left, a bit above, big (Size 2–3 m), warm white, about 2–3 m from the character. Start around <b>300–600 W</b>.</li>
+<li><b>Fill light:</b> front-right, about ⅓ the power of the key, slightly cool. It softens the shadows.</li>
+<li><b>Rim light:</b> behind the character, pointing at its back edges, about as strong as the key. The bright outline it creates separates the character from the background. It's the secret to a "premium" look.</li>
+<li><b>World:</b> World properties → Color: a soft pastel, strength about 0.5–1, for gentle all-round light.</li>
+<li>Too dark or too bright? Change the lights' <b>Power</b>, or use Render Properties → Color Management → <b>Exposure</b>.</li>
+</ol>
+<h3>12.4 The curved backdrop ("cyclorama")</h3>
+<ol class="steps">
+<li><kbd>Shift</kbd>+<kbd>A</kbd> → Mesh → <b>Plane</b>, then <kbd>S</kbd> <kbd>10</kbd>. <kbd>Tab</kbd> into Edit Mode and switch to edge select.</li>
+<li>Click the edge farthest from the camera and press <kbd>E</kbd> <kbd>Z</kbd> <kbd>6</kbd> to extrude a back wall.</li>
+<li>Select the edge where the floor meets the wall, press <kbd>Ctrl</kbd>+<kbd>B</kbd> and move the mouse to bevel it. Scroll up to about 10 segments for a smooth curve.</li>
+<li><kbd>Tab</kbd> out → right-click → Shade Smooth. Give it your background colour. With no horizon line, it looks like a toy photo studio.</li>
+</ol>
+<h3>12.5 Depth of field (the blurry background)</h3>
+<p>Camera properties → <b>Depth of Field</b> ON, <b>Focus on Object</b> = the character's head, F-Stop around <b>1–2.8</b> (lower = blurrier). A blurry background makes things look tiny and toy-like. Very cute.</p>
+</section>
+
+<!-- ============================ 13 ============================ -->
+<section id="render">
+<h2>13 · Rendering (turning the scene into video)</h2>
+<div class="table-wrap"><table>
+<tr><th></th><th>EEVEE ✅ start here</th><th>Cycles</th></tr>
+<tr><td>How it works</td><td>Real-time, game-engine style</td><td>Physically accurate ray-tracing</td></tr>
+<tr><td>Speed</td><td>Seconds per frame</td><td>Tens of seconds to minutes per frame</td></tr>
+<tr><td>Look</td><td>Great for stylised / toon / clay</td><td>Best for realistic light, glass, soft shadows</td></tr>
+<tr><td>Basic laptop?</td><td>Fine</td><td>Painful</td></tr>
+</table></div>
+<h3>13.1 Before every render</h3>
+<ul>
+<li>Render Properties → Render Engine: <b>EEVEE</b>. Render samples <b>32–64</b>.</li>
+<li>Output Properties: <b>1080 × 1920</b> at 100%, <b>30 fps</b>, the correct Start/End frames.</li>
+<li>Press <kbd>F12</kbd> to test-render one frame. Check it (lighting, safe zones, nothing hidden by mistake). Close the window.</li>
+<li>Optional: Render Properties → <b>Motion Blur</b> smooths very fast moves. Compare with and without, since it's partly a style choice.</li>
+</ul>
+<h3>13.2 Option A: straight to MP4 (best for your first Reels)</h3>
+<ol class="steps">
+<li>Output Properties → Output: set the path to <code>//render/reel_</code> (the <code>//</code> means "next to your .blend file").</li>
+<li><b>File Format: FFmpeg Video</b> → Container <b>MPEG-4</b>, Video Codec <b>H.264</b>, quality <b>High</b> (menu names vary slightly between versions).</li>
+<li><b>Render → Render Animation</b> (<kbd>Ctrl</kbd>+<kbd>F12</kbd>). Short EEVEE clips take minutes. If Blender crashes, just render again.</li>
+</ol>
+<h3>13.3 Option B: a PNG image sequence (for longer or heavier renders)</h3>
+<ol class="steps">
+<li>Output path <code>//render/</code>, <b>File Format: PNG</b>. Blender saves one image per frame.</li>
+<li>Render Animation. If Blender crashes at frame 180, you keep frames 1–179. Set the Start frame to 180 and continue.</li>
+<li>Combine the frames into a video in Resolve (<a href="#edit">§15, Route B</a>).</li>
+</ol>
+<p>Rough time: 240 frames × 3–10 s per frame in EEVEE ≈ 12–40 minutes on a mid-range laptop. Render while you eat or sleep.</p>
+<div class="note tip"><b class="t">Instant previews</b>For timing checks, use <b>View → Viewport Render Animation</b> in the 3D viewport. It records exactly what the viewport shows, in seconds.</div>
+</section>
+
+<!-- ============================ 14 ============================ -->
+<section id="sound">
+<h2>14 · Sound: the other 50% of cute</h2>
+<p>Play a cute animation muted and it drops from 10/10 to 6/10. Pio-style channels lean on trending audio and small, perfectly timed sound effects. Sound is <b>not</b> an afterthought.</p>
+
+<h3>14.1 The four sound layers</h3>
+<div class="table-wrap"><table>
+<tr><th>Layer</th><th>Examples</th><th>Tips</th></tr>
+<tr><td><b>Sound effects (SFX)</b></td><td>pop, boing, squeak, pitter-patter, whoosh, sparkle "ting", bubble, munch, thud</td><td>Put one on almost <i>every</i> action. Softer and higher-pitched = cuter.</td></tr>
+<tr><td><b>Character voice</b></td><td>Gibberish "mip!", "hehe", gasps, sighs, sneezes</td><td>Your own voice, pitched up (§14.3). No real words means it works in every language, like Pingu.</td></tr>
+<tr><td><b>Music bed</b></td><td>Light ukulele, glockenspiel, lo-fi</td><td>Keep it quiet under the SFX</td></tr>
+<tr><td><b>Trending audio</b></td><td>A popular meme sound or song clip</td><td>Add it <b>inside the Instagram or Edits app</b> from its library, not baked into your exported file (see §14.4)</td></tr>
+</table></div>
+
+<h3>14.2 Build a starter SFX library (30 sounds)</h3>
+<ol class="steps">
+<li><b>Edits' built-in sound effects</b>: the quickest option if you finish on the phone.</li>
+<li><b>Pixabay Sound Effects</b> (pixabay.com/sound-effects): free under Pixabay's content licence. Search "cartoon boing", "pop", "squeak", "cute". Keep each download page link, because occasionally a Pixabay <i>music</i> track triggers a YouTube Content ID claim and the link helps you dispute it.</li>
+<li><b>Freesound.org</b>: a huge library, but <b>each sound has its own licence</b>. <code>CC0</code> = use freely. <code>CC-BY</code> = you must credit the author (in the caption or description). <b>Avoid</b> <code>CC-BY-NC</code> (non-commercial) because you plan to earn.</li>
+<li><b>YouTube Audio Library</b> (YouTube Studio → Audio Library): free music and SFX for your YouTube videos.</li>
+<li><b>Record your own (foley) with iPhone Voice Memos</b>: free, 100% yours, and unique. Pop your lips (a cute "pop"), flick a water bottle, crinkle a chip packet, tap fingernails on a table (tiny footsteps), squeeze bubble wrap, twang a rubber band ("boing"). Record under a blanket to kill the echo.</li>
+<li>Save everything into folders (<code>SFX/pops</code>, <code>SFX/boings</code>, <code>SFX/steps</code>, <code>SFX/voice</code>…) and note where each file came from in <code>LICENCES.txt</code>.</li>
+</ol>
+
+<h3>14.3 Make your character's voice (Audacity)</h3>
+<ol class="steps">
+<li>Record yourself saying gibberish lines, gasps and giggles (the red Record button). Do 5 takes of each. You can also record on the iPhone and copy the file across.</li>
+<li><b>Remove background hiss:</b> select a silent bit → <b>Effect → Noise Removal and Repair → Noise Reduction → Get Noise Profile</b>. Then select everything and apply Noise Reduction.</li>
+<li><b>Effect → Pitch and Tempo → Change Pitch</b>: raise it by <b>+4 to +8 semitones</b>. More than that gets chipmunk-y. Find what suits your character and <b>always use the same value</b>, so the voice is recognisable.</li>
+<li>Optionally speed it up slightly (Change Tempo +5–10%).</li>
+<li><b>File → Export Audio → WAV</b>.</li>
+</ol>
+
+<h3>14.4 Music licensing: the rules that protect your account</h3>
+<div class="note warn"><b class="t">Important</b>
+<ul>
+<li><b>Instagram:</b> songs from the in-app music library are licensed for use <i>inside Meta's apps</i>. <b>Business accounts</b> get a smaller library, and branded or paid-partnership posts need properly cleared music. So choose a <b>Creator</b> account (<a href="#publish">§18</a>).</li>
+<li><b>Never reuse an Instagram/Edits export containing a licensed song on YouTube.</b> Content ID will match it, and the money can go to the rights holder or the video can be blocked. For YouTube, export a version with only your own sounds, then add music with YouTube's own tools or from the YouTube Audio Library.</li>
+<li>There's <b>no "10-second rule"</b>. Short clips of copyrighted music are still copyrighted.</li>
+<li><b>Best long-term play:</b> original sounds. If your character's "mip!" becomes a sound other people use, its sound page on Instagram links back to <i>you</i>. That's free promotion.</li>
+</ul></div>
+</section>
+
+<!-- ============================ 15 ============================ -->
+<section id="edit">
+<h2>15 · Finishing the Reel / Short</h2>
+<p>Pick the route that fits the week. Most weeks, Route A is plenty.</p>
+
+<h3>15.1 Route A: finish on your iPhone with Edits (simplest)</h3>
+<ol class="steps">
+<li>Render straight to MP4 (<a href="#render">§13.2</a>). Send it to the iPhone with AirDrop (Mac), or through Google Drive / Google Photos (Windows).</li>
+<li>Open <b>Edits</b> → new project → import the MP4.</li>
+<li>Add SFX on each action: step through with the timeline and place each sound on the <b>impact frame, or one frame after</b>. Sound arriving <i>before</i> the action feels wrong.</li>
+<li>Add hook text inside the safe zone (<a href="#camera">§12.2</a>) in a rounded bold font, white with a dark outline. Keep it on screen for about 1 s per 3–4 words.</li>
+<li>If there's voice or words, turn on auto-captions and correct any mistakes.</li>
+<li>Watch the loop on repeat. Does the end flow into the start?</li>
+<li><b>Two versions:</b> post to Instagram with any trending audio added in-app. For YouTube, export a version with only your own sounds (§14.4).</li>
+</ol>
+
+<h3>15.2 Route B: DaVinci Resolve on the laptop (precise control)</h3>
+<ol class="steps">
+<li><b>Project set-up (once):</b> Project Manager → <b>New Project</b> ("Channel_Reels"). Gear icon (bottom right) → <b>Master Settings</b>: Timeline resolution <b>1920×1080 HD</b> and tick <b>Use vertical resolution</b> (it becomes 1080×1920), or choose Custom and type 1080 × 1920. Timeline frame rate <b>30</b>. Set this <b>before</b> importing anything, because the frame rate can't be changed once the timeline has clips.</li>
+<li><b>Import:</b> for an MP4, drag it into the Media Pool. For a PNG sequence, go to the <b>Media</b> page → Media Storage panel → <b>⋯</b> menu → <b>Frame Display Mode → Sequence</b>, then drag the render folder in. It arrives as one clip.</li>
+<li><b>Edit</b> page → drag the clip onto the timeline. Put audio on separate tracks: A1 voice, A2 SFX, A3 music.</li>
+<li>Line up every SFX frame by frame (<kbd>←</kbd> / <kbd>→</kbd> step one frame): on the impact frame, or one frame after.</li>
+<li><b>Text:</b> Effects → Titles → <b>Text+</b>, inside the safe zone.</li>
+<li><b>Fairlight</b> page (audio): watch the <b>Loudness</b> meter. A common short-form target is about <b>−14 LUFS integrated</b> with peaks no higher than about −1 dBTP. Rough mix: voice loudest, SFX a little under, music well under.</li>
+<li><b>Loop check:</b> set in and out points at the start and end and play on loop (<kbd>Ctrl</kbd>+<kbd>/</kbd>).</li>
+<li><b>Deliver</b> page → Custom: <b>MP4, H.264</b>, 1080×1920, 30 fps, about <b>10–16 Mb/s</b>, audio <b>AAC</b>. Add to Render Queue → Render All.</li>
+<li>Copy it to your iPhone and <b>watch it on the phone</b> before posting. That's how your audience sees it.</li>
+</ol>
+<div class="note info"><b class="t">Platform specs at a glance (Sept 2026)</b>9:16, 1080×1920, H.264 + AAC, 30 fps. Instagram accepts much longer uploads, but Reels over 3 minutes aren't recommended to non-followers, and YouTube Shorts can be up to 3 minutes. Your micro-animations will be 5–20 s anyway.</div>
+</section>
+
+
+<!-- ============================ 16 ============================ -->
+<section id="ideas">
+<h2>16 · Formats, hooks &amp; 40 ideas</h2>
+<h3>16.1 The micro-animation structure (5–15 seconds)</h3>
+<div class="table-wrap"><table>
+<tr><th>Time</th><th>Beat</th><th>Example (snack-loving blob)</th></tr>
+<tr><td>0–1 s</td><td><b>Hook</b>: something is already happening, plus text</td><td>Close-up of the blob staring at the last cookie. Text: "me at 2 AM"</td></tr>
+<tr><td>1–4 s</td><td><b>Setup</b></td><td>It slowly reaches for the cookie…</td></tr>
+<tr><td>4–8 s</td><td><b>Twist</b></td><td>The sidekick snail grabs it first</td></tr>
+<tr><td>8–12 s</td><td><b>Payoff</b></td><td>A dramatic T_T face plus an over-the-top sad violin sting</td></tr>
+<tr><td>last 1 s</td><td><b>Loop bridge</b></td><td>It turns back to stare at… another cookie (back to frame 1)</td></tr>
+</table></div>
+<p><b>Storyboard it in 6 boxes before touching Blender</b> (10 minutes on paper): draw hook, setup, twist, payoff, loop bridge, plus one box for the key expression. Under each box, write its length in seconds and the sound. If the joke doesn't work as 6 stick-figure boxes, it won't work animated.</p>
+
+<h3>16.2 Eight content pillars (rotate them)</h3>
+<div class="grid">
+<div class="card"><h4>🔥 1. Trend recreation</h4><p>Animate your character to a currently trending sound or meme (Pio does this constantly). Speed matters because trends fade in days, so keep a ready-made "trend template" scene.</p></div>
+<div class="card"><h4>😮‍💨 2. Relatable life</h4><p>Monday mornings, exams, waiting for a food delivery, low phone battery, "5 more minutes". These are the most <b>sendable</b> type.</p></div>
+<div class="card"><h4>👆 3. Interactive</h4><p>"Pause to pick a snack", "tap to wake him up", "play along to the beat". These drive comments and replays.</p></div>
+<div class="card"><h4>🍜 4. Food &amp; ASMR</h4><p>Tiny character + giant food, with crunchy and squishy sounds. Simple, satisfying and understood everywhere.</p></div>
+<div class="card"><h4>🎉 5. Seasonal &amp; festival</h4><p>Diwali lamps, Holi colours, monsoon puddles, Christmas, birthdays. Plan them 2 weeks early.</p></div>
+<div class="card"><h4>👯 6. Duo gags</h4><p>Main character vs. sidekick: sharing, pranks, one sleeping while the other is noisy.</p></div>
+<div class="card"><h4>🔁 7. Perfect loops</h4><p>Idle bounces, sleepy breathing, a dance loop. Cheap to make and great for replays.</p></div>
+<div class="card"><h4>🛠️ 8. Behind the scenes</h4><p>Viewport → final, "how I made this in Blender", the raddoob-style camera cheat, the Kensyouen_Y-style "character notices the animator". These also attract potential clients.</p></div>
+</div>
+
+<h3>16.3 40 starter ideas</h3>
+<details open><summary>Open the list</summary>
+<ol>
+<li>Tries to jump onto the sofa, fails, tries again, overshoots</li>
+<li>Alarm goes off → melts into a puddle</li>
+<li>Wants the chai, too hot, blows on it, it's gone cold, sad</li>
+<li>Monsoon: first raindrop lands on its head, freezes, then joyful puddle stomping</li>
+<li>Phone at 1% battery panic</li>
+<li>"Pause to choose": three snacks slide past fast</li>
+<li>Hiccups where each hiccup makes it hop higher</li>
+<li>Sneeze launches it backwards</li>
+<li>Tries to wink, can only do both eyes</li>
+<li>Waiting for the microwave, staring at the countdown</li>
+<li>Sidekick steals the blanket</li>
+<li>Diwali: lights a sparkler, it's too sparkly, runs away</li>
+<li>Holi: gets hit with colour, becomes a new colour, loves it</li>
+<li>Exam results: opens the envelope, comic suspense, happy flip</li>
+<li>Tries to reach a high shelf, stacks things, wobbly tower</li>
+<li>Dance loop to a trending beat</li>
+<li>Gets a compliment, turns red and shrinks</li>
+<li>Falls asleep mid-bite</li>
+<li>Its reflection copies it wrong</li>
+<li>Lip-sync to a funny trending dialogue</li>
+<li>"Send this to the friend who…" duo moment</li>
+<li>Birthday: blows out the candle, the cake flies away</li>
+<li>Finds a tiny version of itself</li>
+<li>Game: "count the blinks" interactive</li>
+<li>Gets scared by its own shadow</li>
+<li>Monday vs Friday, split screen</li>
+<li>Tries to be scary, is adorable</li>
+<li>Squeezes through a gap that's too small, pops through</li>
+<li>Carries something too heavy with tiny steps</li>
+<li>Bubble bath: too many bubbles</li>
+<li>Rides a food item like a vehicle</li>
+<li>First snow / first time seeing a butterfly</li>
+<li>Kensyouen_Y-style: notices the render bar and tries to rush it</li>
+<li>Wiggles to match the audio waveform</li>
+<li>Gets stuck in a cup</li>
+<li>"Rate my outfit": 3 tiny hats</li>
+<li>Its ears or antenna react before it does (sensing snacks)</li>
+<li>Recreate a famous meme photo with a backstory (the Vossadova format), with your own character</li>
+<li>Speed-model timelapse: "making [name] in 60 seconds"</li>
+<li>Viewer request: "you said 'make him dance', so…" (reply-to-comment Reel)</li>
+</ol></details>
+
+<h3>16.4 Hook-text formulas</h3>
+<ul>
+<li>"me when ___" / "POV: ___"</li>
+<li>"wait for it…" (only when there really is a payoff)</li>
+<li>"send this to your ___"</li>
+<li>"day 12 of animating my blob until it gets famous" (a series hook brings viewers back)</li>
+<li>"pause at the right time to ___"</li>
+</ul>
+</section>
+
+<!-- ============================ 17 ============================ -->
+<section id="pipeline">
+<h2>17 · Your production pipeline</h2>
+<h3>17.1 Build the studio template once</h3>
+<p><code>STUDIO_master.blend</code> contains your character (plus sidekick), the lights, the curved backdrop, the 9:16 camera with depth of field, EEVEE settings, 30 fps, the output path, and a few reusable props. <b>Every Reel starts with File → Save As from this file.</b> This is how one Reel takes 3–6 hours instead of 20.</p>
+
+<h3>17.2 Folder structure</h3>
+<pre style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:1rem;overflow-x:auto"><code>CuteChannel/
+├─ 00_assets/
+│  ├─ characters/   CHAR_momo_v03.blend
+│  ├─ props/
+│  ├─ SFX/          pops/ boings/ steps/ voice/ LICENCES.txt
+│  └─ STUDIO_master.blend
+├─ 01_ideas/        idea_bank.xlsx, teardown.xlsx
+├─ reels/
+│  └─ R012_chai_too_hot/
+│     ├─ R012_v01.blend
+│     ├─ audio/
+│     ├─ render/    reel_0001-0240.mp4 (or 0001.png … 0240.png)
+│     └─ R012_final_IG.mp4, R012_final_YT.mp4
+└─ 99_analytics/    weekly_stats.xlsx</code></pre>
+
+<h3>17.3 What a normal cycle looks like</h3>
+<div class="table-wrap"><table>
+<tr><th>Step</th><th>Light plan: one Reel every 2 weeks (~2.5 h/week)</th><th>Full plan: one Reel a week (~7 h/week)</th></tr>
+<tr><td>Idea, audio, 6-box storyboard</td><td>Week A · 30 min</td><td>Mon · 45 min</td></tr>
+<tr><td>Blocking (key poses)</td><td>Week A · 1 h</td><td>Tue · 1.5 h</td></tr>
+<tr><td>Splining + polish, face, blinks</td><td>Week A · 1 h</td><td>Wed–Thu · 2.5 h</td></tr>
+<tr><td>Render (overnight)</td><td>Week B · 0 h</td><td>Thu night</td></tr>
+<tr><td>Sound + finishing</td><td>Week B · 1 h (Edits)</td><td>Fri · 1 h (Resolve)</td></tr>
+<tr><td>Post + short BTS clip</td><td>Week B · 30 min</td><td>Sat · 45 min</td></tr>
+<tr><td>Comments, stats, 3 new ideas</td><td>Week B · 30 min</td><td>Sun · 30 min</td></tr>
+</table></div>
+<div class="note real"><b class="t">Cadence</b>Consistency beats volume. Posting every day and burning out after a month is the most common way these channels die. Pick a schedule you can keep through busy work weeks, and batch-produce during holidays to build a buffer of 2–4 Reels.</div>
+</section>
+
+<!-- ============================ 18 ============================ -->
+<section id="publish">
+<h2>18 · Publishing &amp; growth</h2>
+<h3>18.1 Account setup</h3>
+<ol class="steps">
+<li><b>Handle:</b> the character's name + a hint, e.g. <code>@momo.the.mango</code> (Pio uses this "name.the.animal" pattern). Check it's free on Instagram and YouTube at the same time.</li>
+<li><b>Instagram:</b> Settings → Account type → <b>Professional → Creator</b>. That gives you analytics and Trial Reels, and Creator accounts keep broader music access than Business accounts.</li>
+<li><b>YouTube:</b> create a channel with the same name. Turn on 2-Step Verification on the Google account (the Partner Program requires it).</li>
+<li><b>Profile picture:</b> the character's face on your brand colour. <b>Bio:</b> who it is + a posting promise, e.g. "Momo 🥭 a tiny mango with big feelings · animated character · new video every Saturday".</li>
+<li><b>Where to post:</b> Instagram Reels + YouTube Shorts (+ Facebook Reels, which you can share to from Instagram). <b>TikTok is banned in India</b>, so skip it.</li>
+</ol>
+
+<h3 id="postcheck">18.2 Posting checklist (every Reel)</h3>
+<ul class="check" data-group="post">
+<li><input type="checkbox" id="p1"><label for="p1">Upload the <b>clean original MP4</b> to each platform. Never repost a downloaded, watermarked copy: Instagram favours originals and limits accounts that mostly repost.</label></li>
+<li><input type="checkbox" id="p2"><label for="p2">Frame 1 is interesting on its own. Choose a cover frame with the face visible.</label></li>
+<li><input type="checkbox" id="p3"><label for="p3">Caption: 1 line + a question or call to action ("which snack would you pick?") + <b>up to 5</b> specific hashtags, which is Instagram's limit since Dec 2025 (e.g. #blender3d #3danimation #cuteanimation + niche ones). Hashtags help categorise a post; they don't boost reach.</label></li>
+<li><input type="checkbox" id="p4"><label for="p4">Trending audio (if used) added in-app, balanced against your SFX. The YouTube version has <b>no</b> Instagram-licensed music.</label></li>
+<li><input type="checkbox" id="p5"><label for="p5">Consider Instagram's <b>Trial Reels</b> to test a Reel on non-followers first</label></li>
+<li><input type="checkbox" id="p6"><label for="p6">YouTube: set the audience correctly ("Made for kids", <a href="#legal">§21</a>). Adding #shorts is optional, since vertical videos up to 3 minutes are treated as Shorts automatically.</label></li>
+<li><input type="checkbox" id="p7"><label for="p7">Sponsored? Turn on the Paid Partnership label and put the disclosure upfront (<a href="#legal">§21</a>)</label></li>
+<li><input type="checkbox" id="p8"><label for="p8">Reply to early comments during the first hour</label></li>
+</ul>
+
+<h3>18.3 Growth habits that actually work</h3>
+<ul>
+<li><b>Series:</b> "Day N of…" or recurring named episodes give people a reason to follow.</li>
+<li><b>Reply-to-comment videos:</b> animate what viewers ask for. It builds community and gives you free ideas.</li>
+<li><b>Collabs:</b> use Instagram's Collab feature with other small animators (their character visits yours).</li>
+<li><b>Community:</b> post work-in-progress on r/blender and BlenderArtists. Other artists share good cute work.</li>
+<li><b>Comments:</b> leave genuine comments on bigger cute-animation accounts. Their audience is your audience.</li>
+<li><b>Timing:</b> post when your followers are most active (Professional Dashboard → Insights → your followers).</li>
+</ul>
+
+<h3 id="analytics">18.4 Read analytics like an animator</h3>
+<div class="table-wrap"><table>
+<tr><th>Metric</th><th>What it tells you</th><th>If it's low</th></tr>
+<tr><td>Skip rate / first 3 seconds</td><td>Is the hook working?</td><td>Start with action and a face in frame 1. Add hook text.</td></tr>
+<tr><td>Average watch time vs. length</td><td>Does the gag hold attention?</td><td>Cut it shorter. Move the twist earlier.</td></tr>
+<tr><td>Replays / loops</td><td>Is it satisfying?</td><td>Improve the loop bridge</td></tr>
+<tr><td><b>Sends / shares per reach</b></td><td>Is it relatable? (a very strong signal)</td><td>Make more "this is so me" topics</td></tr>
+<tr><td>Saves</td><td>Rewatch value</td><td>Loops, satisfying ASMR, tutorials</td></tr>
+<tr><td>Follows per Reel</td><td>Do people want <i>more of this character</i>?</td><td>Make the character's personality stronger and more consistent</td></tr>
+</table></div>
+<p>After each Reel, log it in <code>weekly_stats.xlsx</code>: pillar, length, views, average watch %, sends, follows. After about 10 Reels, patterns appear. Double down on the best pillar.</p>
+<p class="src">Sources: <a href="https://creators.instagram.com/recommendations-and-originality?locale=en_US">Instagram – Recommendations &amp; originality</a>; <a href="https://techcrunch.com/2026/04/30/instagram-restricts-reach-of-content-aggregators-in-new-crackdown/">TechCrunch, 30 Apr 2026 – aggregator crackdown</a>; <a href="https://www.digitaltrends.com/social-media/instagram-now-limits-you-to-five-hashtags-per-post/">Digital Trends – five-hashtag limit</a>; <a href="https://socialsizes.io/instagram-reels-size/">SocialSizes – Reels specs</a>. Content was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<!-- ============================ 19 ============================ -->
+<section id="money">
+<h2>19 · Making money (realistically)</h2>
+<div class="note real"><b class="t">The truth first</b>Platform payouts for short-form are small and slow to unlock. In India, <b>Instagram has no standard per-view payment for Reels</b> (the Reels Play bonus deals for India ended on 9 March 2023). For most small animators, money comes <b>first from clients</b> (mascot and brand animation), then brand deals, and platform revenue last.</div>
+
+<h3>19.1 Income streams, in the order they usually show up</h3>
+<div class="table-wrap"><table>
+<tr><th>#</th><th>Stream</th><th>When it's realistic</th><th>How</th></tr>
+<tr><td>1</td><td><b>Freelance mascot / brand micro-animations</b></td><td>After ~8–15 good posts</td><td>Your channel <i>is</i> your portfolio. Pio is an AI biotech company's mascot, and GitHub animates its mascot in Blender. This is the "brand character systems" path from your command center. Pitch startups, SaaS/AI companies, D2C brands, cafés and edtech: "a cute animated mascot Reel every week". Channels: LinkedIn, direct DMs to brands whose mascot doesn't move yet, Upwork/Fiverr.</td></tr>
+<tr><td>2</td><td><b>Brand deals / sponsored Reels</b></td><td>From a few thousand engaged followers</td><td>The character "uses" a product in a gag, labelled as a paid partnership (<a href="#legal">§21</a>). Small-creator rates in India are low at first. One 2026 Indian rate newsletter quoted ₹300–₹5,000 per Reel for one of its lower tiers, and rates rise with engagement.</td></tr>
+<tr><td>3</td><td><b>Instagram Gifts</b></td><td>Requires a Creator account, age 18+ and an eligible country. Reported follower minimums range from 500 to 10,000 depending on time and region.</td><td>Viewers buy "Stars" and send them on Reels. Each Star pays the creator about $0.01. Check Professional Dashboard → Monetisation to see what's switched on for you.</td></tr>
+<tr><td>4</td><td><b>YouTube Partner Program (ads)</b></td><td>Hard with Shorts only (see the box below)</td><td>Mix in some longer videos (compilations of your Shorts, "how I made it" tutorials), because watch hours are easier to reach than 10–20 million Shorts views.</td></tr>
+<tr><td>5</td><td><b>Digital products</b></td><td>Once you have fans</td><td>Sticker packs of your character, phone wallpapers, a "cute character starter" Blender file or tutorial on Gumroad or Superhive (formerly Blender Market)</td></tr>
+<tr><td>6</td><td><b>Merch &amp; licensing</b></td><td>Later, with a loyal audience</td><td>Stickers, plushies, keychains. Pudgy Penguins shows how far a character brand can go. Only possible with an <b>original</b> character.</td></tr>
+</table></div>
+
+<div class="note info"><b class="t">YouTube monetisation thresholds (checked 26 Sept 2026)</b>
+<ul>
+<li><b>Now:</b> full ad revenue needs <b>1,000 subscribers + either 4,000 public watch hours in 12 months or 10 million public Shorts views in 90 days</b>. A lower tier (500 subscribers, 3 uploads in 90 days, and 3,000 watch hours or 3M Shorts views) unlocks fan funding only: memberships, Super Thanks and similar.</li>
+<li><b>From 1 Feb 2027:</b> <b>new</b> applicants will need <b>8,000 watch hours in 365 days or 20 million Shorts views in 90 days</b>, plus 1,000 subscribers. To earn from the Shorts revenue pool in any month, a channel will also need <b>10M qualified Shorts views over the previous 90 days</b>.</li>
+<li>Takeaway: treat YouTube ads as a bonus, not the plan.</li>
+</ul></div>
+
+<h3>19.2 Pricing your freelance work</h3>
+<p>These are planning estimates for your <b>first few portfolio-building clients</b>, not market benchmarks:</p>
+<div class="table-wrap"><table>
+<tr><th>Offer</th><th>Scope</th><th>International client</th><th>Indian client</th></tr>
+<tr><td>Micro-animation with the client's existing mascot model</td><td>5–10 s, 1 revision, sound included</td><td>$80–$250</td><td>₹4,000–₹15,000</td></tr>
+<tr><td>Custom 3D mascot (design + model + simple rig)</td><td>Character sheet, turnaround, 6 expressions</td><td>$300–$1,200</td><td>₹15,000–₹60,000</td></tr>
+<tr><td>Monthly mascot Reel retainer</td><td>4 Reels a month</td><td>$400–$1,500 / month</td><td>₹20,000–₹60,000 / month</td></tr>
+</table></div>
+<p><b>Graduate to your command-center pricing</b> once you have 3 strong pieces. A mascot-led launch loop for an AI or SaaS company fits the command center's <b>Feature Launch Loop</b> offer ($650 fixed, 5 business days, paid upfront). Its price table puts launch loops at ₹25K–₹55K in India and $650–$1,200 in the US. For receiving foreign payments from India, see the notes in <a href="2026-solo-builder-economics.md">2026-solo-builder-economics.md</a>.</p>
+
+<h3>19.3 A realistic 12-month picture</h3>
+<div class="table-wrap"><table>
+<tr><th>Months</th><th>Focus</th><th>Likely income</th></tr>
+<tr><td>1–3</td><td>Learning + first posts</td><td>₹0</td></tr>
+<tr><td>4–6</td><td>Steady posting, finding your best pillar, a first portfolio page</td><td>₹0 to a first small commission</td></tr>
+<tr><td>7–12</td><td>Consistent channel + actively pitching clients</td><td>Occasional commissions, maybe small brand deals. Platform income usually still tiny.</td></tr>
+<tr><td>12+</td><td>If a character takes off: brand deals, retainers, products</td><td>A wide range. Outcomes on social platforms are very uneven.</td></tr>
+</table></div>
+<p class="src">Sources: <a href="https://support.google.com/youtube/answer/72851">YouTube – YPP eligibility</a>; <a href="https://support.google.com/youtube/answer/12843009">YouTube – Changes to YPP</a>; <a href="https://vidiq.com/blog/post/youtube-partner-program-changes-2027/">vidIQ on the 2027 changes</a>; <a href="https://www.clickanalytic.com/how-much-does-instagram-pay-for-1000-views/">ClickAnalytic on Reels Play ending</a>; <a href="https://www.lilachbullock.com/how-much-does-instagram-pay-for-reels-views-in-india/">Lilach Bullock on Reels pay in India</a>; <a href="https://mediamister.com/blog/instagram-gifts">MediaMister</a> and <a href="https://influencermarketinghub.com/instagram-subscriptions-gifts/">Influencer Marketing Hub</a> on Gifts eligibility; <a href="https://www.theleap.co/blog/instagram-gifts/">The Leap on Star value</a>; <a href="https://verolinkr.substack.com/p/the-exact-brand-deal-rates-indian">Verolinkr on Indian creator rates</a>. Content was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<!-- ============================ 20 ============================ -->
+<section id="ai">
+<h2>20 · Using AI without getting punished</h2>
+<p>AI is useful as an <b>assistant</b> and risky as the <b>author</b>. Feeds in 2025–26 filled up with AI-generated "Pixar-style" cute clips. Your edge is exactly what those clips lack: <b>one consistent original character</b>, <b>deliberate comic timing</b>, and a <b>real making-of story</b>.</p>
+<div class="grid">
+<div class="card"><h4>✅ Good uses</h4><ul>
+<li>Brainstorming gag ideas and hook text</li>
+<li>Explaining Blender errors ("why is my render black?")</li>
+<li>Writing small Blender Python scripts (e.g. "randomise the blink timing")</li>
+<li>Planning, captions, translations</li>
+<li>DaVinci Resolve 21.1 can connect to AI assistants to organise media and batch render</li>
+</ul></div>
+<div class="card"><h4>⚠️ Risky uses</h4><ul>
+<li>Fully AI-generated video presented as your animation</li>
+<li>Mass-producing near-identical Reels from one template</li>
+<li>AI voices cloned from real people</li>
+</ul></div>
+</div>
+<div class="note warn"><b class="t">Platform and legal rules</b>
+<ul>
+<li><b>YouTube</b> renamed its "repetitious content" rule to <b>"inauthentic content"</b> in July 2025. In July 2026 it spelled out three kinds of content that can't earn money: generic, repetitive or template-based content; off-putting or distressing content; and AI personas discussing sensitive topics such as health and finance. Reusing your rig is fine. Posting the same gag 30 times in different colours is not.</li>
+<li><b>Instagram</b> pushes originals and limits accounts that mostly repost.</li>
+<li><b>India:</b> amendments to the IT Rules, in force since 20 Feb 2026, require platforms to label "synthetically generated" audio and video, meaning content made to look real or indistinguishable from real people or events. Your obviously-cartoon Blender work isn't that. If you ever post realistic AI footage, declare it when the app asks.</li>
+</ul></div>
+<p class="src">Sources: <a href="https://support.google.com/youtube/answer/1311392">YouTube – channel monetisation policies</a>; <a href="https://techcrunch.com/2026/07/20/youtube-clarifies-policies-around-ai-slop-and-upsetting-videos/">TechCrunch, 20 Jul 2026</a>; <a href="https://www.lexology.com/library/detail.aspx?g=3e894ffc-4e0b-4487-a5e9-015d490d45d3">Lexology on India's IT Amendment Rules 2026</a>; <a href="https://zoviz.com/blog/how-to-create-instagram-viral-3d-character">Zoviz on the AI 3D-character trend</a>; <a href="https://www.cgchannel.com/2026/09/blackmagic-design-releases-resolve-21-1/">CG Channel on Resolve 21.1</a>. Content was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<!-- ============================ 21 ============================ -->
+<section id="legal">
+<h2>21 · Copyright, sponsored posts, kids &amp; tax</h2>
+<ul>
+<li><b>Your character is your IP.</b> Keep your sketches and dated <code>.blend</code> files as a record that you created it. Consider a trademark on the name later if it grows (ask a professional).</li>
+<li><b>Memes and trends:</b> recreating a meme in your own animation is common, but it's <i>not automatically legal</i>, especially in sponsored posts. Never use copyrighted characters, logos or real people's likenesses in paid work.</li>
+<li><b>Sound licences:</b> keep <code>LICENCES.txt</code>, credit CC-BY sounds, and avoid NC ("non-commercial") licences (<a href="#sound">§14</a>).</li>
+<li><b>Sponsored posts in India:</b> the ASCI influencer guidelines (in force since June 2021) require a clear, upfront disclosure on any brand promotion where you have a material connection to the brand (payment, free products, etc.). Use the platform's Paid Partnership label, and put a label such as "#ad" or "#collab" at the start rather than buried among hashtags. ASCI's guidelines also cover <i>virtual influencers</i> (computer-generated characters), which must make clear they aren't real people. Saying "animated character" in your bio and captions covers that.</li>
+<li><b>"Made for kids" (YouTube):</b> cute animation can attract children. YouTube requires <i>every</i> creator to say whether each video is made for kids. If it's aimed at children (toddler-style visuals, nursery themes), you must mark it, and that turns off comments, personalised ads and some features. If you target teens and adults (relatable humour, office and exam jokes), say so and keep the themes teen/adult. When unsure, read YouTube's help page "Determining if your content is made for kids".</li>
+<li><b>Tax (India):</b> platform, brand and client income is taxable. YouTube pays through AdSense from abroad, so submit your tax info in AdSense so US withholding on US-viewer earnings is handled correctly. GST registration generally becomes mandatory for services once yearly turnover crosses ₹20 lakh (₹10 lakh in special-category states). Export-of-services rules (LUT) and ITR filing depend on your situation, so <b>talk to a CA</b> once money starts coming in. This guide is not tax advice.</li>
+</ul>
+<p class="src">Sources: <a href="https://www.ascionline.in/wp-content/uploads/2022/09/press-release-influencer-guidelines-2021.pdf">ASCI influencer guidelines (2021)</a>; <a href="https://www.ascionline.in/social/wp-content/uploads/2025/04/ASCI-Influencer-Guidelines.pdf">ASCI Influencer Guidelines PDF</a>; <a href="https://www.ascionline.in/wp-content/uploads/2025/01/Advisory-for-LinkedIn-Influencers-2025.pdf">ASCI advisory on upfront disclosure</a>. Content was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<!-- ============================ 22 ============================ -->
+<section id="trouble">
+<h2>22 · Troubleshooting: the beginner problems everyone hits</h2>
+<div class="table-wrap"><table>
+<tr><th>Problem</th><th>Likely cause → fix</th></tr>
+<tr><td><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> change the view instead of vertex/edge/face select</td><td>Emulate Numpad is on (that's expected) → use the three select-mode icons at the top left of the viewport</td></tr>
+<tr><td>Render is completely black</td><td>No light, or the camera faces the wrong way → add lights, press <kbd>Numpad 0</kbd> and check the view. Also make sure no objects are turned off for rendering in the Outliner.</td></tr>
+<tr><td>Squash happens "in the air", or the character sinks into the floor</td><td>The origin isn't at the feet → <a href="#rig">§10.1</a> step 1</td></tr>
+<tr><td>Modifiers or the rig behave strangely</td><td>Scale not applied → <kbd>Ctrl</kbd>+<kbd>A</kbd> → All Transforms (before rigging)</td></tr>
+<tr><td>Dark patches / weird shading on the model</td><td>Flipped normals → Edit Mode, select all (<kbd>A</kbd>), <kbd>Shift</kbd>+<kbd>N</kbd> (Recalculate Outside)</td></tr>
+<tr><td>Parts of the mesh stretch wrongly when a bone moves</td><td>Bad automatic weights → fix in Weight Paint mode, or separate rigid parts and parent them to bones</td></tr>
+<tr><td>Animation feels floaty / like it's underwater</td><td>Default easing at the contacts → Vector handles on the ground keys (<a href="#hop">§11.4</a>), fewer in-betweens, add holds</td></tr>
+<tr><td>Animation feels stiff</td><td>No overlap → offset ears, tail and hat by 2–4 frames. Add a blink and breathing.</td></tr>
+<tr><td>Loop has a tiny stutter</td><td>The first pose is shown twice → set the End frame one before the repeated pose (<a href="#animate">§11.5</a>)</td></tr>
+<tr><td>Outline shows inside the body</td><td>Solidify direction → flip the sign of Thickness (<a href="#shade">§9.2</a>)</td></tr>
+<tr><td>See-through blush looks grainy</td><td>Dithered transparency needs samples → raise EEVEE render samples</td></tr>
+<tr><td>Grease Pencil drawing gets added to the previous frame</td><td>Auto Keying is off → turn it on before drawing new frames (<a href="#doodles">§11.8</a>)</td></tr>
+<tr><td>Audio drifts out of sync in Blender</td><td>Playback sync mode → Sync to Audio (<a href="#audio-anim">§11.7</a>)</td></tr>
+<tr><td>Rendering takes forever</td><td>Using Cycles → switch to EEVEE, lower the samples, hide things the camera can't see, render at 1080×1920 (not 4K)</td></tr>
+<tr><td>Resolve shows hundreds of separate PNGs</td><td>Frame Display Mode → set it to Sequence in the Media Storage ⋯ menu (<a href="#edit">§15.2</a>)</td></tr>
+<tr><td>Exported MP4 has no sound</td><td>Audio export off → tick "Export Audio" (AAC) in Deliver. On Linux, free Resolve can't write AAC, so use Edits or Blender's FFmpeg output instead.</td></tr>
+<tr><td>Instagram makes the video blurry</td><td>Upload over Wi-Fi, turn on "Upload at highest quality" in the app's media settings, and export at exactly 1080×1920, 30 fps</td></tr>
+<tr><td>Song is "unavailable" on Instagram</td><td>Business account or region → switch to a Creator account, or use original audio</td></tr>
+<tr><td>Blender crashed and you lost work</td><td>File → Recover → Auto Save / Last Session. Turn on auto-save (<a href="#prefs">§6.2</a>).</td></tr>
+</table></div>
+</section>
+
+<!-- ============================ 23 ============================ -->
+<section id="checklists">
+<h2>23 · Master checklists</h2>
+<h3>23.1 Before you start</h3>
+<ul class="check" data-group="setup">
+<li><input type="checkbox" id="s1"><label for="s1">Laptop checked against <a href="#gear">§3.1</a> (right Blender version, 8 GB+ RAM)</label></li>
+<li><input type="checkbox" id="s2"><label for="s2">3-button mouse</label></li>
+<li><input type="checkbox" id="s3"><label for="s3">Blender installed + preferences set</label></li>
+<li><input type="checkbox" id="s4"><label for="s4">Edits on the iPhone; Audacity (and Resolve for the full plan) on the laptop</label></li>
+<li><input type="checkbox" id="s5"><label for="s5">Folder structure created (<a href="#pipeline">§17.2</a>) + backup set up</label></li>
+<li><input type="checkbox" id="s6"><label for="s6">Handle reserved on Instagram + YouTube</label></li>
+</ul>
+<h3>23.2 Per Reel: production</h3>
+<ul class="check" data-group="reel">
+<li><input type="checkbox" id="r1"><label for="r1">Idea written as hook → setup → twist → payoff → loop, storyboarded in 6 boxes</label></li>
+<li><input type="checkbox" id="r2"><label for="r2">Audio cut and markers placed</label></li>
+<li><input type="checkbox" id="r3"><label for="r3">Blocking approved (poses read clearly in silhouette)</label></li>
+<li><input type="checkbox" id="r4"><label for="r4">Splined + polished (contacts snappy, holds ≥ 15 frames, loop End frame correct)</label></li>
+<li><input type="checkbox" id="r5"><label for="r5">Face: blinks, expressions, eye direction, a doodle or two</label></li>
+<li><input type="checkbox" id="r6"><label for="r6">Everything important is inside the safe zone</label></li>
+<li><input type="checkbox" id="r7"><label for="r7">Test frame (F12) OK → rendered</label></li>
+<li><input type="checkbox" id="r8"><label for="r8">SFX on every action (impact frame or 1 after), voice, music quieter</label></li>
+<li><input type="checkbox" id="r9"><label for="r9">Loop checked. Exported 1080×1920, 30 fps. Separate YouTube version with no Instagram music.</label></li>
+<li><input type="checkbox" id="r10"><label for="r10">Watched on the phone before posting</label></li>
+</ul>
+<p><button id="resetReel" type="button" style="border:none;background:var(--lav-soft);border-radius:99px;padding:.45em 1em;cursor:pointer;font-weight:650">↺ Reset the per-Reel &amp; posting checklists for the next Reel</button></p>
+</section>
+
+<!-- ============================ 24 ============================ -->
+<section id="glossary">
+<h2>24 · Glossary</h2>
+<div class="table-wrap"><table>
+<tr><th>Term</th><th>Plain meaning</th></tr>
+<tr><td>Mesh / vertex / edge / face</td><td>A 3D shape made of points (vertices), lines between them (edges) and surfaces (faces)</td></tr>
+<tr><td>Modifier</td><td>A non-destructive effect on an object (smoothing, mirroring, bending, outlines)</td></tr>
+<tr><td>Subdivision Surface</td><td>A modifier that makes a blocky mesh smooth and round</td></tr>
+<tr><td>Origin</td><td>The orange dot: the point an object moves, rotates and scales around</td></tr>
+<tr><td>Material / shader</td><td>How a surface looks: colour, shininess, softness</td></tr>
+<tr><td>Rig / armature / bone</td><td>The invisible skeleton and controls used to pose a character</td></tr>
+<tr><td>Weight painting</td><td>Painting how strongly each bone moves each part of the mesh</td></tr>
+<tr><td>Shape key</td><td>A saved alternative shape of a mesh (like a smile) that you blend in with a slider</td></tr>
+<tr><td>Keyframe</td><td>A saved value at a specific frame. Blender fills in the frames between keys.</td></tr>
+<tr><td>Interpolation</td><td>How Blender fills between keys: Constant (jumps), Linear (even speed), Bézier (eased)</td></tr>
+<tr><td>Vector handle</td><td>A key setting that makes a sharp corner in the motion curve, used for impacts and take-offs</td></tr>
+<tr><td>Dope Sheet / Graph Editor</td><td>Views of keyframes: as diamonds (timing) or as curves (speed)</td></tr>
+<tr><td>Auto Keying</td><td>The record button: every change you make becomes a keyframe</td></tr>
+<tr><td>Blocking / splining / polish</td><td>Stages of animation: key poses → smooth motion → fine detail</td></tr>
+<tr><td>EEVEE / Cycles</td><td>Blender's fast real-time renderer / its slower realistic renderer</td></tr>
+<tr><td>Image sequence</td><td>A render saved as one image per frame (crash-safe), combined into video later</td></tr>
+<tr><td>Grease Pencil</td><td>Blender's tool for 2D drawing and animation inside 3D scenes</td></tr>
+<tr><td>Emanata</td><td>Cartoon symbols around a character: hearts, sweat drops, sparkles, "!"</td></tr>
+<tr><td>SFX / foley</td><td>Sound effects / sound effects you record yourself with everyday objects</td></tr>
+<tr><td>LUFS</td><td>A unit of perceived loudness used to make videos consistently loud</td></tr>
+<tr><td>9:16 / safe zone</td><td>Vertical phone format / the area not covered by app buttons and text</td></tr>
+<tr><td>LTS</td><td>Long-Term Support: a Blender version that gets bug fixes for 2 years</td></tr>
+<tr><td>YPP</td><td>YouTube Partner Program: YouTube's monetisation program</td></tr>
+</table></div>
+</section>
+
+<!-- ============================ 25 ============================ -->
+<section id="sources">
+<h2>25 · Sources &amp; further learning</h2>
+<h3>Free tutorials to follow</h3>
+<ul>
+<li><a href="https://www.blenderguru.com/posts/blender-donut-v5-tutorial">Blender Guru – Donut tutorial for Blender 5.0</a>: the classic first project</li>
+<li><a href="https://www.classcentral.com/course/youtube-blender-5-complete-beginners-guide-free-course-part-3-the-old-man-504308">Grant Abbitt – Blender 5 Complete Beginners Guide</a> (free series on YouTube) and <a href="https://www.classcentral.com/course/youtube-blender-5-for-beginners-model-any-low-poly-animal-detailed-follow-along-guide-510491">Model Any Low Poly Animal</a></li>
+<li><a href="https://www.classcentral.com/course/youtube-cute-bunny-blender-character-modeling-for-beginners-real-time-tutorial-424317">SouthernShotty – Cute Bunny: Blender Character Modeling for Beginners</a> and <a href="https://www.classcentral.com/course/youtube-the-easy-way-to-create-fluffy-characters-in-blender-3d-beginner-friendly-284864">Fluffy Characters</a>: cute characters, specifically</li>
+<li><a href="https://www.blendernation.com/2024/08/27/creating-an-animated-cat-dumpling-in-blender-a-tutorial/">The Goose Tavern – animated cat dumpling (3D + Grease Pencil)</a></li>
+<li>From the Blender team: <a href="https://studio.blender.org/training/blender-fundamentals-45-lts/">Blender Fundamentals 4.5 LTS</a> and <a href="https://studio.blender.org/training/animation-fundamentals/">Animation Fundamentals</a> (from a bouncing ball to acting). Some Blender Studio content needs a paid membership, so check before you plan around it.</li>
+<li><a href="https://docs.blender.org/manual/en/latest/">Blender 5.2 LTS Manual</a> (the official reference)</li>
+<li>Book (paid): <i>The Animator's Survival Kit</i> by Richard Williams, the classic animation timing book</li>
+</ul>
+<h3>Facts used in this guide</h3>
+<ul>
+<li>Blender: <a href="https://www.blender.org/download/">download</a> (5.2.2 LTS, 15 Sept 2026) · <a href="https://www.blender.org/press/blender-5-2-lts-release/">5.2 LTS release</a> (supported to July 2028) · <a href="https://videocardz.com/newz/blender-5-0-released-now-requires-geforce-900-series-or-newer-gpus">5.0 GPU requirements</a> · <a href="https://devtalk.blender.org/t/deprecation-and-removal-of-macos-intel-builds-in-blender-5-0/38835">Intel Mac support ends with 4.5 LTS</a> · <a href="https://developer.blender.org/docs/release_notes/4.2/eevee">EEVEE render method (4.2+)</a> · <a href="https://devtalk.blender.org/t/grease-pencil-no-available-frame-for-creating-stroke/18114">Grease Pencil needs Auto Keying for new frames</a></li>
+<li>Editing: <a href="https://apps.apple.com/in/app/edits-video-editor/id6738967378">Edits on the Indian App Store</a> · <a href="https://www.storyboard18.com/digital/meta-adds-bilingual-captions-new-templates-and-sound-effects-to-edits-app-103313.htm">Storyboard18 on Edits sound effects &amp; captions</a> · <a href="https://www.cgchannel.com/2026/06/blackmagic-design-releases-davinci-resolve-21-0/">Resolve 21.0</a> · <a href="https://www.cgchannel.com/2026/09/blackmagic-design-releases-resolve-21-1/">Resolve 21.1</a> · <a href="https://beginnersapproach.com/davinci-resolve-png/">Resolve Frame Display Mode</a> · <a href="https://thegeekpage.com/davinci-resolve-21-no-audio-fix-the-aac-codec-bug-on-linux/">Resolve on Linux and AAC</a> · <a href="https://creativevideotips.com/tutorials/monitor-vertical-social-media-in-davinci-resolve-19">Resolve vertical resolution</a></li>
+<li>India availability: <a href="https://applecensorship.com/app-store-monitor/app/1500855883">CapCut unavailable on India's App Store since Oct 2020</a></li>
+<li>Channels: <a href="https://www.biostate.ai/pio">Biostate AI – Pio</a> · <a href="https://creativebloq.com/art/animation/the-viral-cursed-milk-cat-photos-been-turned-into-a-hilarious-animation-in-blender">Vossadova</a> · <a href="https://80.lv/articles/artist-shows-that-you-can-create-absolutely-adorable-fluffy-hamster-in-blender">Jamozisan</a> · <a href="https://80.lv/articles/hilarious-3d-character-deformations-you-never-notice-on-camera">raddoob</a> · <a href="https://80.lv/articles/this-is-what-could-be-happening-in-your-blender-scene-while-you-re-away">Kensyouen_Y</a> · <a href="https://www.creativebloq.com/art/animation/microsofts-ironic-github-copilot-logo-sparks-controversy">GitHub's Octocat</a> · <a href="https://media.pudgypenguins.com/post/july-2026">Pudgy Penguins</a> · <a href="https://cgcookie.com/projects/christmas-blender-short-film-or-how-i-suddenly-got-100k-views">Funny Legs</a></li>
+<li>Platforms: <a href="https://support.google.com/youtube/answer/72851">YPP eligibility</a> · <a href="https://support.google.com/youtube/answer/12843009">Changes to YPP</a> · <a href="https://www.forbes.com/sites/gabrielalinzainescu/2026/08/11/youtube-doubles-the-monetization-bar-for-new-creators/">Forbes, 11 Aug 2026</a> · <a href="https://support.google.com/youtube/answer/1311392">YouTube monetisation policies</a> · <a href="https://creators.instagram.com/recommendations-and-originality?locale=en_US">Instagram originality</a> · <a href="https://www.theverge.com/news/847739/instagram-hashtag-spam-limit">The Verge on the hashtag limit</a> · <a href="https://adsuploader.com/blog/meta-ads-safe-zones">Meta safe zones</a> · <a href="https://audiodrome.net/for-creators/instagram-music-for-business/">Business-account music limits</a> · <a href="https://www.foximusic.com/blog/instagram-reels-music-copyright-legal-guide/">No "10-second rule"</a></li>
+<li>India rules: <a href="https://www.ascionline.in/wp-content/uploads/2022/09/press-release-influencer-guidelines-2021.pdf">ASCI influencer guidelines</a> · <a href="https://www.lexology.com/library/detail.aspx?g=3e894ffc-4e0b-4487-a5e9-015d490d45d3">IT Amendment Rules 2026</a></li>
+<li>Sounds &amp; assets: <a href="https://pixabay.com/sound-effects/">Pixabay Sound Effects</a> · <a href="https://freesound.org">Freesound</a> · <a href="https://polyhaven.com">Poly Haven</a> · <a href="https://kenney.nl">Kenney</a></li>
+<li>Your own research in this repo: <a href="2026-solo-builder-economics.md">2026-solo-builder-economics.md</a> · <a href="https://github.com/purvammm/Personal-Finance/tree/feat/creative-income-command-center">creative-income command center</a></li>
+</ul>
+<p class="src">Platform rules, thresholds and fees change often. Recheck anything money-related on the official pages before relying on it. Blender menu names shift a little between versions, so if something isn't where this guide says, press <kbd>F3</kbd> and search for it. Content from third-party sources was rephrased for compliance with licensing restrictions.</p>
+</section>
+
+<footer>
+  Zero to Cute · a beginner's guide to a Blender micro-animation channel · researched and revised 26 Sept 2026 · part of the <code>Personal-Finance</code> research series. Your checkbox progress and plan choice are saved only in this browser (localStorage).
+</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var KEY = 'zeroToCute.v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input[type=checkbox]'));
+  var pctEl = document.getElementById('pct'), barEl = document.getElementById('barFill');
+
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function paint(cb){ cb.closest('li').classList.toggle('done', cb.checked); }
+  function progress(){
+    var visible = boxes.filter(function(b){ return !b.closest('[hidden]'); });
+    var done = visible.filter(function(b){ return b.checked; }).length;
+    pctEl.textContent = done + ' / ' + visible.length;
+    barEl.style.width = (visible.length ? Math.round(done / visible.length * 100) : 0) + '%';
+  }
+  boxes.forEach(function(cb){
+    cb.checked = !!state[cb.id];
+    paint(cb);
+    cb.addEventListener('change', function(){ state[cb.id] = cb.checked; paint(cb); save(); progress(); });
+  });
+
+  // Plan choice (light / full)
+  var radios = Array.prototype.slice.call(document.querySelectorAll('input[name=pace]'));
+  function applyPace(v){
+    document.getElementById('plan-light').hidden = (v !== 'light');
+    document.getElementById('plan-full').hidden = (v !== 'full');
+    radios.forEach(function(r){ r.checked = (r.value === v); });
+    progress();
+  }
+  radios.forEach(function(r){
+    r.addEventListener('change', function(){ if (r.checked) { state.__pace = r.value; save(); applyPace(r.value); } });
+  });
+  applyPace(state.__pace === 'full' ? 'full' : 'light');
+
+  document.getElementById('resetReel').addEventListener('click', function(){
+    boxes.forEach(function(cb){
+      var g = cb.closest('ul').getAttribute('data-group');
+      if (g === 'reel' || g === 'post') { cb.checked = false; state[cb.id] = false; paint(cb); }
+    });
+    save(); progress();
+  });
+
+  // Mobile menu
+  var toc = document.getElementById('toc'), btn = document.getElementById('menuBtn');
+  btn.addEventListener('click', function(){
+    var open = toc.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  toc.addEventListener('click', function(e){ if (e.target.tagName === 'A') { toc.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
+
+  // Highlight the section currently being read (the last one whose top has passed 30% of the screen)
+  var links = {};
+  Array.prototype.forEach.call(toc.querySelectorAll('a[href^="#"]'), function(a){ links[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  function updateActive(){
+    var line = window.innerHeight * 0.3, current = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= line) { current = sections[i].id; } else { break; }
+    }
+    Object.keys(links).forEach(function(k){ links[k].classList.toggle('active', k === current); });
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+})();
+</script>
+</body>
+</html>
