@@ -1,17 +1,63 @@
 {
   "schema_version": 1,
   "colors": {
-    "chai": { "hex": "#F2C79F", "use": "Chuski's body: milky masala chai, light and peachy (never poop-brown)" },
-    "steam": { "hex": "#FFFFFF", "alpha": 0.75, "use": "Chuski's steam wisp" },
-    "sugar": { "hex": "#FFF8EC", "use": "Shakkar's body: warm crystal white" },
-    "eye": { "hex": "#2E2433", "use": "eyes, mouths, outlines: dark plum, never pure black" },
-    "highlight": { "hex": "#FFFFFF", "use": "eye highlights" },
-    "blush": { "hex": "#FF8FA3", "alpha": 0.5, "use": "cheeks" },
-    "cardamom": { "hex": "#9CCB8E", "use": "brand accent: logo, caption accents, UI" },
-    "monsoon": { "hex": "#CFE3F2", "use": "cyclorama and background (cool, to contrast the warm chai)" },
-    "saucer": { "hex": "#F7EFE2", "use": "saucer and windowsill props" },
-    "malai": { "hex": "#FFF1D6", "use": "the milk-skin 'sad hat' gag" },
-    "caption_text": { "hex": "#FFFFFF", "use": "burned-in hook text (guide §15.1)" },
-    "caption_outline": { "hex": "#2E2433", "use": "hook text outline" }
+    "chai": {
+      "hex": "#F2C79F",
+      "use": "Chuski's body: milky masala chai, light and peachy (never poop-brown)"
+    },
+    "steam": {
+      "hex": "#FFFFFF",
+      "alpha": 0.75,
+      "use": "Chuski's steam wisp"
+    },
+    "sugar": {
+      "hex": "#FFF8EC",
+      "use": "Shakkar's body: warm crystal white"
+    },
+    "eye": {
+      "hex": "#2E2433",
+      "use": "eyes, mouths, outlines: dark plum, never pure black"
+    },
+    "highlight": {
+      "hex": "#FFFFFF",
+      "use": "eye highlights"
+    },
+    "blush": {
+      "hex": "#FF8FA3",
+      "alpha": 0.5,
+      "use": "cheeks"
+    },
+    "cardamom": {
+      "hex": "#9CCB8E",
+      "use": "brand accent: logo, caption accents, UI"
+    },
+    "monsoon": {
+      "hex": "#CFE3F2",
+      "use": "cyclorama and background (cool, to contrast the warm chai)"
+    },
+    "saucer": {
+      "hex": "#F7EFE2",
+      "use": "saucer and windowsill props"
+    },
+    "malai": {
+      "hex": "#FFF1D6",
+      "use": "the milk-skin 'sad hat' gag"
+    },
+    "caption_text": {
+      "hex": "#FFFFFF",
+      "use": "burned-in hook text (guide §15.1)"
+    },
+    "caption_outline": {
+      "hex": "#2E2433",
+      "use": "hook text outline"
+    },
+    "tear": {
+      "hex": "#A9DBF7",
+      "use": "tears, sweat drops, rain (effects only)"
+    },
+    "spark": {
+      "hex": "#FFD86B",
+      "use": "sparkles and stars (effects only)"
+    }
   }
 }

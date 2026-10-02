@@ -99,7 +99,8 @@
             "aspect": { "$ref": "#/$defs/fraction" },
             "center_height": { "$ref": "#/$defs/fraction" },
             "spacing": { "$ref": "#/$defs/fraction" },
-            "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+            "alpha": { "type": "number", "minimum": 0, "maximum": 1, "description": "maximum opacity" },
+            "threshold": { "type": "number", "minimum": 0, "maximum": 0.9, "description": "emotion blush below this shows nothing (shy blushers use 0.5)" },
             "color": { "$ref": "#/$defs/color_ref" }
           }
         },

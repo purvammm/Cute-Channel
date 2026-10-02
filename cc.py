@@ -19,7 +19,6 @@ import argparse  # noqa: E402
 
 # Commands that later phases will implement: (name, phase, what it will do).
 PLANNED = (
-    ("brand-sheets", 1, "draw the character sheet, turnaround and expression sheet"),
     ("build-character", 2, "build the 3D character .blend from brand/character.json"),
     ("emotion-sheet", 3, "render every emotion as a contact sheet per character"),
     ("new-episode", 4, "turn a one-line idea into storyboard.md + episode.yaml"),
@@ -45,6 +44,12 @@ def cmd_validate(args: argparse.Namespace) -> int:
     from pipeline import brand
 
     return brand.main()
+
+
+def cmd_brand_sheets(args: argparse.Namespace) -> int:
+    from pipeline import sheets
+
+    return sheets.main(write_svg=args.svg)
 
 
 def planned_command(name: str, phase: int, description: str):
@@ -79,6 +84,12 @@ def build_parser() -> argparse.ArgumentParser:
         "validate", help="check brand/*.json against their schemas and the guide's craft rules"
     )
     validate.set_defaults(func=cmd_validate)
+
+    sheets = sub.add_parser(
+        "brand-sheets", help="draw the character sheet, turnaround and expression sheet (PNG)"
+    )
+    sheets.add_argument("--svg", action="store_true", help="also keep the SVG sources")
+    sheets.set_defaults(func=cmd_brand_sheets)
 
     for name, phase, description in PLANNED:
         planned = sub.add_parser(name, help=f"(Phase {phase}) {description}", add_help=False)

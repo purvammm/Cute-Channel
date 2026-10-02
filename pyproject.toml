@@ -10,6 +10,10 @@ extend-exclude = [".tools", ".cache", ".venv"]
 # pycodestyle, pyflakes, import order, common bug patterns, modern syntax
 select = ["E", "F", "W", "I", "B", "UP"]
 
+[tool.ruff.lint.per-file-ignores]
+# SVG drawing code: one long f-string per SVG element reads better than wrapped fragments.
+"pipeline/sheets.py" = ["E501"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
