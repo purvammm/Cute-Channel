@@ -10,7 +10,7 @@ _Last updated: 2 Oct 2026, session 1 (Phases 0 and 1)._
   specs, tools, render probe), `blender/` (compat, colors, smoke test), `setup_env.sh`, CI
   (`lint-test`, `blender-smoke`, both green), templates, 18 labels, docs. Headless rendering was
   measured in the sandbox and on GitHub runners (`docs/RENDER_ENVIRONMENT.md`).
-- **Phase 1, PR on `feat/phase-1-brand`** (stacked on Phase 0): decisions 001–006 (Chuski the
+- **Phase 1, PR #6 (`feat/phase-1-brand`)** (stacked on Phase 0): decisions 001–006 (Chuski the
   chai drop, Shakkar the sugar cube, the windowsill, the name and handles, strategy, voice),
   `brand/*.json` + JSON Schemas + `cc.py validate`, `cc.py brand-sheets` (4 PNG sheets, all
   inspected), `FIRST_12_EPISODES.md`, `growth/idea_bank.csv` (75 ideas), `growth/calendar.csv`,
@@ -18,7 +18,7 @@ _Last updated: 2 Oct 2026, session 1 (Phases 0 and 1)._
 
 ## Next
 
-1. Owner merges **#3 first**, then the Phase 1 PR. Its diff shrinks to Phase 1 once #3 is in.
+1. Owner merges **#3 first**, then #6. Its diff shrinks to Phase 1 once #3 is in.
 2. `docs/TOOLING_OPTIONS.md` (MASTER_PROMPT §7), as a small PR.
 3. **Phase 2:** `blender/build_character.py` builds Chuski and Shakkar from `character.json`,
    with front/side/¾ renders and a 96×170 thumbnail test, inspected. Also check the poop-emoji
