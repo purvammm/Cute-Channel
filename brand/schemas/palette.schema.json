@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "palette.schema.json",
+  "title": "Brand palette",
+  "type": "object",
+  "required": ["schema_version", "colors"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "colors": {
+      "type": "object",
+      "minProperties": 4,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["hex", "use"],
+        "additionalProperties": false,
+        "properties": {
+          "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+          "use": { "type": "string", "minLength": 3 }
+        }
+      }
+    }
+  }
+}

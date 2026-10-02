@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "note": "Starter set for the Phase 1 expression sheet. Phase 3 expands it to 20+ and wires it to the 3D rig. Emotions are character-agnostic; each character interprets 'brow' through its own brow.shapes.",
+  "emotions": [
+    { "name": "neutral", "eyes": "open", "mouth": "smile", "blush": 0.2, "brow": "neutral",
+      "pose": { "scale_xy": 1.0, "scale_z": 1.0, "tilt_deg": 0, "offset_z": 0.0 },
+      "emanata": [], "min_hold_frames": 15, "sfx": "none" },
+    { "name": "happy", "eyes": "happy", "mouth": "grin", "blush": 0.6, "brow": "lifted",
+      "pose": { "scale_xy": 0.97, "scale_z": 1.05, "tilt_deg": 0, "offset_z": 0.0 },
+      "emanata": ["sparkle"], "min_hold_frames": 15, "sfx": "voice_giggle" },
+    { "name": "in_love", "eyes": "heart", "mouth": "smile", "blush": 0.9, "brow": "love",
+      "pose": { "scale_xy": 1.02, "scale_z": 0.98, "tilt_deg": 6, "offset_z": 0.0 },
+      "emanata": ["heart"], "min_hold_frames": 20, "sfx": "ting" },
+    { "name": "shocked", "eyes": "wide", "mouth": "o", "blush": 0.0, "brow": "worried",
+      "pose": { "scale_xy": 0.9, "scale_z": 1.14, "tilt_deg": 0, "offset_z": 0.0 },
+      "emanata": ["exclaim"], "min_hold_frames": 15, "sfx": "voice_gasp" },
+    { "name": "dramatic_sad", "eyes": "teary", "mouth": "wail", "blush": 0.3, "brow": "sad",
+      "pose": { "scale_xy": 1.08, "scale_z": 0.9, "tilt_deg": -4, "offset_z": 0.0 },
+      "emanata": ["tear_stream"], "min_hold_frames": 24, "sfx": "sad_sting" },
+    { "name": "grumpy", "eyes": "half", "mouth": "frown", "blush": 0.0, "brow": "angry",
+      "pose": { "scale_xy": 1.04, "scale_z": 0.95, "tilt_deg": 0, "offset_z": 0.0 },
+      "emanata": ["anger_puff"], "min_hold_frames": 15, "sfx": "voice_hmph" },
+    { "name": "sleepy", "eyes": "closed", "mouth": "flat", "blush": 0.2, "brow": "sad",
+      "pose": { "scale_xy": 1.06, "scale_z": 0.92, "tilt_deg": 8, "offset_z": 0.0 },
+      "emanata": ["zzz"], "min_hold_frames": 30, "sfx": "voice_snore" },
+    { "name": "embarrassed", "eyes": "squint", "mouth": "wavy", "blush": 1.0, "brow": "worried",
+      "pose": { "scale_xy": 0.94, "scale_z": 0.9, "tilt_deg": 0, "offset_z": 0.0 },
+      "emanata": ["sweat_drop"], "min_hold_frames": 18, "sfx": "voice_eep" }
+  ]
+}

@@ -19,7 +19,6 @@ import argparse  # noqa: E402
 
 # Commands that later phases will implement: (name, phase, what it will do).
 PLANNED = (
-    ("validate", 1, "check brand/*.json against their schemas"),
     ("brand-sheets", 1, "draw the character sheet, turnaround and expression sheet"),
     ("build-character", 2, "build the 3D character .blend from brand/character.json"),
     ("emotion-sheet", 3, "render every emotion as a contact sheet per character"),
@@ -40,6 +39,12 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     from pipeline import doctor
 
     return doctor.main(deep=args.deep, output_format=args.format)
+
+
+def cmd_validate(args: argparse.Namespace) -> int:
+    from pipeline import brand
+
+    return brand.main()
 
 
 def planned_command(name: str, phase: int, description: str):
@@ -69,6 +74,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=("text", "json", "markdown"), default="text", help="output format"
     )
     doctor.set_defaults(func=cmd_doctor)
+
+    validate = sub.add_parser(
+        "validate", help="check brand/*.json against their schemas and the guide's craft rules"
+    )
+    validate.set_defaults(func=cmd_validate)
 
     for name, phase, description in PLANNED:
         planned = sub.add_parser(name, help=f"(Phase {phase}) {description}", add_help=False)
