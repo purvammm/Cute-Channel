@@ -1,0 +1,14 @@
+date,event,type,status,source,notes,start_production_by
+2026-11-08,Diwali,festival,verified,"timeanddate.com, calendarlabs.com",before launch; parked for 2027,2026-10-25
+2026-12-01,Winter chai season (Dec-Jan),season,season,,,2026-11-17
+2026-12-25,Christmas,festival,fixed date,,,2026-12-11
+2027-01-01,New Year,observance,fixed date,,,2026-12-18
+2027-01-13,Lohri,festival,to verify,,usually the eve of Makar Sankranti,2026-12-30
+2027-01-14,Makar Sankranti / Pongal,festival,sources differ,"calendarlabs (14 Jan), timeanddate (15 Jan)",verify before production,2026-12-31
+2027-02-14,Valentine's Day,observance,fixed date,,,2027-01-31
+2027-02-15,Board exam season (approx. mid-Feb to March),season,approx,,,2027-02-01
+2027-03-22,Holi,festival,1 source,astrosight.ai,verify before production,2027-03-08
+2027-03-27,Cricket season (approx. late March to May),season,approx,,check fixtures,2027-03-13
+2027-04-15,Summer heat (April to June),season,approx,,,2027-04-01
+2027-05-21,International Tea Day,observance,verified,"un.org, fao.org",every 21 May,2027-05-07
+2027-06-01,"Monsoon onset, Kerala (normal date)",season,approx,,IMD normal onset is about 1 June,2027-05-18
