@@ -368,6 +368,11 @@ def format_markdown(checks: list[Check]) -> str:
         rows.append("| " + " | ".join(c.replace("|", "\\|") for c in cells) + " |")
     rows.append("")
     rows.append(f"**{_summary_line(summary_counts(checks))}**")
+    probes = next((c.details.get("probes") for c in checks if c.area == "Rendering"), None)
+    if probes:
+        rows += ["", "#### Render probes (270x480, 16 samples)", "", "| Engine | Result |"]
+        rows.append("|---|---|")
+        rows += [f"| {label} | {text.splitlines()[0][:200]} |" for label, text in probes.items()]
     return "### Cute Channel doctor\n\n" + "\n".join(rows)
 
 

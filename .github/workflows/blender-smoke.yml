@@ -1,0 +1,64 @@
+name: blender-smoke
+
+# Installs the pinned Blender on a GPU-less GitHub runner and test-renders with every engine.
+# It answers "can CI render, and how fast?" with numbers, and uploads the frames so you can
+# look at them. Runs when the Blender/setup code changes, or by hand (Actions tab -> Run workflow).
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "blender/**"
+      - "pipeline/doctor.py"
+      - "pipeline/render_probe.py"
+      - "pipeline/tools.py"
+      - "scripts/setup_env.sh"
+      - "scripts/versions.env"
+      - ".github/workflows/blender-smoke.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blender-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Cache the Blender download
+        uses: actions/cache@v6
+        with:
+          path: .tools/downloads
+          key: blender-${{ runner.os }}-${{ hashFiles('scripts/versions.env') }}
+
+      - name: Install Blender, ffmpeg, Mesa and Python packages
+        run: bash scripts/setup_env.sh --ci
+
+      - name: Test-render with every engine
+        run: python cc.py doctor --deep
+
+      - name: Write the job summary and JSON report
+        if: always()
+        run: |
+          python cc.py doctor --format markdown >> "$GITHUB_STEP_SUMMARY" || true
+          python cc.py doctor --format json > doctor-report.json || true
+
+      - name: Upload the report and test frames
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: blender-smoke-report
+          path: |
+            doctor-report.json
+            .cache/render_capabilities.json
+            .cache/render_probe/
+          include-hidden-files: true
+          retention-days: 14

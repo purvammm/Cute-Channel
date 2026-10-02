@@ -1,0 +1,52 @@
+name: "🎬 Episode idea"
+description: "Propose an episode. One gag = one episode."
+title: "Episode: "
+labels: ["episode"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Write it as **setup → twist → payoff → loop** (guide §16.1). Kiro turns it into a
+        6-box storyboard and an `episode.yaml`.
+  - type: textarea
+    id: idea
+    attributes:
+      label: One-line idea
+      description: What happens, and what's the twist?
+      placeholder: "Waits for the chai to cool, looks away for one second, the sidekick drinks it."
+    validations:
+      required: true
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Content pillar (guide §16.2)
+      options:
+        - "1. Trend recreation"
+        - "2. Relatable life"
+        - "3. Interactive"
+        - "4. Food & ASMR"
+        - "5. Seasonal & festival"
+        - "6. Duo gags"
+        - "7. Perfect loops"
+        - "8. Behind the scenes"
+    validations:
+      required: true
+  - type: input
+    id: hook
+    attributes:
+      label: Hook text for frame 1
+      placeholder: "me at 2 AM"
+  - type: input
+    id: post_by
+    attributes:
+      label: Post-by date (YYYY-MM-DD)
+      description: For festivals, production should start 2 weeks before this date.
+  - type: textarea
+    id: sound
+    attributes:
+      label: Sound idea
+      description: Key sound effects, a voice moment, or the trending audio you have in mind.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes or references
