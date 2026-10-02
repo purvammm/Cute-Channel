@@ -42,7 +42,9 @@ def main() -> int:
     args = parser.parse_args()
     repo = args.repo or repo_from_remote()
     wanted = json.loads(LABELS_FILE.read_text(encoding="utf-8"))
-    existing = set(gh(f"repos/{repo}/labels?per_page=100", "--paginate", "--jq", ".[].name").split())
+    existing = set(
+        gh(f"repos/{repo}/labels?per_page=100", "--paginate", "--jq", ".[].name").split()
+    )
 
     for label in wanted:
         fields = ["-f", f"color={label['color']}", "-f", f"description={label['description']}"]

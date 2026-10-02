@@ -112,7 +112,9 @@ def check_blender(
     where = _display_path(tool.path)
     details = {"path": str(tool.path), "version": str(version), "pinned": pinned}
     if version.series == series:
-        note = "" if str(version).startswith(pinned) else f"; pinned {pinned} (LTS updates are safe)"
+        note = (
+            "" if str(version).startswith(pinned) else f"; pinned {pinned} (LTS updates are safe)"
+        )
         return Check("Blender", OK, f"{version}  ({where}){note}", details=details)
     return Check(
         "Blender",
@@ -185,7 +187,7 @@ def check_render(capabilities: Mapping | None, blender: tools.Tool | None) -> Ch
             "Rendering",
             FAIL,
             "no render engine works on this machine",
-            fix="See the probe errors (python cc.py doctor --format json) and docs/RENDER_ENVIRONMENT.md",
+            fix="Read the probe errors (cc.py doctor --format json); docs/RENDER_ENVIRONMENT.md",
             details=details,
         )
     summary = f"preview: {preview.label} · final: {final.label}"
@@ -199,7 +201,9 @@ def check_render(capabilities: Mapping | None, blender: tools.Tool | None) -> Ch
             details=details,
         )
     if final.warning:
-        return Check("Rendering", WARN, summary, fix=f"Final renders: {final.warning}", details=details)
+        return Check(
+            "Rendering", WARN, summary, fix=f"Final renders: {final.warning}", details=details
+        )
     return Check("Rendering", OK, summary, details=details)
 
 
@@ -352,8 +356,7 @@ def _plural(count: int, word: str) -> str:
 
 def _summary_line(counts: Mapping[str, int]) -> str:
     return (
-        f"{counts[OK]} ok · {_plural(counts[WARN], 'warning')} · "
-        f"{_plural(counts[FAIL], 'problem')}"
+        f"{counts[OK]} ok · {_plural(counts[WARN], 'warning')} · {_plural(counts[FAIL], 'problem')}"
     )
 
 
@@ -380,7 +383,9 @@ def format_json(checks: list[Check]) -> str:
 
 
 def main(deep: bool = False, output_format: str = "text") -> int:
-    progress = (lambda message: print(f"  {message}", file=sys.stderr, flush=True)) if deep else None
+    progress = (
+        (lambda message: print(f"  {message}", file=sys.stderr, flush=True)) if deep else None
+    )
     checks = run_doctor(deep=deep, progress=progress)
     if output_format == "json":
         print(format_json(checks))

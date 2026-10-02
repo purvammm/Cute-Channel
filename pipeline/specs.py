@@ -65,7 +65,10 @@ def button_column_rect(width: int = WIDTH, height: int = HEIGHT) -> Rect:
     """
     side = round(width * SAFE_SIDE)
     return Rect(
-        round(width * 0.82), round(height * 0.47), width - side, height - round(height * SAFE_BOTTOM)
+        round(width * 0.82),
+        round(height * 0.47),
+        width - side,
+        height - round(height * SAFE_BOTTOM),
     )
 
 

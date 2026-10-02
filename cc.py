@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Cute Channel: one command line for the whole pipeline.
 
-    python cc.py doctor            check Blender, ffmpeg, Python and secrets
-    python cc.py doctor --deep     also render a test scene with each engine (1-5 min)
-    python cc.py --help            every command, and the phase that builds it
+python cc.py doctor            check Blender, ffmpeg, Python and secrets
+python cc.py doctor --deep     also render a test scene with each engine (1-5 min)
+python cc.py --help            every command, and the phase that builds it
 """
 
 import sys
 
-if sys.version_info < (3, 10):  # checked before importing anything that needs newer Python
+# Deliberately "outdated" check: it must run on old Pythons to print a friendly message.
+if sys.version_info < (3, 10):  # noqa: UP036
     sys.exit(
         f"Cute Channel needs Python 3.10 or newer; this is {sys.version.split()[0]}. "
         "Install Python 3.11+ and run it again, e.g. `python3.11 cc.py doctor`."

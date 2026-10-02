@@ -226,7 +226,9 @@ def choose_engine(
 
     if purpose == "final":
         if eevee_gpu:
-            return pick(eevee_gpu[0], "EEVEE on a real GPU, the engine the guide's look is built for")
+            return pick(
+                eevee_gpu[0], "EEVEE on a real GPU, the engine the guide's look is built for"
+            )
         if eevee:
             minutes = estimate_reel_minutes(eevee[0])
             return pick(
@@ -245,12 +247,13 @@ def choose_engine(
 
     if eevee and (
         not cycles
-        or eevee[0].seconds_per_frame
-        <= PREVIEW_EEVEE_SLOWDOWN_LIMIT * cycles[0].seconds_per_frame
+        or eevee[0].seconds_per_frame <= PREVIEW_EEVEE_SLOWDOWN_LIMIT * cycles[0].seconds_per_frame
     ):
         return pick(eevee[0], "EEVEE: matches the final look")
     if cycles:
-        return pick(cycles[0], "Cycles on the CPU: the fastest engine here that looks like the final")
+        return pick(
+            cycles[0], "Cycles on the CPU: the fastest engine here that looks like the final"
+        )
     if workbench:
         return pick(
             workbench[0],
