@@ -1,0 +1,20 @@
+[
+  {"name": "needs-human", "color": "ff8fb1", "description": "Only the owner can do this (see docs/HUMAN_TASKS.md)"},
+  {"name": "approved", "color": "7fd8be", "description": "Owner approval: unlocks the next step (e.g. publishing)"},
+  {"name": "rendering", "color": "8ecbff", "description": "Episode is being rendered"},
+  {"name": "ready-to-publish", "color": "ffd86b", "description": "Final files passed QA and wait for approval"},
+  {"name": "published", "color": "b9a3ff", "description": "Live on Instagram / YouTube"},
+  {"name": "episode", "color": "ffe3ec", "description": "An episode idea or production"},
+  {"name": "phase-0", "color": "efe9ff", "description": "Bootstrap: repo, CLI, CI, environment"},
+  {"name": "phase-1", "color": "efe9ff", "description": "Brand and creative decisions"},
+  {"name": "phase-2", "color": "efe9ff", "description": "Parametric character in Blender"},
+  {"name": "phase-3", "color": "efe9ff", "description": "Rig and emotion library"},
+  {"name": "phase-4", "color": "efe9ff", "description": "Motion library and episode compiler"},
+  {"name": "phase-5", "color": "efe9ff", "description": "Studio, camera, lighting, render"},
+  {"name": "phase-6", "color": "efe9ff", "description": "Sound pipeline"},
+  {"name": "phase-7", "color": "efe9ff", "description": "Finishing and QA"},
+  {"name": "phase-8", "color": "efe9ff", "description": "Content engine: ideas, planning, trends"},
+  {"name": "phase-9", "color": "efe9ff", "description": "Publishing automation (approval-gated)"},
+  {"name": "phase-10", "color": "efe9ff", "description": "Analytics and growth loop"},
+  {"name": "phase-11", "color": "efe9ff", "description": "Monetisation and portfolio"}
+]
