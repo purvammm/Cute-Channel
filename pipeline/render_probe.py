@@ -178,32 +178,48 @@ def run_probe(
     return result
 
 
-def estimate_reel_minutes(result: ProbeResult, seconds: float = 10.0) -> float | None:
-    """Rough (pessimistic) time for a full-quality Reel, scaled from the small probe render.
+# How render time grows with pixel count, as an exponent: time ~ samples x pixels**k.
+# Calibrated on 2 Oct 2026 in the sandbox (8 vCPU, no GPU) by rendering the smoke scene at
+# 270x480/16 samples and at 1080x1920/64 samples:
+#   Cycles CPU:              0.59 s -> 36.3 s per frame (k = 1.0, linear)
+#   EEVEE on llvmpipe (CPU): 5.77 s -> 70.6 s per frame (k = 0.4; per-sample overhead dominates)
+PIXEL_SCALING_EXPONENT = {"CYCLES": 1.0, "EEVEE": 0.4, "WORKBENCH": 1.0}
 
-    Assumes time grows with pixels x samples. Fixed per-frame overhead doesn't grow like that,
-    so real renders are usually faster than this estimate.
+
+def estimate_reel_minutes(result: ProbeResult, seconds: float = 10.0) -> float | None:
+    """Rough time for a full-quality Reel (1080x1920, FINAL_SAMPLES), scaled from the probe.
+
+    The scaling exponents were measured on one machine, so treat the answer as "about".
     """
     if not result.usable:
         return None
     width, height = result.resolution
     pixel_ratio = (specs.WIDTH * specs.HEIGHT) / (width * height)
-    samples_ratio = FINAL_SAMPLES / result.samples if result.engine != "WORKBENCH" else 1.0
+    exponent = PIXEL_SCALING_EXPONENT.get(result.engine.upper(), 1.0)
+    samples_ratio = FINAL_SAMPLES / result.samples if result.engine.upper() != "WORKBENCH" else 1.0
     frames = specs.seconds_to_frames(seconds)
-    return result.seconds_per_frame * pixel_ratio * samples_ratio * frames / 60.0
+    return result.seconds_per_frame * pixel_ratio**exponent * samples_ratio * frames / 60.0
 
 
 def _fastest(results: Iterable[ProbeResult]) -> list[ProbeResult]:
     return sorted(results, key=lambda r: r.seconds_per_frame)
 
 
-def choose_engine(results: Iterable[ProbeResult], purpose: str = "preview") -> EngineChoice | None:
-    """Pick the best working engine for a 'preview' (fast check) or a 'final' render."""
+def choose_engine(
+    results: Iterable[ProbeResult], purpose: str = "preview", require_eevee: bool = False
+) -> EngineChoice | None:
+    """Pick the best working engine for a 'preview' (fast check) or a 'final' render.
+
+    Set `require_eevee` when the look uses EEVEE-only shading (the toon "Shader to RGB" setup
+    from guide §9.2); then Cycles and Workbench are never picked.
+    """
     usable = [r for r in results if r.usable]
     eevee = _fastest(r for r in usable if r.engine.upper() == "EEVEE")
     eevee_gpu = [r for r in eevee if r.software_gl is False]
-    cycles = _fastest(r for r in usable if r.engine.upper() == "CYCLES")
-    workbench = _fastest(r for r in usable if r.engine.upper() == "WORKBENCH")
+    cycles = [] if require_eevee else _fastest(r for r in usable if r.engine.upper() == "CYCLES")
+    workbench = (
+        [] if require_eevee else _fastest(r for r in usable if r.engine.upper() == "WORKBENCH")
+    )
 
     def pick(r: ProbeResult, reason: str, warning: str | None = None) -> EngineChoice:
         return EngineChoice(r.label, r.engine, r.gpu_backend, reason, warning)
