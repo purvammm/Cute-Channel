@@ -344,6 +344,8 @@ def format_text(checks: list[Check], icons: Mapping[str, str] = EMOJI) -> str:
     lines = [f"Cute Channel doctor · {stamp}", ""]
     for check in checks:
         lines.append(f"{icons[check.status]} {check.area:<28} {check.summary}")
+        for label, result in (check.details.get("probes") or {}).items():
+            lines.append(f"{'':5}{'':<28} · {label}: {result.splitlines()[0][:160]}")
         if check.fix and check.status != OK:
             lines.append(f"{'':5}{'':<28} fix: {check.fix}")
     lines += ["", "Summary: " + _summary_line(summary_counts(checks))]

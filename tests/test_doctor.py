@@ -99,6 +99,7 @@ def test_render_check_uses_the_engine_choice():
     tool = tools.Tool("blender", Path("/x"), "5.2.2 LTS")
     check = doctor.check_render(caps, tool)
     assert check.status == doctor.WARN and "preview: cycles-cpu" in check.summary
+    assert "· eevee: 5.80 s/frame" in doctor.format_text([check])  # per-engine timings in logs
     stale = doctor.check_render(caps, tools.Tool("blender", Path("/x"), "5.2.3 LTS"))
     assert "re-run" in stale.fix
     assert doctor.check_render(None, tool).status == doctor.INFO
