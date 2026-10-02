@@ -31,12 +31,19 @@ How doctor uses these numbers (`pipeline/render_probe.py`, `choose_engine()`):
 
 ## GitHub Actions (free runners, no GPU)
 
-`.github/workflows/blender-smoke.yml` runs the same probes on `ubuntu-latest` and puts the
-timings in the job summary, with the frames as an artifact. **Result: pending the first run on
-the Phase 0 PR.** This table gets filled from that run.
+`.github/workflows/blender-smoke.yml` runs the same probes on `ubuntu-latest` and puts the timings
+in the job summary and log, with the frames as an artifact. First runs on the Phase 0 PR
+(ubuntu-24.04, 2 Oct 2026). Setup took about 2.5 min, and the four probes took about 1.5 min:
 
-Expectation: free runners have 4 vCPUs (half the sandbox), so roughly 2× slower. That's fine for
-quarter-resolution previews (a 10 s preview ≈ 3–6 min with Cycles) and unrealistic for finals.
+| Engine | 270×480, 16 samples | Doctor's choice |
+|---|---|---|
+| Cycles, CPU | 1.36 s/frame | **preview** |
+| EEVEE, OpenGL (llvmpipe) | 9.77 s/frame | |
+| EEVEE, Vulkan (lavapipe) | 7.70 s/frame | **final** (≈ 7.8 h per 10 s Reel, so not practical) |
+| Workbench | 0.20 s/frame | |
+
+**Verdict for CI:** quarter-resolution previews are fine. A 10 s preview with Cycles at 16
+samples is about 300 × 1.4 s ≈ 7 min. Final renders aren't practical on free runners.
 
 ## Your laptop
 
