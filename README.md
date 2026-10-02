@@ -4,6 +4,7 @@ Automation for a one-person cute 3D micro-animation channel (Instagram Reels + Y
 You make the taste calls and learn animation; the scripts handle the rest: character build,
 animation blocking, rendering, sound sync, captions, QA and publishing, each behind your approval.
 
+- **The characters:** [`docs/brand/BRAND_ONE_PAGER.md`](docs/brand/BRAND_ONE_PAGER.md): Chuski the chai drop and Shakkar the sugar cube
 - **Craft source of truth:** [`docs/guide.html`](docs/guide.html), your guide (Blender 5.2 LTS, 26 Sept 2026)
 - **The plan:** [`docs/MASTER_PROMPT.md`](docs/MASTER_PROMPT.md), with progress tracked in [`docs/ROADMAP.md`](docs/ROADMAP.md)
 - **Your to-do list:** [`docs/HUMAN_TASKS.md`](docs/HUMAN_TASKS.md)

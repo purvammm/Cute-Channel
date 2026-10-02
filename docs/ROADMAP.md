@@ -5,8 +5,8 @@ previous one. Status is kept current here and in `docs/STATE.md`.
 
 | Phase | Goal | Main deliverables | Needs you for | Status |
 |---|---|---|---|---|
-| **0 · Bootstrap** | Repo, CLI, CI, environment | skeleton, `cc.py doctor`, `setup_env.sh`, CI, templates, labels, `GUIDE_DIGEST.md` | laptop details + Blender install (H01), branch protection (H02) | 🔄 PR open |
-| **1 · Brand & creative** | Character, sidekick, world, name, strategy | `docs/decisions/001+`, `brand/*.json` + schemas, character/turnaround/expression sheets, first 12 episodes, 60+ ideas, one-pager | veto anything; check handle availability (H03) | ⏭ next |
+| **0 · Bootstrap** | Repo, CLI, CI, environment | skeleton, `cc.py doctor`, `setup_env.sh`, CI, templates, labels, `GUIDE_DIGEST.md` | laptop details + Blender install (H01), branch protection (H02) | 🔄 PR #3 open |
+| **1 · Brand & creative** | Character, sidekick, world, name, strategy | `docs/decisions/001+`, `brand/*.json` + schemas, character/turnaround/expression sheets, first 12 episodes, 60+ ideas, one-pager | veto anything; check handle availability (H03) | 🔄 PR open |
 | **2 · Parametric character** | Character built from `character.json` | `build_character.py`, `.blend`, front/side/¾ + thumbnail-test renders | nothing | |
 | **3 · Rig & emotions** | Movable, expressive character | Level A rig, face system, `emotions.json` (≥ 20), emanata, `cc.py emotion-sheet` | nothing | |
 | **4 · Motions & compiler** | Idea → animated `.blend` | `motions.py`, `episode.yaml` schema, `make_episode.py`, `events.json`, `cc.py new-episode`, `ANIMATION_QUALITY.md` | hand-polish key shots (H08) | |
