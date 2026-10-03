@@ -1,0 +1,46 @@
+name: "🙋 Human task"
+description: "Something only the owner can do: accounts, recording, approvals, outreach."
+title: "Human: "
+labels: ["needs-human"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What to do
+      description: Exact steps, numbered.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+  - type: dropdown
+    id: time
+    attributes:
+      label: Time estimate
+      options: ["5 min", "15 min", "30 min", "1 hour", "2+ hours"]
+    validations:
+      required: true
+  - type: dropdown
+    id: blocks
+    attributes:
+      label: Blocks which phase
+      options:
+        - "Nothing (recurring or optional)"
+        - "Phase 0 - Bootstrap"
+        - "Phase 1 - Brand"
+        - "Phase 2 - Character"
+        - "Phase 3 - Rig & emotions"
+        - "Phase 4 - Motions & compiler"
+        - "Phase 5 - Studio & render"
+        - "Phase 6 - Sound"
+        - "Phase 7 - Finishing & QA"
+        - "Phase 8 - Content engine"
+        - "Phase 9 - Publishing"
+        - "Phase 10 - Analytics"
+        - "Phase 11 - Money & portfolio"
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      description: How we'll both know it's finished (e.g. "doctor output pasted below").

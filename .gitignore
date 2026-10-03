@@ -1,0 +1,44 @@
+# --- Secrets: never commit. Copy .env.example to .env instead (see docs/SETUP_SECRETS.md).
+.env
+.env.*
+!.env.example
+secrets/
+client_secret*.json
+*.secret.json
+
+# --- Local tools and machine-specific results (created by scripts/setup_env.sh and cc.py doctor)
+.tools/
+.cache/
+
+# --- Renders and other big outputs: CI artifacts or your laptop only (docs/decisions/000)
+render/
+episodes/*/render/
+episodes/*/out/*.mp4
+episodes/*/out/*.mov
+episodes/*/out/*.wav
+*.blend1
+*.blend2
+*.blend@
+
+# --- Sound inboxes: raw drops are sorted into tagged folders by the pipeline
+assets/sfx/_inbox/*
+!assets/sfx/_inbox/.gitkeep
+assets/sfx/voice/_raw/*
+!assets/sfx/voice/_raw/.gitkeep
+
+# --- Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- OS / editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/

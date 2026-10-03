@@ -1,0 +1,4 @@
+# Runtime dependencies for the pipeline (outside Blender; Blender brings its own Python).
+# `python cc.py doctor` works without these, so you can always diagnose a broken setup.
+PyYAML>=6.0.2,<7      # episode.yaml files (Phase 4)
+jsonschema>=4.23,<5   # validating brand/*.json and episode specs (Phase 1+)

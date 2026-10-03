@@ -1,0 +1,4 @@
+# Everything CI uses: runtime deps + test and lint tools.
+-r requirements.txt
+pytest>=8.3,<10
+ruff==0.16.10   # pinned exactly: formatter output changes between versions

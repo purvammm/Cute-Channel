@@ -1,0 +1,44 @@
+name: lint-test
+
+# Every PR and every push to main: lint + unit tests. Fast (about a minute), no Blender needed.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install Python packages
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Lint (ruff)
+        run: ruff check .
+
+      - name: Formatting (ruff format)
+        run: ruff format --check .
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Doctor runs on a bare runner (Blender is expected to be missing here)
+        run: python cc.py doctor || test $? -eq 1

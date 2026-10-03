@@ -1,0 +1,39 @@
+name: "🐛 Something broke"
+description: "A command failed or a render or sound came out wrong."
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: "python cc.py render E003 --final"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output
+      description: Paste the last 30 lines or so. Remove any tokens first!
+      render: shell
+  - type: dropdown
+    id: machine
+    attributes:
+      label: Where
+      options:
+        - "Windows laptop"
+        - "Mac (Apple Silicon)"
+        - "Mac (Intel)"
+        - "Linux"
+        - "GitHub Actions"
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `python cc.py doctor`
+      render: shell
