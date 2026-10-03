@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "emotions.schema.json",
+  "title": "Emotion library",
+  "type": "object",
+  "required": ["schema_version", "emotions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "note": { "type": "string" },
+    "emotions": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["name", "eyes", "mouth", "blush", "brow", "pose", "emanata", "min_hold_frames", "sfx"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "eyes": { "type": "string" },
+          "mouth": { "type": "string" },
+          "blush": { "type": "number", "minimum": 0, "maximum": 1 },
+          "brow": { "enum": ["neutral", "lifted", "angry", "sad", "worried", "love", "dizzy", "cold"] },
+          "pose": {
+            "type": "object",
+            "required": ["scale_xy", "scale_z", "tilt_deg", "offset_z"],
+            "additionalProperties": false,
+            "properties": {
+              "scale_xy": { "type": "number", "minimum": 0.6, "maximum": 1.4 },
+              "scale_z": { "type": "number", "minimum": 0.6, "maximum": 1.4 },
+              "tilt_deg": { "type": "number", "minimum": -30, "maximum": 30 },
+              "offset_z": { "type": "number", "minimum": -0.5, "maximum": 1.5 }
+            }
+          },
+          "emanata": {
+            "type": "array",
+            "items": { "enum": ["heart", "sparkle", "sweat_drop", "exclaim", "question", "anger_puff", "zzz", "tear_stream", "steam_burst", "music_note"] }
+          },
+          "min_hold_frames": { "type": "integer", "minimum": 15 },
+          "sfx": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+        }
+      }
+    }
+  }
+}

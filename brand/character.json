@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "units": "Metres. Origin at the feet. The face looks toward -Y (Blender's front view). Proportions are fractions of the character's own height unless named *_m.",
+  "characters": {
+    "chuski": {
+      "role": "hero",
+      "name": "Chuski",
+      "pronunciation": "CHOOS-kee",
+      "meaning": "from 'chai ki chuski', a sip of chai",
+      "species": "a resting drop of milky masala chai (Level 1 blob, no limbs)",
+      "personality": [
+        "warm",
+        "clingy",
+        "dramatic"
+      ],
+      "flaw": "Panics about going cold: ignored for a minute, it shivers, its steam fades and a wrinkly malai skin forms on its head.",
+      "signature_move": "the steam swirl: a happy spin that curls its steam into a heart",
+      "signature_sound": "plip!",
+      "likes": [
+        "hugs",
+        "rain on the window",
+        "the first-sip 'aaah'",
+        "Shakkar"
+      ],
+      "dislikes": [
+        "the microwave",
+        "being forgotten",
+        "anyone saying 'coffee'"
+      ],
+      "audience_note": "Young-adult energy (office, college, home jokes). Never a toddler character, which keeps episodes 'not made for kids'.",
+      "height_m": 1.0,
+      "body": {
+        "shape": "dome",
+        "width": 1.16,
+        "depth": 1.06,
+        "flat_bottom": 0.16,
+        "segments": 16,
+        "rings": 8,
+        "subdivision_levels": 2
+      },
+      "eyes": {
+        "rest": "open",
+        "height": 0.17,
+        "width_ratio": 0.8,
+        "center_height": 0.42,
+        "spacing": 0.36,
+        "highlights": [
+          {
+            "size": 0.34,
+            "x": -0.22,
+            "y": 0.26
+          },
+          {
+            "size": 0.14,
+            "x": 0.2,
+            "y": -0.2
+          }
+        ],
+        "color": "eye",
+        "highlight_color": "highlight",
+        "roughness": 0.15
+      },
+      "mouth": {
+        "rest": "smile",
+        "width": 0.1,
+        "center_height": 0.3,
+        "line_width": 0.014,
+        "color": "eye"
+      },
+      "blush": {
+        "size": 0.13,
+        "aspect": 0.55,
+        "center_height": 0.31,
+        "spacing": 0.64,
+        "alpha": 0.5,
+        "color": "blush",
+        "threshold": 0.0
+      },
+      "brow": {
+        "kind": "steam_wisp",
+        "height": 0.34,
+        "float_gap": 0.05,
+        "thickness": 0.05,
+        "color": "steam",
+        "shapes": {
+          "neutral": "curl",
+          "lifted": "curl_high",
+          "angry": "puff",
+          "sad": "droop",
+          "worried": "zigzag",
+          "love": "heart",
+          "dizzy": "spiral",
+          "cold": "gone"
+        }
+      },
+      "material": {
+        "color": "chai",
+        "roughness": 0.5,
+        "subsurface_weight": 0.2,
+        "coat_weight": 0.1
+      },
+      "voice": {
+        "pitch_semitones": 7,
+        "tempo_percent": 8,
+        "sounds": [
+          "plip!",
+          "plipli",
+          "aaah",
+          "hehe",
+          "eep!"
+        ]
+      },
+      "locomotion": [
+        "jelly_hop",
+        "slide",
+        "melt_and_reform"
+      ],
+      "face_variants": {
+        "eyes": [
+          "open",
+          "happy",
+          "closed",
+          "wide",
+          "teary",
+          "squint",
+          "heart",
+          "half",
+          "spiral"
+        ],
+        "mouth": [
+          "smile",
+          "grin",
+          "o",
+          "flat",
+          "frown",
+          "wavy",
+          "wail"
+        ]
+      }
+    },
+    "shakkar": {
+      "role": "sidekick",
+      "name": "Shakkar",
+      "pronunciation": "SHUK-kur",
+      "meaning": "sugar (Hindi/Urdu)",
+      "species": "a sugar cube (Level 1, no limbs; walks by tumbling edge over edge)",
+      "personality": [
+        "grumpy",
+        "proper",
+        "secretly sweet"
+      ],
+      "flaw": "Terrified of dissolving, so he avoids anything warm, yet his best friend is a hot drop of chai.",
+      "signature_move": "the corner melt: warmth or kindness softens his corners for a moment, then he squares himself up again",
+      "signature_sound": "hmph (with a crystal 'krrsh')",
+      "likes": [
+        "straight lines",
+        "personal space",
+        "being asked 'how many sugars?'"
+      ],
+      "dislikes": [
+        "hugs (dissolving)",
+        "steam",
+        "being stirred"
+      ],
+      "audience_note": "The deadpan straight man of the duo.",
+      "height_m": 0.55,
+      "body": {
+        "shape": "cube",
+        "width": 1.0,
+        "depth": 1.0,
+        "bevel": 0.12,
+        "subdivision_levels": 1
+      },
+      "eyes": {
+        "rest": "half",
+        "height": 0.2,
+        "width_ratio": 0.75,
+        "center_height": 0.52,
+        "spacing": 0.42,
+        "highlights": [
+          {
+            "size": 0.3,
+            "x": -0.2,
+            "y": 0.22
+          }
+        ],
+        "color": "eye",
+        "highlight_color": "highlight",
+        "roughness": 0.2
+      },
+      "mouth": {
+        "rest": "flat",
+        "width": 0.16,
+        "center_height": 0.3,
+        "line_width": 0.018,
+        "color": "eye"
+      },
+      "blush": {
+        "size": 0.14,
+        "aspect": 0.5,
+        "center_height": 0.36,
+        "spacing": 0.72,
+        "alpha": 0.5,
+        "color": "blush",
+        "threshold": 0.5
+      },
+      "brow": {
+        "kind": "lid_line",
+        "thickness": 0.025,
+        "color": "eye",
+        "shapes": {
+          "neutral": "level",
+          "lifted": "raised",
+          "angry": "angry_tilt",
+          "sad": "sad_tilt",
+          "worried": "sad_tilt",
+          "love": "raised",
+          "dizzy": "level",
+          "cold": "level"
+        }
+      },
+      "material": {
+        "color": "sugar",
+        "roughness": 0.75,
+        "subsurface_weight": 0.08,
+        "coat_weight": 0.0,
+        "sparkle": 0.3
+      },
+      "voice": {
+        "pitch_semitones": 4,
+        "tempo_percent": 0,
+        "sounds": [
+          "hmph",
+          "krrsh",
+          "tch",
+          "oh no"
+        ]
+      },
+      "locomotion": [
+        "cube_tumble",
+        "tiny_hop"
+      ],
+      "face_variants": {
+        "eyes": [
+          "open",
+          "happy",
+          "closed",
+          "wide",
+          "teary",
+          "squint",
+          "heart",
+          "half",
+          "spiral"
+        ],
+        "mouth": [
+          "smile",
+          "grin",
+          "o",
+          "flat",
+          "frown",
+          "wavy",
+          "wail"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+id,title,logline,pillar,hook_text,characters,season,post_by,start_production_by,cost,sendability,hook_strength,loop_potential,new_motions,episode,status,source,notes
+I001,Too Hot to Hug,Chuski hugs Shakkar; his corners melt; he blushes and pretends he hated it,duo,me seeing my bestie after one day,both,evergreen,2026-11-14,2026-10-31,M,5,4,4,cube_tumble;hug_squash;corner_melt,E001,planned,original,
+I002,Five More Minutes,Chuski melts into a puddle to dodge the alarm; Shakkar sits on it and gets sizzled,relatable,alarm: 7:00 · me:,both,evergreen,2026-11-21,2026-11-07,M,5,4,5,melt_and_reform;cube_tumble,E002,planned,adapted from guide 16.3 #2,
+I003,How Many Sugars?,Pause on 0-3 sugars to see Chuski's reaction; the last option is hugging Shakkar,interactive,pause to pick your sugar,both,evergreen,2026-11-28,2026-11-14,M,4,4,3,spin_dizzy;hug_squash,E003,planned,original,
+I004,Steam Swirl,"Idle bounce, blink and the signature heart-shaped steam swirl as a perfect loop",loop,your 6-second warm hug,chuski,evergreen,2026-12-05,2026-11-21,S,3,3,5,steam_swirl,E004,planned,original,make first: proves the pipeline
+I005,Winter Arc,Freezing Shakkar edges toward Chuski's warmth and decides melting is worth it,seasonal,december be like,both,winter,2026-12-12,2026-11-28,M,4,3,4,shiver;corner_melt,E005,planned,original,
+I006,The Long Pour,"Poured tapri-style from a raised tumbler, Chuski stretches into a ribbon and lands with a foam hat",food_asmr,the tapri pour hits different,chuski,evergreen,2026-12-19,2026-12-05,L,4,5,3,stretch_stream,E006,planned,original,
+I007,Personal Space,Shakkar draws a sugar line; Chuski seeps under it; he secretly scoots closer,duo,me vs 'personal space',both,evergreen,2026-12-26,2026-12-12,M,5,3,4,melt_and_reform;seep,E007,planned,original,
+I008,Clay to Cute,Wipe from grey Workbench clay to the final render; Chuski notices being watched,bts,how chuski goes from grey to cute,chuski,evergreen,2027-01-02,2026-12-19,S,2,4,4,,E008,planned,original,portfolio proof for clients
+I009,Don't Reheat Me,Forgotten Chuski grows a malai skin; the microwave door opens; Shakkar slams it shut,relatable,POV: you forgot your chai for an hour,both,evergreen,2027-01-09,2026-12-26,M,5,5,4,shiver,E009,planned,original,needs microwave prop
+I010,Which Glass?,Shell game with three cutting-chai glasses; Chuski pops out of the sugar jar,interactive,keep your eye on chuski,both,evergreen,2027-01-16,2027-01-02,M,4,4,4,shell_shuffle,E010,planned,original,
+I011,Beat Drop,Both bob on the beat; deadpan Shakkar finally tumble-spins on the drop,trend,us when the beat drops,both,evergreen,2027-01-23,2027-01-09,S,3,4,5,cube_tumble,E011,planned,adapted from guide 16.3 #16,IG: trending audio in-app; YT: own beat
+I012,Boil Over,Shakkar looks away for one second and Chuski foams over the saucepan,food_asmr,looked away for ONE second,both,evergreen,2027-01-30,2027-01-16,L,5,5,3,swell_foam,E012,planned,original,needs saucepan prop
+I013,Monday Refills,Each refill makes Chuski bigger until it no longer fits the glass,relatable,monday needs 3 cups,chuski,evergreen,,,M,4,4,3,grow,,idea,original,
+I014,4 PM Chai Break,Someone whispers 'chai break?' and Chuski zips across the desk in one frame,relatable,4 PM be like,both,evergreen,,,M,5,4,3,,,idea,original,office desk variant of the world
+I015,Muted in the Meeting,Chuski talks and talks on a laptop call; steam shows '...'; it was on mute,relatable,when you were on mute the whole time,chuski,evergreen,,,L,4,4,3,,,idea,original,needs laptop prop
+I016,Getting Cold Countdown,"A temperature bar drains as Chuski panics, steam fading",relatable,chai at 1% warmth,chuski,evergreen,,,M,4,4,3,shiver,,idea,adapted from guide 16.3 #5,
+I017,Who Drank It?,"Chuski's glass is half empty; it suspects Shakkar, who is innocent... mostly",duo,who took a sip??,both,evergreen,,,M,4,4,3,,,idea,original,
+I018,Delivery Stare,Chuski stares at the door for 30 minutes; the doorbell rings while it blinks,relatable,waiting for the delivery like,chuski,evergreen,,,S,4,3,4,,,idea,original,
+I019,Malai Hat,A malai skin forms; Chuski tries to style it like a beret,relatable,trying to make it a look,chuski,evergreen,,,S,3,3,4,,,idea,original,
+I020,Saucer Vacation,"Spilled onto the saucer, Chuski lounges like it's a pool",relatable,"it's not a spill, it's a vacation",chuski,evergreen,,,M,4,3,4,melt_and_reform,,idea,original,
+I021,Just One Sip,Someone 'only takes one sip' and leaves Chuski half its size,relatable,'just one sip' they said,chuski,evergreen,,,M,5,4,3,shrink,,idea,original,
+I022,3 AM Scroll,"Chuski lit by a phone glow, eyes huge, at 3 AM",relatable,3 AM and one more reel,chuski,evergreen,,,S,4,3,5,,,idea,original,
+I023,Sunday Puddle,A whole Sunday spent as a flat puddle: a perfect loop,loop,sunday plans:,chuski,evergreen,,,S,4,3,5,melt_and_reform,,idea,original,
+I024,Coffee?!,Someone says 'coffee' and Chuski gasps in betrayal,relatable,when they say they prefer coffee,chuski,evergreen,,,S,5,4,3,,,idea,original,no brands
+I025,New Mug Jealousy,A shiny new mug arrives; Chuski is jealous of its own home,relatable,when they get a new mug,chuski,evergreen,,,M,3,3,3,,,idea,original,
+I026,Window Fog Doodles,Winter breath fogs the window; Chuski draws a heart with its steam,seasonal,winter mornings,chuski,winter,2027-01-04,2026-12-21,S,3,3,4,,,idea,original,
+I027,Guest Mode,Doorbell: Chuski combs its steam into a perfect smile; Shakkar jumps in for the guests,relatable,when guests come and mum says 'chai bana do',both,evergreen,,,M,5,5,3,corner_melt,,idea,original,
+I028,Too Many Cups,"Five aunties, five cups: Chuski splits into five tiny drops to serve everyone",relatable,when 5 guests want chai,chuski,evergreen,,,L,4,4,3,split_merge,,idea,original,
+I029,Stuck in the Cup,Chuski gets stuck in a too-narrow glass and pops out like a cork,relatable,me after one samosa,chuski,evergreen,,,M,3,4,3,squeeze_pop,,idea,adapted from guide 16.3 #28 and #35,
+I030,Cutting Chai,"Asked for 'just half', Chuski splits in two, and the two halves argue",duo,when someone asks for 'half',chuski,evergreen,,,L,5,4,3,split_merge,,idea,adapted from guide 16.3 #23,
+I031,Sugar Rush,Shakkar falls in by accident and Chuski goes hyper,duo,one sugar too many,both,evergreen,,,M,4,4,3,spin_dizzy,,idea,original,
+I032,Shakkar's Diet,Shakkar tries to make himself smaller for the new year; Chuski is heartbroken,seasonal,"new year, less sugar?",both,new_year,2027-01-01,2026-12-18,M,3,4,3,shrink,,idea,original,"about Shakkar only, never viewers' bodies"
+I033,Saucer Thief,"Shakkar steals the warm saucer spot, then regrets it",duo,when your sibling takes your spot,both,evergreen,,,M,4,3,3,,,idea,adapted from guide 16.3 #11,
+I034,Tumble Race,Shakkar's cube tumble vs Chuski's hops across the windowsill,duo,tortoise vs hare but cute,both,evergreen,,,M,3,4,4,cube_tumble,,idea,original,
+I035,Shakkar's Birthday,"Chuski gifts Shakkar a tiny sugar cube; he's offended, then touched",duo,gifting your bestie,both,evergreen,,,M,4,3,3,,,idea,adapted from guide 16.3 #22,
+I036,Hide and Seek,Shakkar hides among identical cubes in the sugar jar; can you spot him?,interactive,spot the real shakkar,both,evergreen,,,M,4,5,3,,,idea,original,
+I037,Powdered Sneeze,Shakkar sneezes and becomes a cloud of powdered sugar,duo,when you sneeze in public,shakkar,evergreen,,,M,3,4,3,,,idea,adapted from guide 16.3 #8,
+I038,Spoon Mirror,Chuski's reflection in a steel spoon is upside-down and stretched,duo,me vs my front camera,chuski,evergreen,,,M,4,4,4,,,idea,adapted from guide 16.3 #19,
+I039,Tea for Two,Both try to fit in one glass; somebody spills,duo,sharing is caring?,both,evergreen,,,M,3,3,3,,,idea,original,
+I040,Stirring Tornado,A spoon stirs and Chuski spins into a dizzy tornado; Shakkar refuses to be stirred,food_asmr,when they stir too hard,both,evergreen,,,M,3,4,4,spin_dizzy,,idea,original,
+I041,Ice Cube Stranger,An ice cube visits; Shakkar thinks he's a long-lost cousin,duo,meeting your cousin from abroad,both,evergreen,,,M,3,3,3,,,idea,original,guest character
+I042,Tap to Blow,Pause on the right frame to cool Chuski down,interactive,tap to blow on chuski,chuski,evergreen,,,M,3,4,4,,,idea,adapted from guide 16.2 pillar 3,
+I043,Count the Bubbles,Bubbles rise fast: count them and comment,interactive,how many bubbles?,chuski,evergreen,,,S,3,4,4,,,idea,original,
+I044,Choose the Mood,"Three steam shapes flash by (heart, storm, zigzag): pause to pick Chuski's mood",interactive,pause to pick chuski's mood,chuski,evergreen,,,S,3,4,3,,,idea,original,
+I045,Which One Is Warm?,Three identical drops; only one is Chuski; watch the steam,interactive,find the warm one,chuski,evergreen,,,M,3,4,3,,,idea,original,
+I046,Kettle Song,The kettle whistle turns out to be Chuski singing,food_asmr,the kettle has a voice,chuski,evergreen,,,M,3,3,3,,,idea,original,kettle prop
+I047,Ginger Sneeze,Fresh ginger goes in and Chuski sneezes itself backwards,food_asmr,adrak wali chai,chuski,evergreen,,,M,4,4,3,sneeze_launch,,idea,adapted from guide 16.3 #8,
+I048,Elaichi Sparkle,A crushed cardamom pod makes Chuski fragrant and sparkly,food_asmr,the elaichi effect,chuski,evergreen,,,S,3,3,4,,,idea,original,
+I049,Pakora Crunch,Rainy-day pakoras crunch; Shakkar is jealous of the crunch,food_asmr,chai + pakora weather,both,monsoon,2027-06-19,2027-06-05,M,5,4,3,,,idea,original,pakora prop
+I050,Bubble Bath,Too many bubbles in the saucer; Chuski disappears in foam,food_asmr,self-care sunday,chuski,evergreen,,,M,3,3,4,swell_foam,,idea,adapted from guide 16.3 #30,
+I051,Christmas Steam Hat,Chuski's steam curls into a Santa hat; Shakkar refuses the reindeer role,seasonal,christmas mode on,both,christmas,2026-12-25,2026-12-11,S,3,3,3,,,idea,original,
+I052,Kite Steam,"For Makar Sankranti, Chuski's steam becomes a kite string in the wind",seasonal,uttarayan vibes,both,makar_sankranti,2027-01-14,2026-12-31,M,3,3,3,,,idea,original,"14 or 15 Jan: sources differ, verify"
+I053,Lohri Bonfire Warmth,Both warm up at a tiny bonfire; Shakkar melts again,seasonal,lohri night,both,lohri,2027-01-13,2026-12-30,M,3,3,3,,,idea,original,date to verify (eve of Sankranti)
+I054,Chai Date,Valentine's: Chuski blushes so hard its steam becomes a heart balloon,seasonal,valentine's plans:,chuski,valentines,2027-02-14,2027-01-31,S,4,3,3,,,idea,original,
+I055,Exam Night 2 AM,"Chuski as the study buddy: refills, jitters, collapses into a puddle at dawn",seasonal,me at 2 AM before the exam,chuski,exams,2027-02-20,2027-02-06,M,5,5,3,melt_and_reform,,idea,original,board exams roughly mid-Feb to March
+I056,Holi Colours,A splash of gulaal turns Chuski pink and green; it loves the new look,seasonal,holi glow up,chuski,holi,2027-03-22,2027-03-08,M,4,4,3,,,idea,adapted from guide 16.3 #13,Holi 2027 = 22 Mar per one source; verify
+I057,Last Over Steam,"During a tense last over, Chuski's steam spikes with every ball",seasonal,"last over, 6 needed",chuski,cricket,2027-04-03,2027-03-20,M,5,4,3,,,idea,original,cricket season; check fixtures; no team logos
+I058,Who Drinks Hot Chai at 45°C?,"A heatwave: Chuski sweats, Shakkar melts, both still want chai",seasonal,summer and still chai,both,summer,2027-05-01,2027-04-17,M,5,4,3,corner_melt,,idea,original,
+I059,International Tea Day,Chuski's big day: a tiny parade on the windowsill,seasonal,it's our day ☕,both,tea_day,2027-05-21,2027-05-07,M,4,4,3,,,idea,original,"UN observance, every 21 May"
+I060,First Rain,The first monsoon drop hits the window; Chuski thinks it's a cousin and waves,seasonal,first rain of the season,chuski,monsoon,2027-06-05,2027-05-22,M,5,4,4,,,idea,adapted from guide 16.3 #4,Kerala onset is usually around 1 June
+I061,Mithai Overload,Diwali boxes arrive: Shakkar's sweet relatives take over the windowsill,seasonal,diwali guests be like,both,diwali,,,M,4,4,3,,,idea,original,Diwali 2026 (8 Nov) is before launch; Diwali 2027 date to verify
+I062,Diya Glow,Chuski glows in diya light; its steam makes shadow puppets on the wall,seasonal,diwali night,both,diwali,,,M,3,3,4,,,idea,original,lighting showcase; date to verify for 2027
+I063,Rain Watching,Chuski watches rain run down the window and blinks slowly,loop,rain + chai = peace,chuski,evergreen,,,S,3,2,5,,,idea,original,
+I064,Sleepy Breathing,"Asleep in its glass, breathing; steam rises and falls",loop,sleep mode,chuski,evergreen,,,S,3,2,5,,,idea,original,
+I065,Bubble Idle,Gentle boiling bubbles in a rhythmic loop,loop,oddly satisfying,chuski,evergreen,,,S,2,3,5,,,idea,original,
+I066,Endless Tumble,Shakkar tumbles forever on a spinning saucer like a treadmill,loop,monday treadmill,shakkar,evergreen,,,S,3,3,5,cube_tumble,,idea,original,
+I067,Rush the Render Bar,Chuski notices the render progress bar and tries to push it faster,bts,when the render takes forever,chuski,evergreen,,,M,3,4,3,,,idea,adapted from guide 16.3 #33,
+I068,The Code Behind the Hop,The jelly-hop key table appears on screen as Chuski hops,bts,i animated this with python,chuski,evergreen,,,S,2,4,4,,,idea,original,portfolio piece for tech clients
+I069,What the Camera Doesn't See,Pull the camera back to reveal Chuski stretched in odd ways for the shot,bts,camera tricks,chuski,evergreen,,,M,3,4,3,,,idea,original,raddoob-style cheat reveal
+I070,Day N of Animating a Chai Drop,A series opener: one small new skill per day,bts,day 1 of animating a chai drop,chuski,evergreen,,,S,2,4,3,,,idea,original,"series mechanic, guide §18.3"
+I071,Sketch to 3D,From the schematic character sheet to the 3D turnaround,bts,from sketch to 3D,both,evergreen,,,S,2,3,4,,,idea,adapted from guide 16.3 #39,
+I072,Meme Backstory,"What happened right before a famous 'spilled tea' moment, Chuski edition",trend,the story behind the spill,chuski,evergreen,,,M,4,4,3,,,idea,adapted from guide 16.3 #38,never use the original meme image
+I073,Dialogue Lip-Sync,Chuski mouths a trending dialogue (audio added in-app only),trend,(trending dialogue),chuski,evergreen,,,S,4,4,3,,,idea,adapted from guide 16.3 #20,IG only; YT gets its own version
+I074,Duet Dance,Chuski and Shakkar recreate a trending two-person dance,trend,us doing the trend,both,evergreen,,,M,4,4,5,,,idea,original,
+I075,Reply to a Comment,Animate a viewer's request from the comments,trend,"you asked, we animated",both,evergreen,,,M,4,4,3,,,idea,adapted from guide 16.3 #40,"series mechanic, guide §18.3"

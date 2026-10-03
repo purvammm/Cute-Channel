@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "character.schema.json",
+  "title": "Character bible",
+  "type": "object",
+  "required": ["schema_version", "units", "characters"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "units": { "type": "string" },
+    "characters": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "$ref": "#/$defs/character" }
+    }
+  },
+  "$defs": {
+    "fraction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1.5 },
+    "color_ref": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "character": {
+      "type": "object",
+      "required": ["role", "name", "species", "personality", "flaw", "signature_move", "signature_sound",
+                   "height_m", "body", "eyes", "mouth", "blush", "brow", "material", "voice", "locomotion", "face_variants"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "enum": ["hero", "sidekick", "guest"] },
+        "name": { "type": "string", "minLength": 2 },
+        "pronunciation": { "type": "string" },
+        "meaning": { "type": "string" },
+        "species": { "type": "string" },
+        "personality": { "type": "array", "items": { "type": "string" }, "minItems": 3, "maxItems": 3 },
+        "flaw": { "type": "string", "minLength": 10 },
+        "signature_move": { "type": "string" },
+        "signature_sound": { "type": "string" },
+        "likes": { "type": "array", "items": { "type": "string" } },
+        "dislikes": { "type": "array", "items": { "type": "string" } },
+        "audience_note": { "type": "string" },
+        "height_m": { "type": "number", "minimum": 0.2, "maximum": 2.0 },
+        "body": {
+          "type": "object",
+          "required": ["shape", "width", "depth"],
+          "additionalProperties": false,
+          "properties": {
+            "shape": { "enum": ["dome", "sphere", "cube", "bean"] },
+            "width": { "$ref": "#/$defs/fraction" },
+            "depth": { "$ref": "#/$defs/fraction" },
+            "flat_bottom": { "type": "number", "minimum": 0, "maximum": 0.5 },
+            "bevel": { "type": "number", "minimum": 0, "maximum": 0.5 },
+            "segments": { "type": "integer", "minimum": 8, "maximum": 64 },
+            "rings": { "type": "integer", "minimum": 4, "maximum": 32 },
+            "subdivision_levels": { "type": "integer", "minimum": 0, "maximum": 3 }
+          }
+        },
+        "eyes": {
+          "type": "object",
+          "required": ["rest", "height", "width_ratio", "center_height", "spacing", "highlights", "color", "roughness"],
+          "additionalProperties": false,
+          "properties": {
+            "rest": { "type": "string" },
+            "height": { "$ref": "#/$defs/fraction" },
+            "width_ratio": { "$ref": "#/$defs/fraction" },
+            "center_height": { "$ref": "#/$defs/fraction" },
+            "spacing": { "$ref": "#/$defs/fraction" },
+            "highlights": {
+              "type": "array", "minItems": 1, "maxItems": 2,
+              "items": {
+                "type": "object", "required": ["size", "x", "y"], "additionalProperties": false,
+                "properties": {
+                  "size": { "type": "number", "minimum": 0.05, "maximum": 0.6 },
+                  "x": { "type": "number", "minimum": -0.5, "maximum": 0.5 },
+                  "y": { "type": "number", "minimum": -0.5, "maximum": 0.5 }
+                }
+              }
+            },
+            "color": { "$ref": "#/$defs/color_ref" },
+            "highlight_color": { "$ref": "#/$defs/color_ref" },
+            "roughness": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "mouth": {
+          "type": "object",
+          "required": ["rest", "width", "center_height", "line_width", "color"],
+          "additionalProperties": false,
+          "properties": {
+            "rest": { "type": "string" },
+            "width": { "$ref": "#/$defs/fraction" },
+            "center_height": { "$ref": "#/$defs/fraction" },
+            "line_width": { "type": "number", "minimum": 0.002, "maximum": 0.05 },
+            "color": { "$ref": "#/$defs/color_ref" }
+          }
+        },
+        "blush": {
+          "type": "object",
+          "required": ["size", "aspect", "center_height", "spacing", "alpha", "color"],
+          "additionalProperties": false,
+          "properties": {
+            "size": { "$ref": "#/$defs/fraction" },
+            "aspect": { "$ref": "#/$defs/fraction" },
+            "center_height": { "$ref": "#/$defs/fraction" },
+            "spacing": { "$ref": "#/$defs/fraction" },
+            "alpha": { "type": "number", "minimum": 0, "maximum": 1, "description": "maximum opacity" },
+            "threshold": { "type": "number", "minimum": 0, "maximum": 0.9, "description": "emotion blush below this shows nothing (shy blushers use 0.5)" },
+            "color": { "$ref": "#/$defs/color_ref" }
+          }
+        },
+        "brow": {
+          "type": "object",
+          "required": ["kind", "thickness", "color", "shapes"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "enum": ["steam_wisp", "lid_line", "none"] },
+            "height": { "$ref": "#/$defs/fraction" },
+            "float_gap": { "type": "number", "minimum": 0, "maximum": 0.3 },
+            "thickness": { "type": "number", "minimum": 0.005, "maximum": 0.15 },
+            "color": { "$ref": "#/$defs/color_ref" },
+            "shapes": {
+              "type": "object",
+              "required": ["neutral", "lifted", "angry", "sad", "worried", "love", "dizzy", "cold"],
+              "additionalProperties": { "type": "string" }
+            }
+          }
+        },
+        "material": {
+          "type": "object",
+          "required": ["color", "roughness", "subsurface_weight"],
+          "additionalProperties": false,
+          "properties": {
+            "color": { "$ref": "#/$defs/color_ref" },
+            "roughness": { "type": "number", "minimum": 0, "maximum": 1 },
+            "subsurface_weight": { "type": "number", "minimum": 0, "maximum": 1 },
+            "coat_weight": { "type": "number", "minimum": 0, "maximum": 1 },
+            "sparkle": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "voice": {
+          "type": "object",
+          "required": ["pitch_semitones", "tempo_percent", "sounds"],
+          "additionalProperties": false,
+          "properties": {
+            "pitch_semitones": { "type": "integer" },
+            "tempo_percent": { "type": "integer", "minimum": -20, "maximum": 20 },
+            "sounds": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        },
+        "locomotion": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "face_variants": {
+          "type": "object",
+          "required": ["eyes", "mouth"],
+          "additionalProperties": false,
+          "properties": {
+            "eyes": { "type": "array", "items": { "type": "string" }, "minItems": 3, "uniqueItems": true },
+            "mouth": { "type": "array", "items": { "type": "string" }, "minItems": 3, "uniqueItems": true }
+          }
+        }
+      }
+    }
+  }
+}

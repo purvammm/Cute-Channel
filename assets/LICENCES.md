@@ -14,3 +14,4 @@ Rules (guide §3.4, §14.2, §21):
 
 | File (repo path) | Source page URL | Author | Licence | Credit text (if CC-BY) | Added |
 |---|---|---|---|---|---|
+| `assets/fonts/Baloo2-Variable.ttf` | https://github.com/google/fonts/tree/main/ofl/baloo2 | The Baloo 2 Project Authors (Ek Type) | SIL OFL 1.1 (`assets/fonts/OFL.txt`); commercial use allowed | not required | 2026-10-02 |

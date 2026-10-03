@@ -2,3 +2,4 @@
 # `python cc.py doctor` works without these, so you can always diagnose a broken setup.
 PyYAML>=6.0.2,<7      # episode.yaml files (Phase 4)
 jsonschema>=4.23,<5   # validating brand/*.json and episode specs (Phase 1+)
+resvg-py>=0.5,<1      # SVG -> PNG for the character sheets (no system libraries needed)
