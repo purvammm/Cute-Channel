@@ -372,7 +372,7 @@ Also update issues #4 and #5 and docs/HUMAN_TASKS.md for the new characters. Fol
         <li>Click <span class="ui">Delete branch</span>. That's safe: the work is now in main, and the branch was only the draft.</li>
       </ol>
       <div class="see">A purple <span class="ui purple">Merged</span> label at the top of the PR.</div>
-      <p>From now on, open the guide here (update your bookmark): <a href="https://raw.githack.com/purvammm/Cute-Channel/main/docs/START_HERE.html">raw.githack.com/purvammm/Cute-Channel/main/docs/START_HERE.html</a>. Your ticks are kept. If it says "not found", wait 5 minutes and refresh.</p>
+      <p>From now on, open the guide with this link (update your bookmark): <a href="https://htmlpreview.github.io/?https://github.com/purvammm/Cute-Channel/blob/main/docs/START_HERE.html">the Start Here guide on main</a>. Your ticks are kept. If the page stays blank, wait 5 minutes and refresh.</p>
       <details class="oops"><summary>🆘 If it goes wrong</summary>
         <ul>
           <li><b>The merge button is grey:</b> the tests haven't finished yet. Wait, then refresh.</li>
@@ -1183,9 +1183,32 @@ YouTube: views ___, average view duration ___ s, new subscribers ___</pre><butto
     });
   });
 
-  // Links to other pages open in a new tab, so this guide stays open where you were.
-  Array.prototype.forEach.call(document.querySelectorAll('main a[href]'), function (a) {
-    if (a.getAttribute('href').charAt(0) !== '#') { a.target = '_blank'; a.rel = 'noopener'; }
+  // Which part of this page a link points to. Some online viewers rewrite "#p3" into a full
+  // address, so compare the address too, not just the first character.
+  function inPageTarget(a) {
+    var raw = a.getAttribute('href') || '';
+    if (raw.charAt(0) === '#') { return raw.slice(1); }
+    try {
+      var u = new URL(a.href, location.href);
+      if (u.hash && u.origin === location.origin && u.pathname === location.pathname && u.search === location.search) { return u.hash.slice(1); }
+    } catch (e) {}
+    return null;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function (a) {
+    var id = inPageTarget(a);
+    if (id === null) {
+      // Links to other pages open in a new tab, so this guide stays open where you were.
+      if (a.closest('main')) { a.target = '_blank'; a.rel = 'noopener'; }
+      return;
+    }
+    a.addEventListener('click', function (e) {
+      var el = document.getElementById(decodeURIComponent(id));
+      if (!el) { return; }
+      e.preventDefault();
+      closeMenu();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try { history.replaceState(null, '', '#' + id); } catch (err) {}
+    });
   });
 
   // Phone-sized screens: the contents slide in from a button.
@@ -1201,7 +1224,10 @@ YouTube: views ___, average view duration ___ s, new subscribers ___</pre><butto
 
   // Highlight the part you're reading in the contents.
   var links = {};
-  Array.prototype.forEach.call(toc.querySelectorAll('a[href^="#"]'), function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  Array.prototype.forEach.call(toc.querySelectorAll('a[href]'), function (a) {
+    var id = inPageTarget(a);
+    if (id !== null) { links[id] = a; }
+  });
   var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
   function updateActive() {
     var line = window.innerHeight * 0.3, current = null;

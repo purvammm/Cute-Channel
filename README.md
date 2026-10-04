@@ -1,6 +1,6 @@
 # Cute Channel
 
-> **New here? Start with the step-by-step guide:** [open it as a web page](https://raw.githack.com/purvammm/Cute-Channel/main/docs/START_HERE.html)
+> **New here? Start with the step-by-step guide:** [open it as a web page](https://htmlpreview.github.io/?https://github.com/purvammm/Cute-Channel/blob/main/docs/START_HERE.html)
 > (the file is [`docs/START_HERE.html`](docs/START_HERE.html)). It covers every click and command on your Windows laptop and iPhone, in order.
 
 Automation for a one-person cute 3D micro-animation channel (Instagram Reels + YouTube Shorts).
