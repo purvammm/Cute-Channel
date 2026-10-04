@@ -1,5 +1,8 @@
 # Cute Channel
 
+> **New here? Start with the step-by-step guide:** [open it as a web page](https://htmlpreview.github.io/?https://github.com/purvammm/Cute-Channel/blob/main/docs/START_HERE.html)
+> (the file is [`docs/START_HERE.html`](docs/START_HERE.html)). It covers every click and command on your Windows laptop and iPhone, in order.
+
 Automation for a one-person cute 3D micro-animation channel (Instagram Reels + YouTube Shorts).
 You make the taste calls and learn animation; the scripts handle the rest: character build,
 animation blocking, rendering, sound sync, captions, QA and publishing, each behind your approval.
