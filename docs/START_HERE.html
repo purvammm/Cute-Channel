@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start Here: your step-by-step guide (Cute Channel, Windows 11 + iPhone)</title>
+<meta name="description" content="Every click and every command for running the Cute Channel project on a Windows 11 laptop and an iPhone, one small step at a time.">
+<style>
+  :root{
+    --bg:#fffaf5; --ink:#2f2a3b; --muted:#6d6680; --card:#ffffff; --line:#efe4f2;
+    --pink:#ff8fb1; --pink-soft:#ffe3ec; --mint:#7fd8be; --mint-soft:#e1f7ef;
+    --sky:#8ecbff; --sky-soft:#e3f2ff; --butter:#ffd86b; --butter-soft:#fff5d6;
+    --lav:#b9a3ff; --lav-soft:#efe9ff; --red:#e0566b; --red-soft:#ffe6ea;
+    --gh-green:#1f883d; --term:#1e1b2e;
+    --radius:18px; --shadow:0 6px 24px rgba(92,64,120,.08);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
+  a{color:#7a4fe0;overflow-wrap:anywhere} a:hover{color:#5a2fc0}
+  h1,h2,h3,h4{line-height:1.25;margin:1.3em 0 .45em}
+  h2{font-size:1.75rem} h3{font-size:1.25rem} h4{font-size:1.06rem}
+  p{margin:.55em 0}
+  ul,ol{padding-left:1.35em} li{margin:.25em 0}
+  code,kbd{font-family:var(--mono);font-size:.88em}
+  code{background:var(--lav-soft);padding:.1em .35em;border-radius:6px;overflow-wrap:anywhere}
+  kbd{display:inline-block;background:#fff;border:1px solid #d9cfe6;border-bottom-width:3px;border-radius:7px;padding:0 .45em;min-width:1.6em;text-align:center;line-height:1.55}
+  table{width:100%;border-collapse:collapse;margin:1em 0;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);font-size:.94rem}
+  th,td{padding:.6em .75em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--lav-soft);font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .table-wrap{overflow-x:auto}
+
+  /* layout: sticky contents on the left, the guide on the right */
+  .layout{display:grid;grid-template-columns:300px 1fr;max-width:1320px;margin:0 auto}
+  nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:1.3rem 1rem 2rem;border-right:1px solid var(--line);background:#fff7fb}
+  nav.toc .brand{font-size:1.05rem;font-weight:700;margin:.1em .3em .5em}
+  nav.toc ol{list-style:none;padding:0;margin:0}
+  nav.toc li{margin:0}
+  nav.toc a{display:block;padding:.28em .55em;border-radius:9px;text-decoration:none;color:var(--ink);font-size:.92rem}
+  nav.toc a:hover,nav.toc a.active{background:var(--pink-soft)}
+  nav.toc .part{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1em .55em .25em}
+  .progress-wrap{margin:.6rem .3rem .8rem;font-size:.85rem;color:var(--muted)}
+  .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:.35rem}
+  .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff8fb1,#b9a3ff);transition:width .4s}
+  .btn{display:inline-block;border:none;border-radius:99px;padding:.55em 1.05em;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;background:var(--pink);color:#fff;box-shadow:var(--shadow)}
+  .btn:hover{filter:brightness(.95);color:#fff}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn.small{font-size:.85rem;padding:.4em .85em}
+  nav.toc .btn{width:100%;text-align:center;margin:.2rem 0 .4rem}
+  main{padding:0 2.2rem 5rem;min-width:0}
+  section{scroll-margin-top:1rem}
+  #menuBtn{display:none}
+  /* hero */
+  .hero{padding:2.2rem 0 .6rem}
+  .hero h1{font-size:2.4rem;margin:.15em 0 .3em}
+  .kicker{display:inline-block;background:var(--mint-soft);color:#1f7a5f;border-radius:99px;padding:.2em .8em;font-size:.82rem;font-weight:700}
+  .lead{font-size:1.12rem;color:#4a4458;max-width:52em}
+  .hero .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+
+  /* part headers */
+  .part-head{display:flex;align-items:center;gap:.8rem;margin:2.6rem 0 .3rem;padding-top:.6rem;border-top:2px dashed var(--line)}
+  .part-head .num{flex:none;width:2.6rem;height:2.6rem;border-radius:50%;display:grid;place-items:center;background:var(--lav);color:#fff;font-weight:800;font-size:1.15rem}
+  .part-head h2{margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 .8rem}
+  .pill{display:inline-block;font-size:.8rem;padding:.12em .7em;border-radius:99px;background:var(--lav-soft);color:#5a3bb8;font-weight:700}
+  .pill.time{background:var(--butter-soft);color:#8a6400}
+  .pill.where{background:var(--sky-soft);color:#1d5f99}
+  .pill.when{background:var(--mint-soft);color:#1f7a5f}
+  .pill.lock{background:#f1f1f1;color:#555}
+
+  /* numbered step cards with a Done tick */
+  ol.steps{counter-reset:s;list-style:none;padding-left:0;margin:1rem 0}
+  ol.steps > li{counter-increment:s;position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.8rem 1rem .8rem 3.6rem;margin:.75rem 0;box-shadow:var(--shadow);scroll-margin-top:1.2rem}
+  ol.steps > li::before{content:attr(data-n);position:absolute;left:.85rem;top:.85rem;min-width:2rem;height:2rem;padding:0 .3em;border-radius:99px;background:var(--pink);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.85rem}
+  ol.steps > li.done{background:#fbfffd;border-color:#c9efe1}
+  ol.steps > li.done::before{content:"✓";background:var(--mint)}
+  ol.steps > li.flash{animation:flash 1.6s ease-out}
+  @keyframes flash{0%{box-shadow:0 0 0 6px var(--butter)}100%{box-shadow:var(--shadow)}}
+  .step-title{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem}
+  .step-title h4{margin:.15em 0 .2em}
+  label.tick{flex:none;display:inline-flex;align-items:center;gap:.35em;font-size:.82rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:.2em .7em;cursor:pointer;user-select:none;white-space:nowrap}
+  label.tick input{width:1.15em;height:1.15em;accent-color:var(--mint);margin:0}
+  li.done label.tick{background:var(--mint-soft);color:#1f7a5f;border-color:#c9efe1}
+
+  /* commands, things to paste, and what the screen shows */
+  .cmd,.paste{position:relative;background:#fff;border:2px solid var(--lav-soft);border-radius:12px;margin:.6rem 0;padding:.55rem 5.6rem .55rem .8rem}
+  .cmd code{background:none;padding:0;font-size:.92rem;color:#3b2a7a;white-space:pre-wrap;overflow-wrap:anywhere}
+  .paste pre{margin:0;font-family:var(--mono);font-size:.86rem;white-space:pre-wrap;overflow-wrap:anywhere;color:#3b2a7a}
+  .cmd::before{content:"Type in Terminal";display:block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .paste::before{content:attr(data-label);display:block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+  button.copy{position:absolute;right:.5rem;top:.5rem;border:none;border-radius:9px;background:#7a4fe0;color:#fff;font:inherit;font-size:.82rem;font-weight:700;padding:.35em .8em;cursor:pointer}
+  button.copy:hover{filter:brightness(.95)}
+  button.copy.ok{background:var(--gh-green)}
+  pre.screen{background:var(--term);color:#e9e6f5;border-radius:12px;padding:.8rem 1rem;font-family:var(--mono);font-size:.8rem;line-height:1.5;overflow-x:auto;margin:.5rem 0;white-space:pre}
+  pre.screen .dim{color:#9b95b5} pre.screen .ok{color:#7fd8be} pre.screen .warn{color:#ffd86b}
+  .see{background:var(--sky-soft);border-radius:12px;padding:.55rem .85rem;margin:.6rem 0}
+  .see::before{content:"👀 You should see";display:block;font-weight:700;font-size:.85rem;color:#1d5f99}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.45rem .9rem;margin:.6rem 0}
+  details summary{cursor:pointer;font-weight:700}
+  details.oops{background:var(--red-soft);border-color:#f6c9d1}
+  details.oops summary{color:#a8324a}
+  details.more summary{color:#5a3bb8}
+  details[open]{padding-bottom:.7rem}
+  /* callouts */
+  .note{border-radius:14px;padding:.8rem 1.05rem;margin:1rem 0;border-left:6px solid}
+  .note b.t{display:block;margin-bottom:.15em}
+  .tip{background:var(--mint-soft);border-color:var(--mint)}
+  .warn{background:var(--red-soft);border-color:var(--red)}
+  .real{background:var(--butter-soft);border-color:var(--butter)}
+  .info{background:var(--sky-soft);border-color:var(--sky)}
+  .soon{background:#f4f2f7;border:2px dashed #cfc7dd;border-radius:14px;padding:.7rem 1rem;margin:1rem 0}
+
+  /* pretend buttons, so you know what to look for on the screen */
+  .ui{display:inline-block;font-size:.86em;font-weight:700;border:1px solid #d0d7de;background:#f6f8fa;color:#24292f;border-radius:7px;padding:.05em .55em;white-space:nowrap}
+  .ui.green{background:var(--gh-green);border-color:#1a7f37;color:#fff}
+  .ui.red{background:#fff;border-color:#cf222e;color:#cf222e}
+  .ui.purple{background:#8250df;border-color:#8250df;color:#fff}
+  .ui.app{background:#fff;border-color:var(--line);color:var(--ink);border-radius:99px}
+
+  /* cards, status board, small helpers */
+  .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1rem 0}
+  .card{background:var(--card);border-radius:var(--radius);padding:.9rem 1.1rem;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .card h4{margin:.1em 0 .3em}
+  .card.today{border:2px solid var(--pink)}
+  .status{list-style:none;padding:0;margin:.4rem 0}
+  .status li{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem .6rem;border-radius:10px;background:var(--card);border:1px solid var(--line);margin:.35rem 0}
+  .status .ic{flex:none;width:1.6em;text-align:center}
+  .road{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.8rem 0;font-size:.9rem}
+  .road span{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:.25em .8em}
+  .road span.now{background:var(--pink);color:#fff;border-color:var(--pink);font-weight:700}
+  .road i{font-style:normal;color:var(--muted)}
+  .loop{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.5rem;margin:1rem 0;counter-reset:l}
+  .loop div{counter-increment:l;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.6rem .7rem;font-size:.92rem;text-align:center}
+  .loop div::before{content:counter(l);display:block;margin:0 auto .3rem;width:1.8em;height:1.8em;border-radius:50%;background:var(--lav);color:#fff;font-weight:800;line-height:1.8em}
+  ul.checklist{list-style:none;padding-left:0}
+  ul.checklist li{display:flex;gap:.55em;align-items:flex-start;padding:.3em .5em;border-radius:10px}
+  ul.checklist li:hover{background:#fff}
+  ul.checklist input{margin-top:.35em;width:1.1em;height:1.1em;accent-color:var(--pink);flex:none}
+  ul.checklist li.done label{color:var(--muted);text-decoration:line-through}
+  .src{font-size:.8rem;color:var(--muted)}
+  .muted{color:var(--muted)}
+  footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1rem}
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} ol.steps > li.flash{animation:none} }
+  @media (max-width: 980px){
+    .layout{grid-template-columns:1fr}
+    nav.toc{position:fixed;top:0;right:22%;bottom:0;left:0;z-index:20;transform:translateX(-105%);transition:transform .25s;box-shadow:var(--shadow)}
+    nav.toc.open{transform:none}
+    #menuBtn{display:block;position:fixed;right:14px;bottom:14px;z-index:30;border:none;background:var(--pink);color:#fff;font-weight:700;border-radius:99px;padding:.7em 1.1em;box-shadow:var(--shadow);font:inherit}
+    main{padding:0 1rem 5rem}
+    .hero h1{font-size:1.9rem}
+    ol.steps > li{padding:.75rem .8rem .8rem 3.5rem}
+    ol.steps > li::before{left:.55rem}
+    .step-title{flex-direction:column-reverse;gap:.3rem}
+    .cmd,.paste{padding:.55rem .7rem 2.6rem}
+    .ui{white-space:normal}
+    button.copy{top:auto;bottom:.45rem}
+  }
+  @media print{
+    nav.toc,#menuBtn,button.copy,.hero .actions{display:none!important}
+    .layout{display:block} main{padding:0}
+    details{display:block} details > *{display:block}
+    ol.steps > li{break-inside:avoid;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+<button id="menuBtn" type="button" aria-controls="toc" aria-expanded="false">☰ Contents</button>
+<div class="layout">
+<nav class="toc" id="toc" aria-label="Contents">
+  <div class="brand">🐣 Start Here</div>
+  <div class="progress-wrap">Steps done: <b id="pct">0 / 0</b><div class="bar"><span id="barFill"></span></div></div>
+  <button class="btn" type="button" data-next>▶ Jump to my next step</button>
+  <ol>
+    <li class="part">Read first</li>
+    <li><a href="#how">How to use this guide</a></li>
+    <li><a href="#today">Where things stand</a></li>
+    <li class="part">Do these first</li>
+    <li><a href="#p1">1 · Say no to Chuski</a></li>
+    <li><a href="#p2">2 · Lock your main branch</a></li>
+    <li><a href="#p3">3 · Set up your laptop</a></li>
+    <li class="part">When Kiro sends new work</li>
+    <li><a href="#p4">4 · Check your new creatures</a></li>
+    <li><a href="#p5">5 · Make the channel accounts</a></li>
+    <li><a href="#p6">6 · Record sounds</a></li>
+    <li><a href="#p7">7 · The Kiro loop (every phase)</a></li>
+    <li><a href="#p8">8 · Learn animation</a></li>
+    <li class="part">When the videos can be made</li>
+    <li><a href="#p9">9 · Make an episode</a></li>
+    <li><a href="#p10">10 · Post an episode</a></li>
+    <li class="part">Later</li>
+    <li><a href="#p11">11 · Keys, money and tax</a></li>
+    <li class="part">Help</li>
+    <li><a href="#safety">Safety rules</a></li>
+    <li><a href="#trouble">If something goes wrong</a></li>
+    <li><a href="#words">Word list</a></li>
+  </ol>
+</nav>
+<main>
+<header class="hero" id="top">
+  <span class="kicker">Made for your Lenovo IdeaPad 5 (Windows 11) and your iPhone · checked 5 Oct 2026</span>
+  <h1>Start Here 🐣 your step-by-step guide</h1>
+  <p class="lead">This page tells you exactly what to click and what to type, one small step at a time. <b>Kiro</b> (your AI helper) writes all the code. <b>You</b> make the choices and do the few things only a person can do: say yes or no to Kiro's work, make the accounts, record sounds, post the videos and learn to animate.</p>
+  <div class="actions"><button class="btn" type="button" data-next>▶ Jump to my next step</button><a class="btn ghost" href="#p1">Start at Part 1</a></div>
+  <div class="grid">
+    <div class="card today"><h4>📅 Today: about 1½–2 hours</h4><p>Part 1 (10 min), then Part 2 (10 min), then Part 3 (60–90 min). You can stop after any step and carry on tomorrow.</p></div>
+    <div class="card"><h4>⏳ Later, when Kiro is ready</h4><p>Parts 4–8. Each one starts with a "When" line that tells you when to do it.</p></div>
+    <div class="card"><h4>🎬 Once videos can be made</h4><p>Parts 9–10, about 1–2 hours a week.</p></div>
+  </div>
+</header>
+
+<section id="how">
+  <h2>📖 How to use this guide</h2>
+  <ul>
+    <li><b>Go in order.</b> Do the parts in number order, and inside a part do one step at a time.</li>
+    <li><b>Tick each step when it's finished.</b> Click its <span class="ui app">Done</span> box. Your ticks are saved in this browser, so you can close the page and come back later. <span class="ui app">▶ Jump to my next step</span> takes you to the first step you haven't ticked yet.</li>
+    <li><b>Blue boxes</b> (👀 You should see) show what the screen should look like when a step works.</li>
+    <li><b>Red boxes</b> (🆘 If it goes wrong) say how to fix it. Click one to open it.</li>
+    <li><b>White boxes with a <span class="ui purple">Copy</span> button</b> hold text to copy. Click <span class="ui purple">Copy</span>, then paste with <kbd>Ctrl</kbd>+<kbd>V</kbd>. Never type them by hand: one wrong letter breaks a command. A long command may wrap onto two lines on your screen, but it's still one command, and Copy gets it exactly right.</li>
+    <li>Signs: 💻 on the laptop · 📱 on the iPhone · ⏱️ how long it takes · 🔒 not ready yet</li>
+  </ul>
+  <div class="note tip"><b class="t">Relax: you can't break anything</b>Nothing in this guide can harm your laptop or post anything by itself. If you get stuck, send Kiro what you see on the screen (<a href="#p7">Part 7</a> shows how).</div>
+  <div class="note info"><b class="t">Bookmark this page</b>Press <kbd>Ctrl</kbd>+<kbd>D</kbd> in your browser so you can find this guide again. After Part 3, a copy is also on your laptop.</div>
+</section>
+
+<section id="today">
+  <h2>🗺️ Where things stand (the big picture in one minute)</h2>
+  <div class="grid">
+    <div class="card"><h4>📁 GitHub = your online project folder</h4><p>Your project lives on <a href="https://github.com/purvammm/Cute-Channel">github.com/purvammm/Cute-Channel</a>. GitHub keeps every file safe and remembers every change. The official copy is called <b>main</b>.</p></div>
+    <div class="card"><h4>📨 PR = "please check my homework"</h4><p>Kiro works in <b>phases</b> (0 to 11). For each one it sends a <b>pull request (PR)</b>. When you <b>merge</b> it, the work goes into main. <b>Merging means "yes".</b> Saying no to a creative choice is called a <b>veto</b>.</p></div>
+    <div class="card"><h4>📝 Issue = a to-do card</h4><p>Jobs only you can do are <b>issues</b> with the label <code>needs-human</code>. Each one says what to do, why, and how long it takes.</p></div>
+  </div>
+  <h3>Status on 5 Oct 2026</h3>
+  <ul class="status">
+    <li><span class="ic">✅</span><span><b>Phase 0 · Tools:</b> done. You merged it (<a href="https://github.com/purvammm/Cute-Channel/pull/3">PR #3</a>).</span></li>
+    <li><span class="ic">✋</span><span><b>Phase 1 · Characters:</b> Kiro picked Chuski the chai drop (<a href="https://github.com/purvammm/Cute-Channel/pull/6">PR #6</a>). You want Pokémon-style creatures instead, so you'll say no in <a href="#p1">Part 1</a> and Kiro will redo it.</span></li>
+    <li><span class="ic">⏳</span><span><b>Phases 2–11:</b> not started. Kiro does them one at a time, after you approve the new characters.</span></li>
+    <li><span class="ic">📝</span><span><b>Your to-do cards:</b> <a href="https://github.com/purvammm/Cute-Channel/issues/1">#1 laptop</a> (Part 3) · <a href="https://github.com/purvammm/Cute-Channel/issues/2">#2 lock main</a> (Part 2) · <a href="https://github.com/purvammm/Cute-Channel/issues/4">#4 accounts</a> (Part 5, after the characters) · <a href="https://github.com/purvammm/Cute-Channel/issues/5">#5 sounds</a> (Part 6)</span></li>
+  </ul>
+  <h3>The road to your first video</h3>
+  <div class="road"><span class="now">You: Parts 1–3</span><i>→</i><span>Kiro redoes the characters</span><i>→</i><span>You check them (Part 4)</span><i>→</i><span>You make the accounts (Part 5)</span><i>→</i><span>Kiro builds Phases 2–7, you check each (Part 7)</span><i>→</i><span>First episodes (Parts 9–10) 🎉</span></div>
+  <p class="muted">Your time: about 1–2 hours a week. Kiro will give you a target launch date in the new Phase 1 PR.</p>
+</section>
+
+<section id="p1">
+  <div class="part-head"><span class="num">1</span><h2>Say no to Chuski, and ask for your creatures</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 10 min</span><span class="pill where">💻 laptop browser (or 📱)</span><span class="pill when">📅 today, first</span></div>
+  <p>Kiro's Phase 1 picked <b>Chuski</b>, a chai drop, and <b>Shakkar</b>, a sugar cube. You want <b>cute creatures in a Pokémon-like style</b> instead. You'll write a <b>veto</b> on the PR, and Kiro will redo Phase 1. <b>Don't merge PR #6.</b></p>
+  <div class="note real"><b class="t">⭐ Pokémon-<i>style</i>, but 100% yours</b>Your creatures can <i>feel</i> like that world: small, round, big shiny eyes, bright colours, a special power, a cute cry. But they must be your own inventions:
+    <ul>
+      <li>Never copy or closely imitate a real Pokémon (its shape plus colour plus face).</li>
+      <li>Never put the words <b>Pokémon</b>, <b>Pokemon</b> or <b>Poké Ball</b>, or any Pokémon's name, in your channel name, handles, titles or hashtags. They are trademarks of Nintendo, Creatures and GAME FREAK, and those companies protect them.</li>
+      <li>Only an original character can later become stickers, toys or paid mascot work for clients.</li>
+    </ul></div>
+  <ol class="steps">
+    <li data-n="1.1" id="s1-1">
+      <div class="step-title"><h4>Sign in to GitHub</h4><label class="tick"><input type="checkbox" id="t1-1"> Done</label></div>
+      <p>Open <a href="https://github.com/login">github.com/login</a> in your browser (Edge or Firefox) and sign in as <b>purvammm</b>.</p>
+      <div class="see">Your round profile picture in the top-right corner.</div>
+    </li>
+    <li data-n="1.2" id="s1-2">
+      <div class="step-title"><h4>Open PR #6</h4><label class="tick"><input type="checkbox" id="t1-2"> Done</label></div>
+      <p>Click: <a href="https://github.com/purvammm/Cute-Channel/pull/6">github.com/purvammm/Cute-Channel/pull/6</a></p>
+      <div class="see">The title <i>"Phase 1: brand &amp; creative decisions (Chuski the chai drop + Shakkar the sugar cube)"</i> and a green <span class="ui green">Open</span> label under it.</div>
+    </li>
+    <li data-n="1.3" id="s1-3">
+      <div class="step-title"><h4>Copy your veto message</h4><label class="tick"><input type="checkbox" id="t1-3"> Done</label></div>
+      <p>Click <span class="ui purple">Copy</span>. You can change the wording later in the comment box, but keep the first word <code>veto:</code>.</p>
+      <div class="paste" data-label="Your veto (paste on PR #6)"><pre>veto: I don't want Chuski or Shakkar. Please redo Phase 1 with Pokémon-style cute creatures instead.
+
+What I want:
+- Small, original fantasy creatures that feel like the Pokémon world: simple round shapes, big shiny eyes, bright friendly colours, a special power or element each, and a cute cry (a sound, not real words).
+- A main creature and a sidekick to start, with room to add more creatures later.
+- 100% original: nothing that looks like a real Pokémon, and never the words "Pokémon", "Pokemon" or "Poké Ball" in names, handles, titles or hashtags.
+- Still quick for the scripts to build and animate in Blender.
+
+Please redo everything that depended on Chuski: the characters, name and handles, bio, palette, first 12 episodes, idea bank, and the sound list in issue #5. Also tell me who the audience is (kids, or teens and adults) and what that means for YouTube's "made for kids" setting.</pre><button class="copy" type="button">Copy</button></div>
+    </li>
+    <li data-n="1.4" id="s1-4">
+      <div class="step-title"><h4>Paste it as a comment</h4><label class="tick"><input type="checkbox" id="t1-4"> Done</label></div>
+      <p>On the PR page, scroll right to the bottom. Click inside the big comment box (it's labelled <b>Add a comment</b> or <b>Leave a comment</b>). Press <kbd>Ctrl</kbd>+<kbd>V</kbd>. Then click the green <span class="ui green">Comment</span> button.</p>
+      <p>⚠️ Don't click <span class="ui">Close pull request</span> or <span class="ui green">Merge pull request</span>.</p>
+      <div class="see">Your message in the list of comments, with your picture next to it.</div>
+      <details class="oops"><summary>🆘 If it goes wrong</summary>
+        <ul>
+          <li><b>No comment box:</b> you're not signed in, or you're on another tab. Click the <b>Conversation</b> tab near the top of the PR.</li>
+          <li><b>I clicked "Close pull request":</b> click <span class="ui">Reopen pull request</span> at the bottom. No harm done.</li>
+          <li><b>I merged it by mistake:</b> on the PR, click <span class="ui">Revert</span>. GitHub makes a new PR that undoes it. Merge that new PR, then tell Kiro.</li>
+        </ul></details>
+    </li>
+    <li data-n="1.5" id="s1-5">
+      <div class="step-title"><h4>Wake Kiro up</h4><label class="tick"><input type="checkbox" id="t1-5"> Done</label></div>
+      <p>In the same comment box, paste this short magic line, then click <span class="ui green">Comment</span> again. It tells Kiro to read the comments on this PR and act on them.</p>
+      <div class="paste" data-label="Second comment"><pre>/kiro all</pre><button class="copy" type="button">Copy</button></div>
+      <div class="see">Within about an hour, Kiro replies on the PR or adds new changes. GitHub emails you when it does. Redoing a whole phase can take Kiro a few hours. If Kiro asks you a question there, answer it in a new comment.</div>
+    </li>
+    <li data-n="1.6" id="s1-6">
+      <div class="step-title"><h4>Only if Kiro is silent for 3 hours: start a Kiro session</h4><label class="tick"><input type="checkbox" id="t1-6"> Done (or not needed)</label></div>
+      <ol>
+        <li>Open <a href="https://app.kiro.dev">app.kiro.dev</a> and sign in.</li>
+        <li>Click <span class="ui">New session</span>.</li>
+        <li>Under the chat box, click <span class="ui">Select repo</span> and choose <b>purvammm/Cute-Channel</b>.</li>
+        <li>Switch on <span class="ui">Autonomous</span> in the chat bar. That's the mode for big jobs like a whole phase.</li>
+        <li>Paste this message and press <kbd>Enter</kbd>:</li>
+      </ol>
+      <div class="paste" data-label="Message for Kiro"><pre>Read docs/STATE.md, docs/MASTER_PROMPT.md and docs/guide.html first.
+I vetoed Phase 1 (PR #6): no Chuski and no Shakkar. My veto comment on PR #6 says what I want: original, Pokémon-style cute creatures.
+Redo Phase 1 for that brief. Either update PR #6 (branch feat/phase-1-brand), or close it and open a new Phase 1 PR.
+Keep everything 100% original: no real Pokémon designs, names or Poké Balls, and never use the word "Pokémon" in names, handles, titles or hashtags.
+Also update issues #4 and #5 and docs/HUMAN_TASKS.md for the new characters. Follow the working agreement in docs/MASTER_PROMPT.md section 2.</pre><button class="copy" type="button">Copy</button></div>
+      <div class="see">Kiro writes a plan and starts working. You can close the tab: it keeps going, and GitHub emails you when the PR is ready.</div>
+      <p class="muted">Only start <b>one</b> session for this. Two Kiros doing the same job get in each other's way.</p>
+    </li>
+    <li data-n="1.7" id="s1-7">
+      <div class="step-title"><h4>Carry on with Part 2</h4><label class="tick"><input type="checkbox" id="t1-7"> Done</label></div>
+      <p>While Kiro designs your creatures, carry on with Parts 2 and 3. You'll check the new characters in <a href="#p4">Part 4</a>.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="p2">
+  <div class="part-head"><span class="num">2</span><h2>Lock your main branch</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 5–10 min</span><span class="pill where">💻 laptop browser</span><span class="pill when">📅 today · to-do card <a href="https://github.com/purvammm/Cute-Channel/issues/2">#2</a></span></div>
+  <p><b>main</b> is the official copy of your project. Locking it means nobody, not even Kiro, can change it unless you merge a PR <i>and</i> the automatic tests pass. It's like a lock on a diary.</p>
+  <ol class="steps">
+    <li data-n="2.1" id="s2-1">
+      <div class="step-title"><h4>Open the Branches settings</h4><label class="tick"><input type="checkbox" id="t2-1"> Done</label></div>
+      <p>Click: <a href="https://github.com/purvammm/Cute-Channel/settings/branches">github.com/purvammm/Cute-Channel/settings/branches</a>. (The long way: <span class="ui">⚙️ Settings</span> tab at the top of the project, then <b>Branches</b> in the left list.)</p>
+      <div class="see">A page called <b>Branches</b> with a part named <b>Branch protection rules</b>. If GitHub asks for your password or a code, type it in: GitHub is just checking it's really you.</div>
+    </li>
+    <li data-n="2.2" id="s2-2">
+      <div class="step-title"><h4>Start a new rule</h4><label class="tick"><input type="checkbox" id="t2-2"> Done</label></div>
+      <p>Click <span class="ui">Add classic branch protection rule</span>. In the box <b>Branch name pattern</b>, type:</p>
+      <div class="paste" data-label="Branch name pattern"><pre>main</pre><button class="copy" type="button">Copy</button></div>
+      <details class="oops"><summary>🆘 I only see "Add branch ruleset"</summary>
+        <p>That works too. Click it, then:</p>
+        <ol>
+          <li><b>Ruleset Name:</b> <code>protect main</code>. <b>Enforcement status:</b> <span class="ui">Active</span>.</li>
+          <li><b>Target branches:</b> <span class="ui">Add target</span> → <span class="ui">Include default branch</span>.</li>
+          <li>Tick <b>Require a pull request before merging</b> and leave <b>Required approvals</b> at <code>0</code>.</li>
+          <li>Tick <b>Require status checks to pass</b> → <span class="ui">+ Add checks</span> → type <code>lint-test</code> → click it.</li>
+          <li>Leave <b>Block force pushes</b> ticked, then click <span class="ui green">Create</span> at the bottom. Skip to step 2.6.</li>
+        </ol></details>
+    </li>
+    <li data-n="2.3" id="s2-3">
+      <div class="step-title"><h4>Tick "Require a pull request before merging"</h4><label class="tick"><input type="checkbox" id="t2-3"> Done</label></div>
+      <p>Tick ☑ <b>Require a pull request before merging</b>. Some extra boxes appear under it. If <b>Require approvals</b> got ticked by itself, click it to <b>untick</b> it. Merging is already your approval, so there's no need for a second click.</p>
+    </li>
+    <li data-n="2.4" id="s2-4">
+      <div class="step-title"><h4>Tick "Require status checks to pass"</h4><label class="tick"><input type="checkbox" id="t2-4"> Done</label></div>
+      <p>Tick ☑ <b>Require status checks to pass before merging</b>. In the search box that appears, type <code>lint-test</code> and click it in the list. Leave <b>Require branches to be up to date before merging</b> <b>un</b>ticked.</p>
+      <div class="see"><code>lint-test</code> listed under "Status checks that are required".</div>
+      <details class="oops"><summary>🆘 lint-test doesn't appear in the search</summary><p>The search only lists tests that ran in the last 7 days. Skip this tick, finish the rule (step 2.5), and write "lint-test wasn't in the list" in step 2.6. Kiro will tell you when to add it.</p></details>
+    </li>
+    <li data-n="2.5" id="s2-5">
+      <div class="step-title"><h4>Save the rule</h4><label class="tick"><input type="checkbox" id="t2-5"> Done</label></div>
+      <p>Leave every other box as it is. Scroll to the bottom and click the green <span class="ui green">Create</span> button.</p>
+      <div class="see">Back on the Branches page, a rule called <b>main</b>.</div>
+    </li>
+    <li data-n="2.6" id="s2-6">
+      <div class="step-title"><h4>Tell Kiro it's done</h4><label class="tick"><input type="checkbox" id="t2-6"> Done</label></div>
+      <p>Open <a href="https://github.com/purvammm/Cute-Channel/issues/2">issue #2</a>, write <code>done</code> in the comment box at the bottom, and click <span class="ui green">Comment</span>.</p>
+    </li>
+    <li data-n="2.7" id="s2-7">
+      <div class="step-title"><h4>Practice merge: merge this guide into main</h4><label class="tick"><input type="checkbox" id="t2-7"> Done</label></div>
+      <p>This guide arrived as a PR too, so it's a safe first merge to practise on. Open <a href="https://github.com/purvammm/Cute-Channel/pull/7">PR #7 (the Start Here guide)</a>.</p>
+      <ol>
+        <li>Scroll to the box near the bottom. Wait until it says <b>All checks have passed</b> with a green ✓. If you see a yellow dot, the tests are still running: wait 2 minutes and refresh the page.</li>
+        <li>Click <span class="ui green">Merge pull request</span>, then <span class="ui green">Confirm merge</span>.</li>
+        <li>Click <span class="ui">Delete branch</span>. That's safe: the work is now in main, and the branch was only the draft.</li>
+      </ol>
+      <div class="see">A purple <span class="ui purple">Merged</span> label at the top of the PR.</div>
+      <p>From now on, open the guide here (update your bookmark): <a href="https://raw.githack.com/purvammm/Cute-Channel/main/docs/START_HERE.html">raw.githack.com/purvammm/Cute-Channel/main/docs/START_HERE.html</a>. Your ticks are kept. If it says "not found", wait 5 minutes and refresh.</p>
+      <details class="oops"><summary>🆘 If it goes wrong</summary>
+        <ul>
+          <li><b>The merge button is grey:</b> the tests haven't finished yet. Wait, then refresh.</li>
+          <li><b>A red ✗ next to a test:</b> don't merge. Write "a check failed" in a comment, then post a second comment with <code>/kiro all</code>.</li>
+          <li><b>The button says "Squash and merge" or "Rebase and merge":</b> that's fine too. Click it, then confirm.</li>
+        </ul></details>
+    </li>
+  </ol>
+</section>
+
+<section id="p3">
+  <div class="part-head"><span class="num">3</span><h2>Set up your laptop</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 60–90 min</span><span class="pill where">💻 laptop</span><span class="pill when">📅 today · to-do card <a href="https://github.com/purvammm/Cute-Channel/issues/1">#1</a></span></div>
+  <p>You'll install 4 free programs, download the project, run a check-up program called <b>doctor</b>, and send its report to Kiro. Plug in your charger and use Wi-Fi: the downloads add up to about 1 GB.</p>
+  <div class="card"><h4>💻 Your laptop (from your screenshot)</h4>
+    <p>Lenovo IdeaPad 5 15IIL05 · Windows 11 Home · Intel Core i7-1065G7 · 16 GB RAM · Intel Iris Plus Graphics (built in) · about 159 GB free.</p>
+    <p>✅ <b>Good enough for Blender 5.2.</b> Blender supports Intel's built-in graphics from 7th-gen chips onwards, and yours is 10th-gen. The "128 MB" next to Graphics Card is normal: built-in graphics borrow memory from your 16 GB. Final renders will be slow, so you'll run them overnight (Part 9). Your keyboard has a number pad, which Blender uses to switch views. A mouse with a scroll wheel (₹300–₹800) makes Blender much easier.</p></div>
+  <ol class="steps">
+    <li data-n="3.1" id="s3-1">
+      <div class="step-title"><h4>(Recommended) Update Windows and the graphics driver</h4><label class="tick"><input type="checkbox" id="t3-1"> Done</label></div>
+      <ol>
+        <li>Press the <kbd>⊞ Windows</kbd> key, type <code>Windows Update</code> and press <kbd>Enter</kbd>.</li>
+        <li>Click <span class="ui">Check for updates</span>, install everything, and restart if it asks.</li>
+        <li>Back on Windows Update, click <b>Advanced options</b>, then <b>Optional updates</b>. If there's a <b>Driver updates</b> list, tick anything from <b>Intel</b> that mentions <b>Display</b> or <b>Graphics</b>, then click <span class="ui">Download &amp; install</span>.</li>
+      </ol>
+      <p class="muted">Why: Blender needs an up-to-date graphics driver. This can take 10–30 minutes, so start it now and come back.</p>
+    </li>
+    <li data-n="3.2" id="s3-2">
+      <div class="step-title"><h4>Open the Terminal</h4><label class="tick"><input type="checkbox" id="t3-2"> Done</label></div>
+      <p>Press the <kbd>⊞ Windows</kbd> key, type <code>Terminal</code> and press <kbd>Enter</kbd>.</p>
+      <div class="see">A dark window with a line like <code>PS C:\Users\yourname&gt;</code> and a blinking cursor. This is where commands go.</div>
+      <div class="note tip"><b class="t">How every command works</b>
+        <ol>
+          <li>Click <span class="ui purple">Copy</span> next to the command in this guide.</li>
+          <li>Click inside the Terminal window, then press <kbd>Ctrl</kbd>+<kbd>V</kbd> (or right-click) to paste.</li>
+          <li>Press <kbd>Enter</kbd>.</li>
+          <li>Wait until the <code>PS C:\...&gt;</code> line comes back before you paste the next command.</li>
+        </ol>
+        Never type the <code>PS C:\...&gt;</code> part yourself. It's just the Terminal saying "ready".</div>
+      <details class="oops"><summary>🆘 If it goes wrong</summary>
+        <ul><li><b>No "Terminal" app:</b> type <code>PowerShell</code> instead and open <b>Windows PowerShell</b>. It works the same way.</li>
+        <li><b>Ctrl+V shows <code>^V</code>:</b> right-click to paste instead.</li></ul></details>
+    </li>
+    <li data-n="3.3" id="s3-3">
+      <div class="step-title"><h4>Install Git (downloads the project and its updates)</h4><label class="tick"><input type="checkbox" id="t3-3"> Done</label></div>
+      <div class="cmd"><code>winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements</code><button class="copy" type="button">Copy</button></div>
+      <p>If a window asks <i>"Do you want to allow this app to make changes to your device?"</i>, click <span class="ui">Yes</span>. Do the same in the next steps too.</p>
+      <div class="see">After 1–3 minutes, the words <code>Successfully installed</code>.</div>
+    </li>
+    <li data-n="3.4" id="s3-4">
+      <div class="step-title"><h4>Install Python 3.13 (runs Kiro's scripts)</h4><label class="tick"><input type="checkbox" id="t3-4"> Done</label></div>
+      <div class="cmd"><code>winget install --id Python.Python.3.13 -e --accept-source-agreements --accept-package-agreements</code><button class="copy" type="button">Copy</button></div>
+      <div class="see"><code>Successfully installed</code></div>
+      <p class="muted">Why 3.13 and not the newest version: every add-on package the project needs is ready for it, and Blender 5.2 uses 3.13 inside too.</p>
+    </li>
+    <li data-n="3.5" id="s3-5">
+      <div class="step-title"><h4>Install FFmpeg (turns pictures and sounds into videos)</h4><label class="tick"><input type="checkbox" id="t3-5"> Done</label></div>
+      <div class="cmd"><code>winget install --id Gyan.FFmpeg -e --accept-source-agreements --accept-package-agreements</code><button class="copy" type="button">Copy</button></div>
+      <div class="see"><code>Successfully installed</code>. It may also say <i>"Path environment variable modified; restart your shell"</i>. That's normal, and step 3.7 takes care of it.</div>
+    </li>
+    <li data-n="3.6" id="s3-6">
+      <div class="step-title"><h4>Install Blender 5.2 LTS (the 3D animation program)</h4><label class="tick"><input type="checkbox" id="t3-6"> Done</label></div>
+      <div class="cmd"><code>winget install --id BlenderFoundation.Blender -e --version 5.2.2 --accept-source-agreements --accept-package-agreements</code><button class="copy" type="button">Copy</button></div>
+      <p>It's a big download (about 400 MB), so it takes 3–10 minutes. Click <span class="ui">Yes</span> if Windows asks for permission.</p>
+      <div class="see"><code>Successfully installed</code></div>
+      <div class="note warn"><b class="t">Stay on Blender 5.2</b>Kiro's scripts are built for <b>5.2 LTS</b> ("Long-Term Support", which gets fixes until July 2028). Don't install a newer Blender, the Microsoft Store version or the Steam version. Don't run <code>winget upgrade --all</code> either, because it would swap Blender for a newer version. Kiro will tell you when it's time to change.</div>
+      <details class="oops"><summary>🆘 The download fails (for example "403" or "hash mismatch")</summary>
+        <ol>
+          <li>Go to <a href="https://www.blender.org/download/">blender.org/download</a>. Check that the page says <b>Blender 5.2</b>. If it shows 5.3 or newer, use <a href="https://www.blender.org/download/lts/5-2/">blender.org/download/lts/5-2</a> instead.</li>
+          <li>Choose <b>Windows – Installer</b> (the <code>.msi</code> file, not "Portable" and not "Microsoft Store").</li>
+          <li>Open the downloaded file and click <span class="ui">Next</span>, then tick to accept, then <span class="ui">Next</span>, <span class="ui">Next</span>, <span class="ui">Install</span>, <span class="ui">Yes</span>, <span class="ui">Finish</span>. Don't change the install folder.</li>
+        </ol></details>
+    </li>
+    <li data-n="3.7" id="s3-7">
+      <div class="step-title"><h4>Close the Terminal and open a new one</h4><label class="tick"><input type="checkbox" id="t3-7"> Done</label></div>
+      <p>Click the <b>X</b> in the top-right corner of the Terminal. Then open a new one, the same way as in step 3.2. A fresh Terminal is needed before it can find the programs you just installed.</p>
+    </li>
+    <li data-n="3.8" id="s3-8">
+      <div class="step-title"><h4>Check that Git, Python and FFmpeg work</h4><label class="tick"><input type="checkbox" id="t3-8"> Done</label></div>
+      <div class="cmd"><code>git --version; python --version; (ffmpeg -version)[0]</code><button class="copy" type="button">Copy</button></div>
+      <div class="see">Three lines. Your numbers may be a little different, and that's fine:
+<pre class="screen">git version 2.55.0.windows.1
+Python 3.13.15
+ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers</pre></div>
+      <details class="oops"><summary>🆘 If it goes wrong</summary>
+        <ul>
+          <li><b>"python" opens the Microsoft Store, or says "Python was not found":</b> close every Terminal and open a new one. Still broken? Restart the laptop. Still broken? Type <code>py</code> instead of <code>python</code> in every command in this guide. It's the same Python.</li>
+          <li><b>"git" or "ffmpeg" is not recognized:</b> restart the laptop and try again. If ffmpeg still fails, see <a href="#trouble">If something goes wrong</a>.</li>
+          <li><b>"winget" is not recognized:</b> open the Microsoft Store, search for <b>App Installer</b>, click <span class="ui">Update</span>, restart, then go back to step 3.3.</li>
+        </ul></details>
+    </li>
+    <li data-n="3.9" id="s3-9">
+      <div class="step-title"><h4>Open Blender once</h4><label class="tick"><input type="checkbox" id="t3-9"> Done</label></div>
+      <ol>
+        <li>Press <kbd>⊞ Windows</kbd>, type <code>Blender</code>, and open <b>Blender 5.2</b>.</li>
+        <li>The first time, a <b>Quick Setup</b> box appears (language, shortcuts, theme). Don't change anything. Click the button at its bottom, which says <b>Save New Settings</b> or <b>Continue</b>. Then click anywhere outside the welcome box to close it.</li>
+        <li>You'll see a grey cube in the middle of the window. 🎉 Blender works.</li>
+        <li>Click <b>Edit</b> → <b>Preferences</b> → <b>Save &amp; Load</b> and check that <b>Auto Save</b> is ticked (Timer: 2 minutes). Close the Preferences window: it saves by itself.</li>
+        <li>Close Blender with the <b>X</b>. If it asks to save, click <span class="ui">Don't Save</span>.</li>
+      </ol>
+      <details class="oops"><summary>🆘 Blender shows a graphics error or closes straight away</summary>
+        <ol><li>Do step 3.1 (driver updates) and restart the laptop.</li>
+        <li>Still failing? Install Intel's free <a href="https://www.intel.com/content/www/us/en/support/detect.html">Driver &amp; Support Assistant</a>, let it install the graphics driver it offers, and restart.</li>
+        <li>Still failing? Carry on anyway. The doctor (step 3.12) records the problem, and Kiro will see it in your report.</li></ol></details>
+    </li>
+    <li data-n="3.10" id="s3-10">
+      <div class="step-title"><h4>Download the project</h4><label class="tick"><input type="checkbox" id="t3-10"> Done</label></div>
+      <div class="cmd"><code>cd $HOME; git clone https://github.com/purvammm/Cute-Channel.git; cd Cute-Channel</code><button class="copy" type="button">Copy</button></div>
+      <div class="see"><code>Cloning into 'Cute-Channel'...</code> and a few lines ending in <code>done.</code> The ready line now ends in <code>\Cute-Channel&gt;</code>. The project is in the folder <code>C:\Users\yourname\Cute-Channel</code>. Don't move or rename it.</div>
+      <p class="muted">Want to see the folder? Type <code>explorer .</code> (with the dot) and press <kbd>Enter</kbd>.</p>
+      <details class="oops"><summary>🆘 "destination path 'Cute-Channel' already exists"</summary><p>You already downloaded it. That's fine: the same command still moves you into the folder. Run <code>git pull</code> to get the newest version.</p></details>
+    </li>
+    <li data-n="3.11" id="s3-11">
+      <div class="step-title"><h4>Install the project's Python helpers</h4><label class="tick"><input type="checkbox" id="t3-11"> Done</label></div>
+      <div class="cmd"><code>python -m pip install -r requirements-dev.txt</code><button class="copy" type="button">Copy</button></div>
+      <div class="see">Lots of lines for 1–2 minutes, ending with <code>Successfully installed ...</code> followed by names such as PyYAML, jsonschema, pytest and ruff. A yellow note saying <i>"A new release of pip is available"</i> is fine to ignore.</div>
+      <details class="oops"><summary>🆘 If it goes wrong</summary>
+        <ul><li><b>"Could not open requirements file":</b> you're not in the project folder. Run <code>cd $HOME\Cute-Channel</code>, then try again.</li>
+        <li><b>"Microsoft Visual C++ 14.0 or greater is required":</b> a newer Python got used by mistake. Run <code>py -3.13 -m pip install -r requirements-dev.txt</code>, and use <code>py -3.13</code> instead of <code>python</code> from now on.</li></ul></details>
+    </li>
+    <li data-n="3.12" id="s3-12">
+      <div class="step-title"><h4>Run the check-up (doctor)</h4><label class="tick"><input type="checkbox" id="t3-12"> Done</label></div>
+      <div class="cmd"><code>python cc.py doctor</code><button class="copy" type="button">Copy</button></div>
+      <div class="see">A list of checks. <b>Example only</b>: your numbers and folder names will be different.
+<pre class="screen">Cute Channel doctor · 2026-10-05 08:30 UTC
+
+<span class="ok">✅</span> Python                       3.13.15
+<span class="ok">✅</span> Python packages              PyYAML, jsonschema
+ℹ️  Machine                      Windows AMD64
+<span class="ok">✅</span> Blender                      5.2.2 LTS  (C:\Program Files\Blender Foundation\Blender 5.2\blender.exe)
+<span class="ok">✅</span> ffmpeg                       9.0.2-full_build-www.gyan.dev  (C:\Users\you\AppData\...\ffmpeg.exe)
+<span class="ok">✅</span> ffprobe                      9.0.2-full_build-www.gyan.dev  (C:\Users\you\AppData\...\ffprobe.exe)
+ℹ️  Rendering                    not tested yet
+<span class="dim">                                  fix: python cc.py doctor --deep</span>
+ℹ️  LLM helper (optional, paid)  0/1 set (optional, only if you opt in)
+ℹ️  Instagram                    0/4 set (needed from Phase 9)
+ℹ️  YouTube                      0/3 set (needed from Phase 9)
+ℹ️  Secrets file                 no .env yet (copy .env.example when Phase 9 needs it)
+<span class="ok">✅</span> Disk space                   159 GB free
+
+Summary: 6 ok · 0 warnings · 0 problems</pre></div>
+      <div class="table-wrap"><table>
+        <tr><th>Line</th><th>What's normal right now</th></tr>
+        <tr><td>Python, Python packages, Blender, ffmpeg, ffprobe, Disk space</td><td>✅. ffmpeg may add "optional missing: rubberband", which is fine.</td></tr>
+        <tr><td>Rendering</td><td>ℹ️ "not tested yet". The next step tests it.</td></tr>
+        <tr><td>LLM helper, Instagram, YouTube, Secrets file</td><td>ℹ️ "0/… set" and "no .env yet". These are for much later (Part 11). Leave them.</td></tr>
+        <tr><td>Last line</td><td><b>0 problems</b>. Warnings are OK.</td></tr>
+      </table></div>
+      <details class="oops"><summary>🆘 A line shows ❌</summary><p>Read the <code>fix:</code> line under it. The usual causes are <b>Blender not found</b> (step 3.6 didn't finish, so run it again) and <b>ffmpeg not found</b> (see <a href="#trouble">If something goes wrong</a>). If you're still stuck, carry on: your report in step 3.15 will show Kiro the problem.</p></details>
+    </li>
+    <li data-n="3.13" id="s3-13">
+      <div class="step-title"><h4>Run the deep check-up (test renders)</h4><label class="tick"><input type="checkbox" id="t3-13"> Done</label></div>
+      <div class="cmd"><code>python cc.py doctor --deep</code><button class="copy" type="button">Copy</button></div>
+      <p>This makes Blender draw a tiny test scene with each of its picture engines and times them. It takes 2–10 minutes, and the fan may get loud. Don't close the window. You'll see lines like <code>rendering the test scene with eevee ...</code>.</p>
+      <div class="see">The same list again, but now the <b>Rendering</b> line has results, for example <code>✅ Rendering   preview: eevee · final: eevee</code>, with a time per picture for each engine (<code>cycles-cpu</code>, <code>eevee</code>, <code>workbench</code>).</div>
+      <details class="oops"><summary>🆘 "eevee" says failed</summary><p>EEVEE uses the graphics chip. Do the driver update (step 3.1), restart, and run the command again. If it still fails, carry on: Kiro will read the error in your report.</p></details>
+    </li>
+    <li data-n="3.14" id="s3-14">
+      <div class="step-title"><h4>Open issue #1 and paste your laptop details</h4><label class="tick"><input type="checkbox" id="t3-14"> Done</label></div>
+      <p>Open <a href="https://github.com/purvammm/Cute-Channel/issues/1">issue #1</a> in your browser. Click <span class="ui purple">Copy</span> below, click in the comment box at the bottom of the issue, and press <kbd>Ctrl</kbd>+<kbd>V</kbd>. <b>Don't click Comment yet.</b></p>
+      <div class="paste" data-label="Laptop details (paste on issue #1)"><pre>My laptop (Settings → System → About):
+- Lenovo IdeaPad 5 15IIL05, Windows 11 Home, 64-bit
+- Processor: Intel Core i7-1065G7 (10th gen, 4 cores)
+- RAM: 16 GB
+- Graphics: Intel Iris Plus Graphics (built in, no separate graphics card)
+- Free disk space: about 159 GB
+- Installed with winget: Git, Python 3.13, FFmpeg (Gyan full build), Blender 5.2.2 LTS
+
+My doctor report:
+
+</pre><button class="copy" type="button">Copy</button></div>
+    </li>
+    <li data-n="3.15" id="s3-15">
+      <div class="step-title"><h4>Copy the doctor report and paste it under your details</h4><label class="tick"><input type="checkbox" id="t3-15"> Done</label></div>
+      <p>Go back to the Terminal and run this. It copies the report for you, as if you had pressed <kbd>Ctrl</kbd>+<kbd>C</kbd>:</p>
+      <div class="cmd"><code>[Console]::OutputEncoding = [Text.Encoding]::UTF8; python -X utf8 cc.py doctor --format markdown | Set-Clipboard</code><button class="copy" type="button">Copy</button></div>
+      <div class="see">Nothing seems to happen, and that's correct. Now go back to the browser, click at the very end of your comment (under "My doctor report:") and press <kbd>Ctrl</kbd>+<kbd>V</kbd>. A block of text starting with <code>### Cute Channel doctor</code> appears.</div>
+      <p class="muted">The report has no passwords in it. It shows your Windows user name inside some folder paths, which is harmless.</p>
+    </li>
+    <li data-n="3.16" id="s3-16">
+      <div class="step-title"><h4>Send it</h4><label class="tick"><input type="checkbox" id="t3-16"> Done</label></div>
+      <p>Click the green <span class="ui green">Comment</span> button. Leave the issue open: Kiro closes it once it has read your report.</p>
+      <div class="see">Your comment with a neat table of ✅ and ℹ️ rows. That's the report.</div>
+    </li>
+    <li data-n="3.17" id="s3-17">
+      <div class="step-title"><h4>Open this guide from your laptop (optional)</h4><label class="tick"><input type="checkbox" id="t3-17"> Done</label></div>
+      <div class="cmd"><code>start docs\START_HERE.html</code><button class="copy" type="button">Copy</button></div>
+      <p class="muted">This only works after you've merged the guide (step 2.7) and downloaded or updated the project. The laptop copy keeps its own ticks, separate from the bookmarked web page.</p>
+    </li>
+  </ol>
+  <div class="note tip"><b class="t">Remember this one line 🧠</b>Every new Terminal window starts in your home folder. Before any <code>python cc.py …</code> command, go into the project first:
+    <div class="cmd"><code>cd $HOME\Cute-Channel</code><button class="copy" type="button">Copy</button></div></div>
+</section>
+
+<section id="p4">
+  <div class="part-head"><span class="num">4</span><h2>Check your new creatures</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 15–30 min</span><span class="pill where">💻 laptop browser</span><span class="pill when">📅 when GitHub emails you that the Phase 1 PR is ready</span></div>
+  <p>Kiro's new Phase 1 PR will contain your creatures, their names, colours, picture sheets, a handle list, a bio, the first episodes and a 2-minute summary called the <b>one-pager</b>. Your job: decide whether you love them.</p>
+  <ol class="steps">
+    <li data-n="4.1" id="s4-1">
+      <div class="step-title"><h4>Open the Phase 1 PR</h4><label class="tick"><input type="checkbox" id="t4-1"> Done</label></div>
+      <p>Click the link in GitHub's email, or open <a href="https://github.com/purvammm/Cute-Channel/pulls">the list of PRs</a> and click the one called <b>Phase 1 …</b>.</p>
+    </li>
+    <li data-n="4.2" id="s4-2">
+      <div class="step-title"><h4>Read the description and the one-pager</h4><label class="tick"><input type="checkbox" id="t4-2"> Done</label></div>
+      <p>On the <b>Conversation</b> tab, read the PR description from top to bottom: it has the character picture and a table of every decision. Then open the 2-minute one-pager: click the <b>Files changed</b> tab, find <code>BRAND_ONE_PAGER.md</code>, click the <b>⋯</b> button on that file's bar, and choose <b>View file</b>. (Links to files inside a PR description sometimes don't work, so this way is safer.)</p>
+    </li>
+    <li data-n="4.3" id="s4-3">
+      <div class="step-title"><h4>Look at every picture</h4><label class="tick"><input type="checkbox" id="t4-3"> Done</label></div>
+      <p>Click the <b>Files changed</b> tab and scroll to the <code>.png</code> files: the character sheet, turnaround, expressions and thumbnail test. GitHub shows them as pictures. These are flat drawings; the real 3D creatures arrive in Phase 2.</p>
+    </li>
+    <li data-n="4.4" id="s4-4">
+      <div class="step-title"><h4>The cuteness check</h4><label class="tick"><input type="checkbox" id="t4-4"> Done</label></div>
+      <ul class="checklist" data-group="cute">
+        <li><input type="checkbox" id="c4-1"><label for="c4-1">Would I stop scrolling for it?</label></li>
+        <li><input type="checkbox" id="c4-2"><label for="c4-2">Big head, big eyes set low with a shine, mostly round shapes</label></li>
+        <li><input type="checkbox" id="c4-3"><label for="c4-3">Simple colours: one main colour, one accent, dark (not pure black) eyes, pink cheeks</label></li>
+        <li><input type="checkbox" id="c4-4"><label for="c4-4">The thumbnail test still reads: the faces and feelings are clear even when tiny</label></li>
+        <li><input type="checkbox" id="c4-5"><label for="c4-5">I can picture 50 funny situations for these two</label></li>
+        <li><input type="checkbox" id="c4-6"><label for="c4-6">It would make a great sticker or plush toy</label></li>
+      </ul>
+    </li>
+    <li data-n="4.5" id="s4-5">
+      <div class="step-title"><h4>The originality check (important)</h4><label class="tick"><input type="checkbox" id="t4-5"> Done</label></div>
+      <ol>
+        <li>For each creature, search Google Images for <code>pokemon that looks like</code> followed by a short description, for example <code>pokemon that looks like a round blue water bunny</code>.</li>
+        <li>Compare the results. If one of your creatures has the same shape <i>and</i> colours <i>and</i> face as a real Pokémon, veto it and name the look-alike.</li>
+        <li>Search each name on Google and Instagram to make sure it isn't already a famous character.</li>
+      </ol>
+    </li>
+    <li data-n="4.6" id="s4-6">
+      <div class="step-title"><h4>Decide: merge, or ask for changes</h4><label class="tick"><input type="checkbox" id="t4-6"> Done</label></div>
+      <p><b>Love it?</b> Merge it, exactly like step 2.7: <span class="ui green">Merge pull request</span> → <span class="ui green">Confirm merge</span> → <span class="ui">Delete branch</span>.</p>
+      <p><b>Want changes?</b> Write a comment that starts with <code>veto:</code> and says what to change in plain words (for example <code>veto: the sidekick looks too much like a famous character, make it a different shape</code>). Then post a second comment: <code>/kiro all</code>. You can veto just one thing, such as a name, a colour or an episode. Repeat until you love it.</p>
+    </li>
+    <li data-n="4.7" id="s4-7">
+      <div class="step-title"><h4>Update your laptop</h4><label class="tick"><input type="checkbox" id="t4-7"> Done</label></div>
+      <p>After merging, bring your laptop copy up to date (you'll do this after every merge):</p>
+      <div class="cmd"><code>cd $HOME\Cute-Channel; git pull; python -m pip install -r requirements-dev.txt</code><button class="copy" type="button">Copy</button></div>
+      <p>Then run any commands listed under <b>How to run it</b> in the PR, for example <code>python cc.py validate</code>.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="p5">
+  <div class="part-head"><span class="num">5</span><h2>Make the channel accounts</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 45–60 min</span><span class="pill where">💻 laptop + 📱 iPhone</span><span class="pill when">📅 only after you've merged the new characters (Part 4) · to-do card <a href="https://github.com/purvammm/Cute-Channel/issues/4">#4</a></span></div>
+  <p>The new Phase 1 PR has a file called <b>decision 004</b> (open the <a href="https://github.com/purvammm/Cute-Channel/tree/main/docs/decisions">decisions folder</a> and click the file starting with <code>004</code>) with a <b>ranked list of handles</b> (your @name) and a <b>bio</b> to paste. Use <b>the same handle everywhere</b>. Try handle #1 first; if it's taken on Instagram, move to #2 and use that one on both apps.</p>
+  <div class="note real"><b class="t">📒 Make a safety sheet first</b>Take a piece of paper. You'll write down the channel's email address, its passwords and its <b>backup codes</b> (one-time codes that get you back in if you lose your phone). Keep it at home, never in a photo or a chat. Using a password manager, such as Google Password Manager or iCloud Keychain, is also fine.</div>
+  <ol class="steps">
+    <li data-n="5.1" id="s5-1">
+      <div class="step-title"><h4>Make a Gmail just for the channel</h4><label class="tick"><input type="checkbox" id="t5-1"> Done</label></div>
+      <p>Open <a href="https://accounts.google.com/signup">accounts.google.com/signup</a>. For the first name, use the channel name (no last name needed). When it offers addresses, pick <b>Create your own Gmail address</b> and choose something like <code>yourchannelname.studio@gmail.com</code>. Pick a new, long password, add your phone number and your personal email as the recovery email, and agree.</p>
+      <p class="muted">Why a new Gmail: it keeps the channel separate from your personal life, and you can hand it to a manager one day.</p>
+    </li>
+    <li data-n="5.2" id="s5-2">
+      <div class="step-title"><h4>Turn on Google's 2-Step Verification</h4><label class="tick"><input type="checkbox" id="t5-2"> Done</label></div>
+      <p>Signed in with the new Gmail, open <a href="https://myaccount.google.com/security">myaccount.google.com/security</a> → <b>2-Step Verification</b> → <span class="ui">Turn on 2-Step Verification</span>, and follow the steps with your phone. Then, on the same page, open <b>Backup codes</b> → <span class="ui">Get backup codes</span> and copy them onto your safety sheet.</p>
+      <p class="muted">YouTube requires this before it will ever pay you.</p>
+    </li>
+    <li data-n="5.3" id="s5-3">
+      <div class="step-title"><h4>Create the Instagram account and grab the handle</h4><label class="tick"><input type="checkbox" id="t5-3"> Done</label></div>
+      <ul>
+        <li><b>Already have a personal Instagram:</b> in the app, tap your profile picture (bottom right) → tap your <b>username</b> at the top → <span class="ui app">Add Instagram account</span> → <span class="ui app">Create new account</span>. Your personal account stays separate, and the same menu switches between them.</li>
+        <li><b>No Instagram yet:</b> install it from the App Store and tap <span class="ui app">Create new account</span>.</li>
+      </ul>
+      <p>Use the <b>channel Gmail</b> as the email, a <b>new</b> password, your real birthday (you must be 18+ for payment features later), and the display name from decision 004. For the username, type handle #1: Instagram tells you straight away if it's taken. Skip "find friends".</p>
+      <div class="see">Your new, empty profile with the handle you got. Write it on your safety sheet.</div>
+    </li>
+    <li data-n="5.4" id="s5-4">
+      <div class="step-title"><h4>Switch it to a Creator account</h4><label class="tick"><input type="checkbox" id="t5-4"> Done</label></div>
+      <p>Profile → <b>☰</b> (top right) → <b>Account type and tools</b> → <span class="ui app">Switch to professional account</span> → choose a category such as <b>Digital creator</b> or <b>Artist</b> → choose <b>Creator</b>, <u>not</u> Business → Done.</p>
+      <p class="muted">Can't find it? In the ☰ menu, type <code>professional</code> into the search bar. Why Creator: Business accounts get a smaller music library.</p>
+    </li>
+    <li data-n="5.5" id="s5-5">
+      <div class="step-title"><h4>Turn on Instagram two-factor</h4><label class="tick"><input type="checkbox" id="t5-5"> Done</label></div>
+      <p>☰ → <b>Accounts Center</b> → <b>Password and security</b> → <b>Two-factor authentication</b> → pick the new account → choose <b>Authentication app</b> (the safest) or <b>Text message</b> or <b>WhatsApp</b> → follow the steps. Write the backup codes on your safety sheet.</p>
+    </li>
+    <li data-n="5.6" id="s5-6">
+      <div class="step-title"><h4>Add the bio and turn on best upload quality</h4><label class="tick"><input type="checkbox" id="t5-6"> Done</label></div>
+      <p>Profile → <span class="ui app">Edit profile</span> → <b>Bio</b> → paste the bio from decision 004 → save. Leave the profile picture for now: Kiro renders a proper one in Phase 2.</p>
+      <p>Then ☰ → <b>Data usage and media quality</b> (sometimes just <b>Media quality</b>) → switch on <b>Upload at highest quality</b>. This stops Instagram from making your videos blurry.</p>
+    </li>
+    <li data-n="5.7" id="s5-7">
+      <div class="step-title"><h4>Create the YouTube channel with the same handle</h4><label class="tick"><input type="checkbox" id="t5-7"> Done</label></div>
+      <p>On the laptop, open <a href="https://www.youtube.com">youtube.com</a> and make sure the picture in the top right is the <b>channel Gmail</b> (click it → <b>Switch account</b> if not). Click the picture → <span class="ui">Create a channel</span>. If you don't see that, go to <b>Settings</b> → <b>Add or manage channel(s)</b> → <span class="ui">Create a channel</span>.</p>
+      <p>Type the display name and the <b>same handle</b> you got on Instagram. YouTube shows whether it's free. Skip the picture for now and click <span class="ui">Create channel</span>.</p>
+      <div class="see">Your new, empty channel page.</div>
+      <details class="oops"><summary>🆘 The handle is taken on YouTube</summary><p>Go down the list in decision 004 and find a handle that's free on <b>both</b> apps. Change the Instagram one to match (Edit profile → Username). Matching handles help people find you.</p></details>
+    </li>
+    <li data-n="5.8" id="s5-8">
+      <div class="step-title"><h4>Add the description on YouTube</h4><label class="tick"><input type="checkbox" id="t5-8"> Done</label></div>
+      <p>Open <a href="https://studio.youtube.com">studio.youtube.com</a> → <b>Customisation</b> (or <b>Customization</b>) in the left menu → the <b>Profile</b> or <b>Basic info</b> tab → <b>Description</b> → paste the bio → <span class="ui">Publish</span> (top right).</p>
+    </li>
+    <li data-n="5.9" id="s5-9">
+      <div class="step-title"><h4>(Optional) Claim the handle on Threads and Facebook</h4><label class="tick"><input type="checkbox" id="t5-9"> Done (or skipped)</label></div>
+      <p>This stops copycats. Threads can be opened from your Instagram profile and uses the same name.</p>
+    </li>
+    <li data-n="5.10" id="s5-10">
+      <div class="step-title"><h4>Tell Kiro the handle</h4><label class="tick"><input type="checkbox" id="t5-10"> Done</label></div>
+      <p>Open <a href="https://github.com/purvammm/Cute-Channel/issues/4">issue #4</a>, paste this, replace <code>HANDLE</code> with yours, and click <span class="ui green">Comment</span>. Kiro then puts the real handle in every file.</p>
+      <div class="paste" data-label="Comment for issue #4"><pre>Accounts are made:
+- Instagram: @HANDLE (Creator account, two-factor on, highest upload quality on)
+- YouTube: @HANDLE (2-Step Verification on)
+- A separate Gmail for the channel is set up.</pre><button class="copy" type="button">Copy</button></div>
+      <div class="note warn"><b class="t">Never post passwords or codes</b>Not on GitHub, not in a Kiro chat, not in a screenshot. Kiro never needs them.</div>
+    </li>
+  </ol>
+</section>
+
+<section id="p6">
+  <div class="part-head"><span class="num">6</span><h2>Record sounds on your iPhone</h2></div>
+  <div class="meta"><span class="pill time">⏱️ about 50 min</span><span class="pill where">📱 iPhone</span><span class="pill when">📅 any quiet evening · to-do card <a href="https://github.com/purvammm/Cute-Channel/issues/5">#5</a></span></div>
+  <p>Sound is half of cute. You'll record small real sounds, called <b>foley</b>. Kiro's scripts clean them, tune them and place each one on the right frame. You can record the <b>basic sounds</b> any time. The creatures' <b>voices</b> wait until your new characters exist: Kiro will put a voice list in issue #5.</p>
+  <ol class="steps">
+    <li data-n="6.1" id="s6-1">
+      <div class="step-title"><h4>Set up the iPhone</h4><label class="tick"><input type="checkbox" id="t6-1"> Done</label></div>
+      <p>Open <b>Settings</b> → <b>Apps</b> → <b>Voice Memos</b> → <b>Audio Quality</b> → <b>Lossless</b>. Then turn on <b>Airplane Mode</b> so no buzz or ping ends up in a recording. Turn it off again when you're done.</p>
+    </li>
+    <li data-n="6.2" id="s6-2">
+      <div class="step-title"><h4>Build a blanket studio</h4><label class="tick"><input type="checkbox" id="t6-2"> Done</label></div>
+      <p>Pick a small room with soft things in it (a bed, a cupboard of clothes). Switch off the fan and the AC. Sit under a thick blanket with the phone and the object. Hold the phone 10–20 cm from the sound, with its bottom edge (the microphone) pointing at it.</p>
+    </li>
+    <li data-n="6.3" id="s6-3">
+      <div class="step-title"><h4>How to record each sound</h4><label class="tick"><input type="checkbox" id="t6-3"> Done</label></div>
+      <ol>
+        <li>Open <b>Voice Memos</b> and tap the red ⏺ button.</li>
+        <li>Wait one second in silence, make the sound, then wait one more second. Do this <b>3–5 times</b> in the same recording.</li>
+        <li>Tap ⏹ to stop. Tap the recording's name and rename it with its number and name, for example <code>01 lip pop</code>.</li>
+      </ol>
+    </li>
+    <li data-n="6.4" id="s6-4">
+      <div class="step-title"><h4>Record the 15 basic sounds</h4><label class="tick"><input type="checkbox" id="t6-4"> Done</label></div>
+      <p>These are useful for any character. Tick each one as you finish it:</p>
+      <ul class="checklist" data-group="foley">
+        <li><input type="checkbox" id="f1"><label for="f1">01 Pop your lips → "pop"</label></li>
+        <li><input type="checkbox" id="f2"><label for="f2">02 Flick a water bottle → "plip"</label></li>
+        <li><input type="checkbox" id="f3"><label for="f3">03 Crinkle a chip packet → sparkly crunch</label></li>
+        <li><input type="checkbox" id="f4"><label for="f4">04 Tap your fingernails fast on a table → tiny footsteps</label></li>
+        <li><input type="checkbox" id="f5"><label for="f5">05 Knock once on wood with a knuckle → "tok"</label></li>
+        <li><input type="checkbox" id="f6"><label for="f6">06 Squeeze bubble wrap → pops</label></li>
+        <li><input type="checkbox" id="f7"><label for="f7">07 Twang a rubber band → "boing"</label></li>
+        <li><input type="checkbox" id="f8"><label for="f8">08 Tap a steel spoon on a glass → "tink"</label></li>
+        <li><input type="checkbox" id="f9"><label for="f9">09 Blow through a straw into water → bubbles</label></li>
+        <li><input type="checkbox" id="f10"><label for="f10">10 Drop a fizzy tablet into water, or open a soda → fizz</label></li>
+        <li><input type="checkbox" id="f11"><label for="f11">11 Slide a glass across a table → slide</label></li>
+        <li><input type="checkbox" id="f12"><label for="f12">12 Let a phone vibrate on a wooden table → buzz</label></li>
+        <li><input type="checkbox" id="f13"><label for="f13">13 Your microwave's beep</label></li>
+        <li><input type="checkbox" id="f14"><label for="f14">14 Pour water into a glass from a height → pour</label></li>
+        <li><input type="checkbox" id="f15"><label for="f15">15 A short cooker or kettle whistle</label></li>
+      </ul>
+    </li>
+    <li data-n="6.5" id="s6-5">
+      <div class="step-title"><h4>Put them all in one zip file</h4><label class="tick"><input type="checkbox" id="t6-5"> Done</label></div>
+      <ol>
+        <li>In Voice Memos, tap <b>Select</b> (or <b>Edit</b>) above the list and tick all 15 recordings.</li>
+        <li>Tap <b>Share</b> → <b>Save to Files</b> → <b>On My iPhone</b> → make a new folder called <code>Sounds</code> → <b>Save</b>.</li>
+        <li>Open the <b>Files</b> app → <b>On My iPhone</b>. Touch and hold the <code>Sounds</code> folder and tap <b>Compress</b>.</li>
+      </ol>
+      <div class="see">A file called <code>Sounds.zip</code> next to the folder.</div>
+    </li>
+    <li data-n="6.6" id="s6-6">
+      <div class="step-title"><h4>Send the zip to Kiro</h4><label class="tick"><input type="checkbox" id="t6-6"> Done</label></div>
+      <p>On the iPhone, open Safari and go to <a href="https://github.com/purvammm/Cute-Channel/issues/5">issue #5</a> (sign in if asked). Scroll to the comment box and tap <b>Paste, drop, or click to add files</b> (or the 📎 paperclip) → <b>Choose File</b> → <b>Browse</b> → <b>On My iPhone</b> → <code>Sounds.zip</code>. Wait until a link appears in the box, type <code>Foley sounds</code> above it, and tap <span class="ui green">Comment</span>.</p>
+      <details class="oops"><summary>🆘 "File too big"</summary><p>GitHub accepts up to 25 MB per file. Make two zips instead (sounds 1–8 and sounds 9–15) and attach both.</p></details>
+      <div class="note warn"><b class="t">The project is public</b>Anyone can download what you attach on GitHub. Object sounds are fine. If you'd rather keep your own voice private, wait for Kiro's voice tool in Phase 6: it processes voice recordings on your laptop instead.</div>
+    </li>
+  </ol>
+</section>
+
+<section id="p7">
+  <div class="part-head"><span class="num">7</span><h2>The Kiro loop (the same for every phase)</h2></div>
+  <div class="meta"><span class="pill time">⏱️ about 15 min of your time per phase</span><span class="pill where">💻 laptop</span><span class="pill when">📅 after Part 4, then again for every phase</span></div>
+  <div class="loop"><div>Ask Kiro for the next phase</div><div>Kiro works and opens a PR</div><div>You check the PR</div><div>Merge it, or ask for changes</div><div>Update your laptop</div><div>Do your to-do, then repeat</div></div>
+  <p><b>One phase at a time.</b> Don't ask for the next phase until you've merged the last one.</p>
+  <ol class="steps" id="loop-steps">
+    <li data-n="7.1" id="s7-1">
+      <div class="step-title"><h4>Ask Kiro for the next phase</h4><label class="tick"><input type="checkbox" id="t7-1"> Done (this phase)</label></div>
+      <p><a href="https://app.kiro.dev">app.kiro.dev</a> → <span class="ui">New session</span> → <span class="ui">Select repo</span> → <b>purvammm/Cute-Channel</b> → switch on <span class="ui">Autonomous</span> → paste this → <kbd>Enter</kbd>.</p>
+      <div class="paste" data-label="Message for Kiro: next phase"><pre>Read docs/STATE.md and docs/ROADMAP.md, then start the next phase that isn't done yet.
+Follow docs/MASTER_PROMPT.md, especially the working agreement in section 2.
+My laptop is Windows 11 (details and doctor report in issue #1), so give me Windows PowerShell commands.
+Open one pull request for the phase, and end it with my human to-do list and time estimates.</pre><button class="copy" type="button">Copy</button></div>
+    </li>
+    <li data-n="7.2" id="s7-2">
+      <div class="step-title"><h4>Let Kiro work</h4><label class="tick"><input type="checkbox" id="t7-2"> Done (this phase)</label></div>
+      <p>You can close the tab, because Kiro keeps working. To check on it, open <a href="https://app.kiro.dev">app.kiro.dev</a> and look in <b>Sessions</b>. If a session says <b>Needs attention</b>, Kiro has a question for you: open it and answer. When the PR is ready, GitHub emails you.</p>
+    </li>
+    <li data-n="7.3" id="s7-3">
+      <div class="step-title"><h4>Check the PR (about 10 min)</h4><label class="tick"><input type="checkbox" id="t7-3"> Done (this phase)</label></div>
+      <ul>
+        <li>Read <b>What this PR builds</b> and <b>Human to-do</b> in the description.</li>
+        <li>Look at any pictures, either in the description or on the <b>Files changed</b> tab.</li>
+        <li>Near the bottom, check for <b>All checks have passed</b> ✓.</li>
+        <li>Ask yourself: does it do what the phase promised (see the table below)? Is anything ugly, wrong or confusing?</li>
+      </ul>
+      <details class="more"><summary>🧪 Optional: try a PR on your laptop before merging</summary>
+        <p>The branch name appears near the PR title (for example <code>feat/phase-2-character</code>). Swap your laptop copy to that draft, test it, then swap back:</p>
+        <div class="cmd"><code>cd $HOME\Cute-Channel; git fetch; git switch feat/phase-2-character</code><button class="copy" type="button">Copy</button></div>
+        <p>Replace <code>feat/phase-2-character</code> with the real branch name, then run the commands under <b>How to run it</b>. When you're finished, go back to main:</p>
+        <div class="cmd"><code>git switch main</code><button class="copy" type="button">Copy</button></div></details>
+    </li>
+    <li data-n="7.4" id="s7-4">
+      <div class="step-title"><h4>Merge it, or ask for changes</h4><label class="tick"><input type="checkbox" id="t7-4"> Done (this phase)</label></div>
+      <p><b>Good?</b> <span class="ui green">Merge pull request</span> → <span class="ui green">Confirm merge</span> → <span class="ui">Delete branch</span>.</p>
+      <p><b>Not right?</b> Write what's wrong in a comment, in plain words. For example: <code>the eyes look too small</code>, <code>veto: I don't like this episode idea</code>, or <code>this command failed:</code> followed by the red text you copied from the Terminal. Then post a second comment with <code>/kiro all</code>. Kiro fixes the same PR, and you check again.</p>
+    </li>
+    <li data-n="7.5" id="s7-5">
+      <div class="step-title"><h4>Update your laptop</h4><label class="tick"><input type="checkbox" id="t7-5"> Done (this phase)</label></div>
+      <div class="cmd"><code>cd $HOME\Cute-Channel; git pull; python -m pip install -r requirements-dev.txt; python cc.py doctor</code><button class="copy" type="button">Copy</button></div>
+      <div class="see"><code>Fast-forward</code> followed by a list of changed files (or <code>Already up to date.</code>), then the doctor list with <b>0 problems</b>.</div>
+    </li>
+    <li data-n="7.6" id="s7-6">
+      <div class="step-title"><h4>Do your to-do from the PR</h4><label class="tick"><input type="checkbox" id="t7-6"> Done (this phase)</label></div>
+      <p>Run any commands listed under <b>How to run it</b>, and do the <b>Human to-do</b> list. If something breaks, see the box below. Then untick 7.1–7.6 with the button and start again for the next phase.</p>
+      <button class="btn small ghost" type="button" data-reset="loop-steps">↺ Untick 7.1–7.6 for the next phase</button>
+    </li>
+  </ol>
+  <div class="note info"><b class="t">🐛 How to tell Kiro something broke</b>
+    <ol>
+      <li>In the Terminal, drag the mouse over the error text (usually red) and press <kbd>Ctrl</kbd>+<kbd>C</kbd> to copy it.</li>
+      <li>Open <a href="https://github.com/purvammm/Cute-Channel/issues/new/choose">a new issue</a> → <b>🐛 Something broke</b>, and fill in the boxes: the command you ran, what happened, the copied error, "Windows laptop", and the output of <code>python cc.py doctor</code>.</li>
+      <li>Click <span class="ui green">Create</span> (or <span class="ui green">Submit new issue</span>). To get Kiro on it straight away, add a comment that says <code>/kiro</code>, or paste the issue link into a new Kiro session.</li>
+    </ol>
+    Copy the text rather than taking a photo of the screen, and check that it contains no passwords.</div>
+  <h3>What each phase gives you, and what it needs from you</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Phase</th><th>Kiro builds</th><th>You do</th></tr>
+    <tr><td><b>1 · Characters</b> (redo)</td><td>Your creatures, names, colours, handles, bio, first 12 episodes, idea bank</td><td>Part 4, then Part 5</td></tr>
+    <tr><td><b>2 · 3D characters</b></td><td>Builds your creatures in Blender from the design files, plus test pictures (front, side, tiny thumbnail)</td><td>Look at the renders. Cute? Original? Veto if not.</td></tr>
+    <tr><td><b>3 · Rig &amp; emotions</b></td><td>Makes them movable, with 20+ emotions (happy, shy, shocked…) and an emotion sheet</td><td>Check the emotion sheet; veto any face that reads wrong</td></tr>
+    <tr><td><b>4 · Motions &amp; episode maker</b></td><td>A library of moves (hops, blinks, wiggles) and the tool that turns an idea into an animated scene, plus a list of shots worth polishing by hand</td><td>Try <code>python cc.py new-episode "an idea"</code>; start hand-polishing (Part 8)</td></tr>
+    <tr><td><b>5 · Studio &amp; render</b></td><td>The little film set, lights and camera; quick previews and overnight final renders</td><td>Your first overnight render (Part 9)</td></tr>
+    <tr><td><b>6 · Sound</b></td><td>Sound-effect library, made-up backup sounds, the voice tool, automatic mixing</td><td>Record the creature voices (Part 6)</td></tr>
+    <tr><td><b>7 · Finishing &amp; checks</b></td><td>Final videos with text, cover image, loop check and automatic quality checks</td><td>Watch every video on your phone</td></tr>
+    <tr><td><b>8 · Idea engine</b></td><td>A weekly GitHub issue with 3 episode ideas to pick from</td><td>Pick one each week</td></tr>
+    <tr><td><b>9 · Posting</b></td><td>A phone-ready folder for each episode, plus optional auto-posting that waits for your approval</td><td>Post by hand (Part 10); optional key setup (Part 11)</td></tr>
+    <tr><td><b>10 · Analytics</b></td><td>A weekly report on what worked</td><td>Read it (10 min)</td></tr>
+    <tr><td><b>11 · Money &amp; portfolio</b></td><td>Portfolio website, rate card, pitch drafts (never sent by Kiro)</td><td>Send the pitches, handle clients and tax (Part 11)</td></tr>
+  </table></div>
+  <p class="muted">Kiro will also send <code>docs/TOOLING_OPTIONS.md</code>, which compares Blender with simpler 2D and online tools. Read it when it arrives: you may decide a 2D style is faster for you.</p>
+</section>
+
+<section id="p8">
+  <div class="part-head"><span class="num">8</span><h2>Learn animation (the fun part)</h2></div>
+  <div class="meta"><span class="pill time">⏱️ 1–2 hours a week</span><span class="pill where">💻 laptop + Blender</span><span class="pill when">📅 start any time after Part 3</span></div>
+  <p>Kiro's scripts make the first draft of every animation. Your hand-polish makes it feel alive, and that's the skill that grows the channel. Your craft guide, <a href="guide.html"><b>guide.html</b> ("Zero to Cute")</a>, teaches it step by step. Here's a gentle order:</p>
+  <ol class="steps">
+    <li data-n="8.1" id="s8-1">
+      <div class="step-title"><h4>Week 1 · Blender first steps</h4><label class="tick"><input type="checkbox" id="t8-1"> Done</label></div>
+      <p>Read <a href="guide.html#blender101">§6 Blender first steps</a>, learn <a href="guide.html#keys">the shortcuts</a>, and do the <a href="guide.html#firstwin">20-minute first win: make the cube move</a>. Your laptop has a number pad, so skip the "Emulate Numpad" tip in <a href="guide.html#prefs">§6.2</a>. If the number keys don't change the view, press <kbd>Num Lock</kbd> once.</p>
+    </li>
+    <li data-n="8.2" id="s8-2">
+      <div class="step-title"><h4>Week 2 · A beginner course</h4><label class="tick"><input type="checkbox" id="t8-2"> Done</label></div>
+      <p>Watch the first 2–3 parts of one free course: <a href="https://www.blenderguru.com/posts/blender-donut-v5-tutorial">Blender Guru's Donut for Blender 5</a>, or Grant Abbitt's Blender 5 Complete Beginners Guide on YouTube. More options are in <a href="guide.html#sources">§25</a>.</p>
+    </li>
+    <li data-n="8.3" id="s8-3">
+      <div class="step-title"><h4>Week 3 · The bouncing ball</h4><label class="tick"><input type="checkbox" id="t8-3"> Done</label></div>
+      <p>Read <a href="guide.html#animate">§11.1–11.2</a> and animate a ball bouncing with squash and stretch. Blender Studio's <a href="https://studio.blender.org/training/animation-fundamentals/">Animation Fundamentals</a> starts from exactly this.</p>
+    </li>
+    <li data-n="8.4" id="s8-4">
+      <div class="step-title"><h4>Week 4 · The jelly hop</h4><label class="tick"><input type="checkbox" id="t8-4"> Done</label></div>
+      <p>Follow <a href="guide.html#hop">§11.4 the jelly hop</a>. Kiro's scripts use exactly these keyframes, so you'll recognise them later.</p>
+    </li>
+    <li data-n="8.5" id="s8-5">
+      <div class="step-title"><h4>Week 5 · Block, spline, polish</h4><label class="tick"><input type="checkbox" id="t8-5"> Done</label></div>
+      <p>Read §11.5 (the pro workflow) and §11.6 (the timing cheat sheet) in <a href="guide.html#animate">§11</a>, then redo your hop with them.</p>
+    </li>
+    <li data-n="8.6" id="s8-6">
+      <div class="step-title"><h4>From Phase 4 · Polish real shots</h4><label class="tick"><input type="checkbox" id="t8-6"> Done</label></div>
+      <p>Kiro's <code>docs/ANIMATION_QUALITY.md</code> (Phase 4) lists which shots in each episode to open in Blender and polish by hand. That becomes your weekly practice.</p>
+    </li>
+  </ol>
+  <div class="note tip"><b class="t">Keep practice files out of the project</b>Save your practice <code>.blend</code> files in a separate folder (for example <code>Documents\Blender practice</code>), not inside <code>Cute-Channel</code>. Kiro's files and yours then never get mixed up.</div>
+</section>
+
+<section id="p9">
+  <div class="part-head"><span class="num">9</span><h2>Make an episode</h2></div>
+  <div class="meta"><span class="pill lock">🔒 not ready yet: Phases 4–9</span><span class="pill time">⏱️ about 1 hour of your time + one night of rendering</span><span class="pill where">💻 laptop</span></div>
+  <div class="soon"><b>🔒 These commands don't work yet.</b> Each one starts working when its phase is merged, and that phase's PR will tell you. Until then they only print <code>planned for Phase N</code>, which is harmless. Kiro may change small details on the way; if a PR says something different from this page, follow the PR.</div>
+  <ol class="steps">
+    <li data-n="9.1" id="s9-1">
+      <div class="step-title"><h4>Pick the idea</h4><label class="tick"><input type="checkbox" id="t9-1"> Done</label></div>
+      <p>From Phase 8, Kiro opens a GitHub issue every week called <i>"Week of …: pick an episode"</i> with 3 ideas. Comment with the one you pick. To use your own idea instead (from Phase 4):</p>
+      <div class="cmd"><code>python cc.py new-episode "waits for the tea to cool, the sidekick drinks it"</code><button class="copy" type="button">Copy</button></div>
+    </li>
+    <li data-n="9.2" id="s9-2">
+      <div class="step-title"><h4>Approve the storyboard</h4><label class="tick"><input type="checkbox" id="t9-2"> Done</label></div>
+      <p>Kiro's episode PR shows a 6-box storyboard: hook, setup, twist, payoff, loop and the key expression. Is it funny? Is it a new joke? Approve it or veto it, just like in <a href="#p7">Part 7</a>.</p>
+    </li>
+    <li data-n="9.3" id="s9-3">
+      <div class="step-title"><h4>Build the animated scene, then take a quick look</h4><label class="tick"><input type="checkbox" id="t9-3"> Done</label></div>
+      <div class="cmd"><code>python cc.py compile E001</code><button class="copy" type="button">Copy</button></div>
+      <div class="cmd"><code>python cc.py render E001 --preview</code><button class="copy" type="button">Copy</button></div>
+      <p>Use the episode's real number instead of <code>E001</code>. Watch the preview video: are the hits snappy, the pauses readable and the loop smooth?</p>
+    </li>
+    <li data-n="9.4" id="s9-4">
+      <div class="step-title"><h4>(Optional) Hand-polish the key shot</h4><label class="tick"><input type="checkbox" id="t9-4"> Done (or skipped)</label></div>
+      <p>Open the episode's <code>.blend</code> file in Blender, fix the shots listed in <code>docs/ANIMATION_QUALITY.md</code> (<a href="#p8">Part 8</a>), and save.</p>
+    </li>
+    <li data-n="9.5" id="s9-5">
+      <div class="step-title"><h4>Get the laptop ready for an overnight render</h4><label class="tick"><input type="checkbox" id="t9-5"> Done</label></div>
+      <ul class="checklist" data-group="night">
+        <li><input type="checkbox" id="n1"><label for="n1">Charger plugged in. Laptop on a table, not on a bed or blanket, so the air can flow.</label></li>
+        <li><input type="checkbox" id="n2"><label for="n2"><b>Settings</b> → <b>System</b> → <b>Power &amp; battery</b> → <b>Power mode</b> → <b>Best performance</b></label></li>
+        <li><input type="checkbox" id="n3"><label for="n3">Same page → <b>Screen, sleep &amp; hibernate timeouts</b> (or <b>Screen and sleep</b>) → <i>When plugged in, put my device to sleep after</i> → <b>Never</b>. The screen may still turn off, which is fine.</label></li>
+        <li><input type="checkbox" id="n4"><label for="n4">Keep the lid <b>open</b> (closing it can put the laptop to sleep). Close other apps.</label></li>
+      </ul>
+    </li>
+    <li data-n="9.6" id="s9-6">
+      <div class="step-title"><h4>Start the final render and go to sleep 😴</h4><label class="tick"><input type="checkbox" id="t9-6"> Done</label></div>
+      <div class="cmd"><code>python cc.py render E001 --final</code><button class="copy" type="button">Copy</button></div>
+      <p>If it stopped in the night (a crash or a power cut), nothing is lost. Run the same command again with <code>--resume</code> at the end, and it carries on from the last finished picture. In the morning, set the sleep time back to normal if you like.</p>
+    </li>
+    <li data-n="9.7" id="s9-7">
+      <div class="step-title"><h4>Add sound, captions and cover, then check, then package</h4><label class="tick"><input type="checkbox" id="t9-7"> Done</label></div>
+      <div class="cmd"><code>python cc.py finish E001</code><button class="copy" type="button">Copy</button></div>
+      <div class="cmd"><code>python cc.py qa E001</code><button class="copy" type="button">Copy</button></div>
+      <div class="cmd"><code>python cc.py package E001</code><button class="copy" type="button">Copy</button></div>
+      <p><code>qa</code> complains loudly if something is off, such as text hidden under the app buttons or sound that's too loud. Send that to Kiro. <code>package</code> makes a phone-ready folder with <code>final_IG.mp4</code>, <code>final_YT.mp4</code>, <code>cover.png</code>, <code>caption.md</code> and a checklist.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="p10">
+  <div class="part-head"><span class="num">10</span><h2>Post an episode</h2></div>
+  <div class="meta"><span class="pill lock">🔒 when your first episode is packaged (Part 9)</span><span class="pill time">⏱️ 30 min + 1 hour of replies</span><span class="pill where">💻 laptop + 📱 iPhone</span></div>
+  <ol class="steps">
+    <li data-n="10.1" id="s10-1">
+      <div class="step-title"><h4>Move the files to your iPhone</h4><label class="tick"><input type="checkbox" id="t10-1"> Done</label></div>
+      <p>On the laptop, open <a href="https://drive.google.com">drive.google.com</a> (signed in with the channel Gmail) → <span class="ui">+ New</span> → <b>File upload</b> → pick the 4 files from the package folder. On the iPhone, open the <b>Google Drive</b> app with the same Gmail, open <code>final_IG.mp4</code> → <b>⋯</b> → <b>Send a copy</b> → <b>Save Video</b>. Do the same for <code>final_YT.mp4</code>, and use <b>Save Image</b> for <code>cover.png</code>. Open <code>caption.md</code> to copy its text when you need it.</p>
+      <p>⚠️ Don't send videos through WhatsApp: it squashes the quality.</p>
+    </li>
+    <li data-n="10.2" id="s10-2">
+      <div class="step-title"><h4>Watch it on your phone first</h4><label class="tick"><input type="checkbox" id="t10-2"> Done</label></div>
+      <p>Sound on, full screen, three times through:</p>
+      <ul class="checklist" data-group="phone">
+        <li><input type="checkbox" id="w1"><label for="w1">The very first picture already shows a face and some action</label></li>
+        <li><input type="checkbox" id="w2"><label for="w2">The text is easy to read and not hidden behind where the app's buttons will go</label></li>
+        <li><input type="checkbox" id="w3"><label for="w3">Every sound lands exactly on its action</label></li>
+        <li><input type="checkbox" id="w4"><label for="w4">The end flows smoothly back into the start</label></li>
+        <li><input type="checkbox" id="w5"><label for="w5">Nothing looks broken, and the joke lands</label></li>
+      </ul>
+      <p>If something's wrong, <b>don't post</b>. Comment on the episode's PR and ask Kiro to fix it.</p>
+    </li>
+    <li data-n="10.3" id="s10-3">
+      <div class="step-title"><h4>Approve it on GitHub</h4><label class="tick"><input type="checkbox" id="t10-3"> Done</label></div>
+      <p>Do what the episode's PR or issue says: usually merge it, or add the label <code>approved</code> (right-hand column → <b>Labels</b> → <code>approved</code>).</p>
+    </li>
+    <li data-n="10.4" id="s10-4">
+      <div class="step-title"><h4>Post the Instagram Reel</h4><label class="tick"><input type="checkbox" id="t10-4"> Done</label></div>
+      <ol>
+        <li>Open Instagram and check you're on the <b>channel account</b>. To switch, tap your username at the top of your profile.</li>
+        <li>Tap <b>+</b> → <b>Reel</b> → choose <code>final_IG.mp4</code> → <b>Next</b>.</li>
+        <li><b>Optional trending sound:</b> tap the 🎵 music button → pick a popular sound (the ones with a ↗ arrow are trending) → choose the part you want → <b>Done</b>. Open the volume controls and lower the song until your own sound effects are still clear.</li>
+        <li><b>Next</b> → paste the caption from <code>caption.md</code> (one line, a question, and at most 5 hashtags).</li>
+        <li><b>Edit cover</b> → pick a moment with the face, or <b>Add from camera roll</b> → <code>cover.png</code>.</li>
+        <li>Tap <b>Share</b>.</li>
+      </ol>
+      <p class="muted">Paid post for a brand? Switch on the <b>Paid partnership</b> label and say so at the start of the caption (India's ASCI rules require it). Never let paid posts go out automatically.</p>
+    </li>
+    <li data-n="10.5" id="s10-5">
+      <div class="step-title"><h4>Post the YouTube Short</h4><label class="tick"><input type="checkbox" id="t10-5"> Done</label></div>
+      <ol>
+        <li>Open the YouTube app on the channel account (tap your picture → <b>Switch account</b>).</li>
+        <li>Tap <b>+</b> (Create) → <b>Upload a video</b> → choose <code>final_YT.mp4</code> (<b>not</b> the IG one) → <b>Next</b>. Don't add music in the editor → <b>Next</b>.</li>
+        <li><b>Title:</b> the first line of <code>caption.md</code> (100 characters at most). <b>Description:</b> the caption and hashtags. <b>Visibility:</b> Public, or Schedule.</li>
+        <li><b>Select audience</b> → choose what your Phase 1 decision says (see the box below).</li>
+        <li>Tap <b>Upload</b>.</li>
+      </ol>
+      <div class="note real"><b class="t">"Made for kids?" (YouTube asks every time)</b>YouTube requires you to say whether each video is made for kids. Cartoon characters that appeal to children are one of the signs it looks at, so with cute creatures this matters. If your plan aims at <b>teens and adults</b> (college, office and exam jokes), choose <b>No, it's not made for kids</b> and keep the jokes grown-up. If a video is really meant for <b>young children</b>, choose <b>Yes</b> (YouTube then turns off comments on it). When unsure, read YouTube's help page "Determining if your content is made for kids". This isn't legal advice.</div>
+    </li>
+    <li data-n="10.6" id="s10-6">
+      <div class="step-title"><h4>Spend the first hour with your viewers</h4><label class="tick"><input type="checkbox" id="t10-6"> Done</label></div>
+      <p>For about an hour after posting, reply to every comment and tap the ❤️ on them. Pin the best one, and answer the question from your own caption. Early replies help the video spread.</p>
+    </li>
+    <li data-n="10.7" id="s10-7">
+      <div class="step-title"><h4>Tell Kiro it's live</h4><label class="tick"><input type="checkbox" id="t10-7"> Done</label></div>
+      <p>On the episode's issue or PR, comment with the links to both posts and add the label <code>published</code>.</p>
+    </li>
+    <li data-n="10.8" id="s10-8">
+      <div class="step-title"><h4>After 7 days, write down the numbers</h4><label class="tick"><input type="checkbox" id="t10-8"> Done</label></div>
+      <p><b>Instagram:</b> open the Reel → <b>View insights</b>. <b>YouTube:</b> open the YouTube Studio app → <b>Content</b> → the Short → <b>Analytics</b>. Fill in this template and comment it on the episode's issue. From Phase 10, Kiro collects these numbers for you.</p>
+      <div class="paste" data-label="Numbers after 7 days"><pre>Numbers after 7 days:
+Instagram: views ___, average watch time ___ s, shares/sends ___, saves ___, new follows ___
+YouTube: views ___, average view duration ___ s, new subscribers ___</pre><button class="copy" type="button">Copy</button></div>
+    </li>
+  </ol>
+  <h3>✅ Weekly posting checklist</h3>
+  <ul class="checklist" id="weekly">
+    <li><input type="checkbox" id="k1"><label for="k1">Picked this week's idea</label></li>
+    <li><input type="checkbox" id="k2"><label for="k2">Approved the storyboard</label></li>
+    <li><input type="checkbox" id="k3"><label for="k3">Final render done overnight</label></li>
+    <li><input type="checkbox" id="k4"><label for="k4">Watched it on my phone</label></li>
+    <li><input type="checkbox" id="k5"><label for="k5">Posted on Instagram (trending sound added in the app, if any)</label></li>
+    <li><input type="checkbox" id="k6"><label for="k6">Posted on YouTube (audience set correctly)</label></li>
+    <li><input type="checkbox" id="k7"><label for="k7">Replied to comments in the first hour</label></li>
+    <li><input type="checkbox" id="k8"><label for="k8">Wrote down the numbers after 7 days</label></li>
+  </ul>
+  <button class="btn small ghost" type="button" data-reset="p10">↺ Untick Part 10 for next week</button>
+</section>
+
+<section id="p11">
+  <div class="part-head"><span class="num">11</span><h2>Later: secret keys, money and tax</h2></div>
+  <div class="meta"><span class="pill lock">🔒 Phase 9 and later</span><span class="pill where">💻 laptop</span></div>
+  <ol class="steps">
+    <li data-n="11.1" id="s11-1">
+      <div class="step-title"><h4>Secret keys for automatic posting (optional, 1–2 hours)</h4><label class="tick"><input type="checkbox" id="t11-1"> Done (or skipped)</label></div>
+      <p>You never <i>need</i> this, because Part 10 posts by hand. If you want the robot to post for you, Kiro's Phase 9 will write the exact steps for getting keys from Meta (Instagram) and Google (YouTube). The rules you'll use:</p>
+      <ul>
+        <li><b>Store a key on GitHub:</b> project → <span class="ui">⚙️ Settings</span> → <b>Secrets and variables</b> → <b>Actions</b> → <span class="ui green">New repository secret</span> → type the <b>Name</b> exactly as Kiro's instructions say → paste the key into <b>Secret</b> → <span class="ui green">Add secret</span>.</li>
+        <li><b>Extra lock (recommended):</b> <span class="ui">⚙️ Settings</span> → <b>Environments</b> → <span class="ui">New environment</span> → name it <code>publish</code> → tick <b>Required reviewers</b> → add yourself → <span class="ui green">Save protection rules</span>. After that, nothing posts until you click <b>Approve</b>.</li>
+        <li><b>Keys on the laptop</b> go in a file called <code>.env</code>, which never gets uploaded. Make it <b>once</b> with <code>copy .env.example .env</code>. Never run that again, because it would wipe what you saved. Open it any time with <code>notepad .env</code>, fill in only what Kiro asks for, and save.</li>
+        <li><b>Never</b> paste a key into a Kiro chat, an issue, a PR or a screenshot. If you did by accident, delete that key at Meta or Google straight away and make a new one.</li>
+      </ul>
+    </li>
+    <li data-n="11.2" id="s11-2">
+      <div class="step-title"><h4>Money and clients (Phase 11 and later)</h4><label class="tick"><input type="checkbox" id="t11-2"> Done</label></div>
+      <p>Expect little or no income for the first 6–12 months. The first money usually comes from <b>mascot animation for brands</b>, with your channel as the portfolio. Kiro drafts the portfolio site, the rate card and the pitch messages, but never sends anything. You send the pitches, agree contracts, send invoices, and talk to a <b>CA (chartered accountant)</b> about income tax and GST once money starts. Read <a href="guide.html#money">§19</a> and <a href="guide.html#legal">§21</a> of your guide. This guide isn't tax advice.</p>
+    </li>
+    <li data-n="11.3" id="s11-3">
+      <div class="step-title"><h4>(Optional) Keep the project public or make it private?</h4><label class="tick"><input type="checkbox" id="t11-3"> Decided</label></div>
+      <p>It's <b>public</b> now. That gives you free unlimited automatic tests and a dated public record that you created your characters. The downside is that anyone can see your ideas and anything you attach. On GitHub's free plan, a private project also <b>loses the main-branch lock from Part 2</b> and gets only a limited number of free test minutes each month. Kiro recommends staying public. If you still want to change it: <span class="ui">⚙️ Settings</span> → <b>General</b> → the <b>Danger Zone</b> at the bottom → <b>Change visibility</b>.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="safety">
+  <h2>🛡️ Safety rules (always)</h2>
+  <ol>
+    <li><b>Never share passwords, codes or keys</b>, not even with Kiro. Kiro never needs them.</li>
+    <li><b>The project is public.</b> Anything you write or attach on GitHub can be seen by anyone.</li>
+    <li><b>Nothing gets posted, bought or sent without you.</b> Kiro only prepares things. Merging or the <code>approved</code> label is how you say yes.</li>
+    <li><b>Watch every video on your phone before you post it.</b></li>
+    <li><b>Originals only:</b> no copied characters, no Pokémon names, and no Instagram music inside the YouTube video.</li>
+    <li><b>Install software only the way this guide shows</b> (winget, blender.org). "Free Blender Pro" sites spread viruses.</li>
+    <li><b>Keep your safety sheet</b> (passwords and backup codes) at home, on paper.</li>
+    <li><b>Not sure? Don't merge.</b> Ask Kiro in a comment first.</li>
+  </ol>
+</section>
+
+<section id="trouble">
+  <h2>🆘 If something goes wrong</h2>
+  <p>Find your problem in the left column. If it isn't here, copy the exact error text and send it to Kiro (the 🐛 box in <a href="#p7">Part 7</a>).</p>
+  <h3>Terminal and installing</h3>
+  <div class="table-wrap"><table>
+    <tr><th>What you see</th><th>What to do</th></tr>
+    <tr><td><code>winget</code> is not recognized</td><td>Microsoft Store → search <b>App Installer</b> → <span class="ui">Update</span>. Restart the laptop.</td></tr>
+    <tr><td><code>python</code> is not recognized, or it opens the Microsoft Store</td><td>Open a new Terminal. Still broken? Restart the laptop. Still broken? Use <code>py</code> instead of <code>python</code> in every command.</td></tr>
+    <tr><td><code>git</code> is not recognized</td><td>Open a new Terminal, or restart. If that doesn't help, repeat step 3.3.</td></tr>
+    <tr><td><code>ffmpeg</code> is not recognized, or doctor says <b>ffmpeg not found</b></td><td>Restart the laptop first. Still missing? Run this, which prints where ffmpeg is:
+      <div class="cmd"><code>Get-ChildItem $env:LOCALAPPDATA\Microsoft\WinGet\Packages -Recurse -Filter ffmpeg.exe | Select-Object -First 1 -ExpandProperty FullName</code><button class="copy" type="button">Copy</button></div>
+      Inside the project folder, open your settings file with <code>notepad .env</code>. If Notepad says it can't find the file, run <code>copy .env.example .env</code> first (only that once, because running it again wipes the file). After <code>CC_FFMPEG=</code>, paste that path. After <code>CC_FFPROBE=</code>, paste the same path but ending in <code>ffprobe.exe</code>. Save, close Notepad, and run <code>python cc.py doctor</code> again.</td></tr>
+    <tr><td>doctor says <b>Blender not found</b></td><td>Is <b>Blender 5.2</b> in the Start menu? If not, repeat step 3.6. If it is, open the settings file with <code>notepad .env</code> (see the row above) and put this after <code>CC_BLENDER=</code>: <code>C:\Program Files\Blender Foundation\Blender 5.2\blender.exe</code></td></tr>
+    <tr><td>doctor says Blender ⚠️ "pinned to 5.2 LTS"</td><td>You have a different Blender version. Install 5.2.2 with step 3.6.</td></tr>
+    <tr><td>doctor <code>--deep</code>: <b>eevee failed</b></td><td>Update the Intel graphics driver (step 3.1, or Intel's Driver &amp; Support Assistant), restart, and run it again. Cycles still works in the meantime.</td></tr>
+    <tr><td><b>Could not open requirements file</b>, or <b>can't open file 'cc.py'</b></td><td>You're in the wrong folder. Run <code>cd $HOME\Cute-Channel</code> first.</td></tr>
+    <tr><td><b>Microsoft Visual C++ 14.0 or greater is required</b></td><td>A newer Python got used by mistake. Run <code>py -3.13 -m pip install -r requirements-dev.txt</code>, then use <code>py -3.13</code> instead of <code>python</code>.</td></tr>
+    <tr><td><b>destination path 'Cute-Channel' already exists</b></td><td>It's already downloaded. Run <code>cd $HOME\Cute-Channel; git pull</code>.</td></tr>
+    <tr><td><code>git pull</code> says <b>Your local changes … would be overwritten</b></td><td>Run <code>git restore .</code> and then <code>git pull</code>. This throws away changes made to the project's files on the laptop (often just regenerated pictures). Your <code>.env</code> is safe. If you hand-polished a Blender file <i>inside</i> the project, ask Kiro first.</td></tr>
+    <tr><td><code>git pull</code> says <b>There is no tracking information</b> or <b>no such ref was fetched</b></td><td>You're still on a PR's draft branch (from the optional test in step 7.3). Run <code>git switch main</code>, then <code>git pull</code>.</td></tr>
+    <tr><td>A command runs for ages</td><td>Renders and installs can take a while, so wait. To stop a command, click in the Terminal and press <kbd>Ctrl</kbd>+<kbd>C</kbd>.</td></tr>
+    <tr><td>Red text in the Terminal</td><td>That's an error message. Copy all of it and send it to Kiro.</td></tr>
+  </table></div>
+  <h3>GitHub</h3>
+  <div class="table-wrap"><table>
+    <tr><th>What you see</th><th>What to do</th></tr>
+    <tr><td>The merge button is grey, or it says "Merging is blocked"</td><td>A yellow dot means the tests are still running: wait 2 minutes and refresh. A red ✗ means a test failed: don't merge. Comment "a check failed", then post <code>/kiro all</code>.</td></tr>
+    <tr><td>"This branch is out-of-date with the base branch"</td><td>Click <span class="ui">Update branch</span>, wait for the tests to go green, then merge.</td></tr>
+    <tr><td>"This branch has conflicts that must be resolved"</td><td>Don't try to fix it yourself. Comment <code>please fix the merge conflicts</code>, then post <code>/kiro all</code>.</td></tr>
+    <tr><td>I merged something by mistake</td><td>On that PR, click <span class="ui">Revert</span>. GitHub opens a new PR that undoes it. Merge that one, then tell Kiro.</td></tr>
+    <tr><td>I can't see <b>Settings</b></td><td>You're not signed in as <b>purvammm</b>. Sign in, or use the direct links in this guide.</td></tr>
+    <tr><td>"File too big" when attaching</td><td>GitHub allows 25 MB per file (10 MB for pictures). Split it into smaller zips.</td></tr>
+  </table></div>
+  <h3>Kiro</h3>
+  <div class="table-wrap"><table>
+    <tr><th>What you see</th><th>What to do</th></tr>
+    <tr><td>A session says <b>Needs attention</b></td><td>Kiro is asking you a question. Open the session and answer it.</td></tr>
+    <tr><td>Nothing happened after <code>/kiro all</code></td><td>Wait a couple of hours. Then start a new session (step 7.1) and say which PR and comment you mean, for example "please act on my veto on PR #6".</td></tr>
+    <tr><td>Two sessions are doing the same job</td><td>Keep one. In the other, stop or cancel it. Only ask for one phase at a time.</td></tr>
+  </table></div>
+  <h3>Phone and apps</h3>
+  <div class="table-wrap"><table>
+    <tr><th>What you see</th><th>What to do</th></tr>
+    <tr><td>The Instagram video looks blurry</td><td>Switch on <b>Upload at highest quality</b> (step 5.6), use Wi-Fi, and upload the original file from Google Drive, not a WhatsApp copy.</td></tr>
+    <tr><td>A song is "unavailable" on Instagram</td><td>Check it's a <b>Creator</b> account (step 5.4), or use original audio.</td></tr>
+    <tr><td>YouTube made it a normal video, not a Short</td><td>Shorts must be vertical and up to 3 minutes long. Upload <code>final_YT.mp4</code> unchanged.</td></tr>
+  </table></div>
+</section>
+
+<section id="words">
+  <h2>📚 Word list</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Word</th><th>What it means</th></tr>
+    <tr><td><b>GitHub</b></td><td>The website that keeps your project online and remembers every change.</td></tr>
+    <tr><td><b>Repository (repo)</b></td><td>Your project folder on GitHub: <code>purvammm/Cute-Channel</code>.</td></tr>
+    <tr><td><b>main</b></td><td>The official copy of the project.</td></tr>
+    <tr><td><b>Branch</b></td><td>A draft copy where Kiro works without touching main.</td></tr>
+    <tr><td><b>Commit</b></td><td>One saved change, with a short note saying what changed.</td></tr>
+    <tr><td><b>Pull request (PR)</b></td><td>Kiro asking "please add my draft to main".</td></tr>
+    <tr><td><b>Merge</b></td><td>Saying yes: the draft becomes part of main.</td></tr>
+    <tr><td><b>Veto</b></td><td>Saying no to a creative choice. You write <code>veto: why</code> on the PR.</td></tr>
+    <tr><td><b>Issue</b></td><td>A to-do card on GitHub.</td></tr>
+    <tr><td><b>Label</b></td><td>A coloured tag on an issue or PR, such as <code>needs-human</code>, <code>approved</code> or <code>published</code>.</td></tr>
+    <tr><td><b>Checks / lint-test</b></td><td>Automatic tests GitHub runs on every PR. A green ✓ means they passed.</td></tr>
+    <tr><td><b>/kiro all</b></td><td>A comment that tells Kiro to act on all the comments on a PR.</td></tr>
+    <tr><td><b>Kiro session</b></td><td>One job you give Kiro at <a href="https://app.kiro.dev">app.kiro.dev</a>. <b>Autonomous</b> mode is for big jobs like a whole phase.</td></tr>
+    <tr><td><b>Terminal / PowerShell</b></td><td>The window where you paste commands.</td></tr>
+    <tr><td><b>Command</b></td><td>One line you paste and run with <kbd>Enter</kbd>.</td></tr>
+    <tr><td><b>cd</b></td><td>"Change directory": go into a folder.</td></tr>
+    <tr><td><b>git clone / git pull</b></td><td>Download the project / get the newest changes.</td></tr>
+    <tr><td><b>winget</b></td><td>Windows' built-in tool for installing apps from the Terminal.</td></tr>
+    <tr><td><b>Python, pip</b></td><td>The language Kiro's scripts are written in / the tool that installs Python add-ons.</td></tr>
+    <tr><td><b>cc.py, doctor</b></td><td>The project's one command program / its check-up.</td></tr>
+    <tr><td><b>Blender, LTS</b></td><td>The free 3D program / the "long-term support" version that gets fixes for 2 years.</td></tr>
+    <tr><td><b>Render, frame</b></td><td>Turning a 3D scene into pictures / one picture. 30 frames make 1 second of video.</td></tr>
+    <tr><td><b>EEVEE, Cycles</b></td><td>Blender's two picture engines: EEVEE is fast and uses the graphics chip; Cycles is slower.</td></tr>
+    <tr><td><b>FFmpeg</b></td><td>The tool that joins pictures and sound into a video.</td></tr>
+    <tr><td><b>Foley</b></td><td>Everyday sounds recorded for animation.</td></tr>
+    <tr><td><b>Handle</b></td><td>Your @name on Instagram and YouTube.</td></tr>
+    <tr><td><b>Creator account</b></td><td>The Instagram account type for creators. It has a bigger music library than Business.</td></tr>
+    <tr><td><b>2-Step Verification / two-factor</b></td><td>A second code you enter when you sign in, so a stolen password isn't enough.</td></tr>
+    <tr><td><b>Reel / Short</b></td><td>A vertical short video on Instagram / YouTube.</td></tr>
+    <tr><td><b>Trending audio</b></td><td>A popular sound on Instagram. You add it inside the app, never baked into the file.</td></tr>
+    <tr><td><b>Made for kids</b></td><td>YouTube's setting for videos aimed at young children.</td></tr>
+    <tr><td><b>Secret / key / token</b></td><td>A password for programs. Never share one.</td></tr>
+    <tr><td><b>.env</b></td><td>The file on your laptop that holds secret keys. It never gets uploaded.</td></tr>
+  </table></div>
+</section>
+
+<footer>
+  <p>Written by Kiro on 5 Oct 2026 for your Windows 11 laptop and iPhone. Apps move their buttons around now and then. If a step doesn't match what you see, tell Kiro, and it will update this guide (<code>docs/START_HERE.html</code>).</p>
+  <p>More: your craft guide <a href="guide.html">guide.html</a> · the plan <a href="https://github.com/purvammm/Cute-Channel/blob/main/docs/MASTER_PROMPT.md">MASTER_PROMPT.md</a> · progress <a href="https://github.com/purvammm/Cute-Channel/blob/main/docs/ROADMAP.md">ROADMAP.md</a> · Kiro's notes <a href="https://github.com/purvammm/Cute-Channel/blob/main/docs/STATE.md">STATE.md</a> · your to-do list <a href="https://github.com/purvammm/Cute-Channel/blob/main/docs/HUMAN_TASKS.md">HUMAN_TASKS.md</a></p>
+</footer>
+</main>
+</div>
+<script>
+(function () {
+  var KEY = 'cuteChannel.startHere.v1';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var all = Array.prototype.slice.call(document.querySelectorAll('ol.steps label.tick input, ul.checklist input'));
+  var stepBoxes = all.filter(function (b) { return b.closest('label.tick'); });
+  var pctEl = document.getElementById('pct'), barEl = document.getElementById('barFill');
+
+  function paint(box) { var li = box.closest('li'); if (li) { li.classList.toggle('done', box.checked); } }
+  function progress() {
+    var done = stepBoxes.filter(function (b) { return b.checked; }).length;
+    pctEl.textContent = done + ' / ' + stepBoxes.length;
+    barEl.style.width = (stepBoxes.length ? Math.round(done / stepBoxes.length * 100) : 0) + '%';
+  }
+  all.forEach(function (box) {
+    box.checked = !!state[box.id];
+    paint(box);
+    box.addEventListener('change', function () { state[box.id] = box.checked; paint(box); save(); progress(); });
+  });
+  progress();
+
+  // "Jump to my next step": the first step whose Done box isn't ticked.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-next]'), function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var next = stepBoxes.filter(function (b) { return !b.checked; })[0];
+      if (!next) { btn.textContent = '🎉 Every step is ticked!'; setTimeout(function () { btn.textContent = label; }, 2500); return; }
+      var li = next.closest('li');
+      closeMenu();
+      li.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash');
+    });
+  });
+
+  // Reset buttons for things you repeat (each phase, each week).
+  Array.prototype.forEach.call(document.querySelectorAll('[data-reset]'), function (btn) {
+    btn.addEventListener('click', function () {
+      var scope = document.getElementById(btn.getAttribute('data-reset'));
+      Array.prototype.forEach.call(scope.querySelectorAll('input[type=checkbox]'), function (box) {
+        box.checked = false; state[box.id] = false; paint(box);
+      });
+      save(); progress();
+    });
+  });
+
+  // Copy buttons: copy the command or text next to the button, exactly as written.
+  function fallbackCopy(text) {
+    var area = document.createElement('textarea');
+    area.value = text; area.setAttribute('readonly', ''); area.style.position = 'fixed'; area.style.top = '-1000px';
+    document.body.appendChild(area); area.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  }
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return fallbackCopy(text); });
+    }
+    return Promise.resolve(fallbackCopy(text));
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('button.copy'), function (btn) {
+    btn.addEventListener('click', function () {
+      var box = btn.parentElement, el = box.querySelector('code, pre');
+      var text = box.classList.contains('cmd') ? el.textContent.trim() : el.textContent;
+      copyText(text).then(function (ok) {
+        btn.textContent = ok ? 'Copied ✓' : 'Select + Ctrl+C';
+        btn.classList.toggle('ok', ok);
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1800);
+      });
+    });
+  });
+
+  // Links to other pages open in a new tab, so this guide stays open where you were.
+  Array.prototype.forEach.call(document.querySelectorAll('main a[href]'), function (a) {
+    if (a.getAttribute('href').charAt(0) !== '#') { a.target = '_blank'; a.rel = 'noopener'; }
+  });
+
+  // Phone-sized screens: the contents slide in from a button.
+  var toc = document.getElementById('toc'), menuBtn = document.getElementById('menuBtn');
+  function setMenu(open) {
+    toc.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.textContent = open ? '✕ Close' : '☰ Contents';
+  }
+  function closeMenu() { setMenu(false); }
+  menuBtn.addEventListener('click', function () { setMenu(!toc.classList.contains('open')); });
+  toc.addEventListener('click', function (e) { if (e.target.tagName === 'A') { closeMenu(); } });
+
+  // Highlight the part you're reading in the contents.
+  var links = {};
+  Array.prototype.forEach.call(toc.querySelectorAll('a[href^="#"]'), function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  function updateActive() {
+    var line = window.innerHeight * 0.3, current = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= line) { current = sections[i].id; } else { break; }
+    }
+    Object.keys(links).forEach(function (k) { links[k].classList.toggle('active', k === current); });
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+})();
+</script>
+</body>
+</html>
